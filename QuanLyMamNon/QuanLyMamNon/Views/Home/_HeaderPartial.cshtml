@@ -8,7 +8,7 @@
                 <li><a href="@Url.Action("About", "Home")">About us</a></li>
                 <li><a href="@Url.Action("Events", "Home")">Events</a></li>
                 <li><a href="@Url.Action("Gallery", "Home")">Gallery</a></li>
-                <li><a href="@Url.Action("Infomation", "Home")">Infomation Student</a></li>
+                <li><a id="modal_trigger" href="#modal">Infomation Student</a></li>
                 <li><a href="@Url.Action("Register", "Home")">Register</a></li>
             </ul>
         </nav>
@@ -48,7 +48,7 @@
                 <input id="password" type="password" required="required" class="form-control" />
                 <label class="form-label">Password</label>
                 <p class="alert">Invalid Credentials..!!</p>
-                <button class="btn_login_panda">Login </button>
+                <button class="btn_login_panda" onclick="location.href='@Url.Action("Infomation", "Home")'">Login </button>
             </div>
         </form>
 

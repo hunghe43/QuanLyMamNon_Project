@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QuanLyMamNon.Models;
+using QuanLyMamNon.Reponsitory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -33,6 +35,25 @@ namespace QuanLyMamNon.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+        
+        [HttpPost]
+        public ActionResult Register(HocSinh objHS)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    HocSinhReponsitory rep = new HocSinhReponsitory();
+                    rep.AddHocSinh(objHS);
+                    ViewBag.Message = "Records added successfully.";
+                }
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
 
     }

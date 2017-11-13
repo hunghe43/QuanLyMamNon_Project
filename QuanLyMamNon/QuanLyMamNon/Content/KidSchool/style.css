@@ -2112,3 +2112,8 @@ h1 {
 .sortable-grid h1{
 	padding: 10px 15px 10px;
 }
+.sortable-grid span{
+	padding-left: 25px;
+    margin-left: 20px;
+    background: url('../../images/ico_star.png') no-repeat;
+}

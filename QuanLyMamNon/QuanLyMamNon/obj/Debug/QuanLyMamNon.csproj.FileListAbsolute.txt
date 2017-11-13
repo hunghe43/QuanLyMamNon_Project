@@ -51,3 +51,5 @@ D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\Newton
 D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\obj\Debug\QuanLyMamNon.csprojResolveAssemblyReference.cache
 D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\obj\Debug\QuanLyMamNon.dll
 D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\obj\Debug\QuanLyMamNon.pdb
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\Dapper.dll
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\Dapper.xml

@@ -1,4 +1,4 @@
-﻿
+﻿@model QuanLyMamNon.Models.HocSinh
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,65 +25,64 @@
         <div class="dvdr"></div>
         <div class="container">
             <section id="main">
-
-
-                <form action="#" class="form-newsletter">
+                <form action="#" method="post" class="form-newsletter">
                     <fieldset>
                         <ul class="slider sortable-grid">
                             <h1>Thông tin học sinh</h1>
 
-                            <li class="grid-item">
+                            <li  >
                                 Họ tên:
-                                <input type="text" placeholder="Họ tên...">
+                                @Html.TextBoxFor(model => model.Ten, new { @placeholder = "Họ tên..." })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
+                            <li  >
                                 Ngày sinh:
-                                <input type="date" name="bday" placeholder="Ngày sinh...">
+                                @Html.TextBoxFor(model => model.NgaySinh,new { type = "date" })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
+                            <li  >
                                 Giới tính
-                                <select class="sex_option">
-                                    <option>Nam</option>
-                                    <option>Nữ</option>
-                                    <option>Khác</option>
-                                </select>
+                                @Html.DropDownListFor(model => model.GioiTinh, new SelectList(new string[] { "Nam", "Nữ", "Khác" }),new { @class="sex_option"})
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
+                            <li  >
                                 Nơi sinh:
-                                <input type="text" placeholder="Nơi sinh...">
+                                @Html.TextBoxFor(model => model.DiaChi, new { @placeholder = "Nơi sinh..." })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
+                            <li  >
                                 Dân tộc:
-                                <input type="text" placeholder="Dân tộc...">
+                                @Html.TextBoxFor(model => model.DanToc, new { @placeholder = "Dân tộc..." })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
-                                Quốc tịch:
-                                <input type="text" placeholder="Quốc tịch...">
-                            </li>
-                            <li class="grid-item">
+                            <li  >
                                 Đối tượng:
-                                <input type="text" placeholder="Đối tượng...">
+                                @Html.TextBoxFor(model => model.DoiTuong, new { @placeholder = "Đối tượng..." })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
                             <h1>Thông tin phụ huynh</h1>
-                            <li class="grid-item">
+                            <li  >
                                 Họ tên:
-                                <input type="text" placeholder="Họ tên...">
+                                @Html.TextBoxFor(model => model.TenPhuHuynh, new { @placeholder = "Họ tên..." })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
+                            <li  >
                                 Số chứng minh nhân dân:
-                                <input type="number" placeholder="Số CMND...">
+                                @Html.TextBoxFor(model => model.SoCmt, new { @type = "number" , @placeholder = "Số CMND..." })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
+                            <li  >
                                 Ngày sinh:
-                                <input type="date" name="bday" placeholder="Ngày sinh...">
+                                @Html.TextBoxFor(model => model.NgaySinhPhuHuynh, new { type = "date", @placeholder = "Ngày sinh..." })
                             </li>
-                            <li class="grid-item">
-                                Số điện thoại
-                                <input type="telephone" placeholder="SĐT...">
+                            <li  >
+                                Số điện thoại:
+                                @Html.TextBoxFor(model => model.Sdt, new {@placeholder = "Số điện thoại..." })
+                                @Html.ValidationMessageFor(model => model.Sdt)
                             </li>
-                            <li class="grid-item">
+                            <li  >
                                 Email:
-                                <input type="email" placeholder="Email...">
+                                @Html.TextBoxFor(model => model.Email, new { type = "email", placeholder = "example@mail.ru" })
                             </li>
                             <input class="btn white" type="submit" value="Subscribe" />
                         </ul>
