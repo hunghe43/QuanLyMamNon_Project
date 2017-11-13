@@ -15,16 +15,25 @@ namespace QuanLyMamNon.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Events()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+        public ActionResult Gallery()
+        {
+            return View();
+        }
+        public ActionResult Infomation()
+        {
+            return View();
+        }
+        public ActionResult Register()
+        {
+            return View();
+        }
+
     }
 }

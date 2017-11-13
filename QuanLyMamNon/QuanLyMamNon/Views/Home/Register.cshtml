@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="wrapper" class="gallery">
+    <div class="wrapper-holder">
+        @*<header id="header">
+            <div class="left-part"></div>
+            <a id="logo" href="index.html">Kid' school</a>
+            <div class="bar-holder">
+                <a class="menu_trigger" href="#">menu</a>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="infomation.html">Infomation Student</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>*@
+        @Html.Partial("_HeaderPartial")
+        <div class="dvdr"></div>
+        <div class="container">
+            <section id="main">
+
+
+                <form action="#" class="form-newsletter">
+                    <fieldset>
+                        <ul class="slider sortable-grid">
+                            <h1>Thông tin học sinh</h1>
+
+                            <li class="grid-item">
+                                Họ tên:
+                                <input type="text" placeholder="Họ tên...">
+                            </li>
+                            <li class="grid-item">
+                                Ngày sinh:
+                                <input type="date" name="bday" placeholder="Ngày sinh...">
+                            </li>
+                            <li class="grid-item">
+                                Giới tính
+                                <select class="sex_option">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                    <option>Khác</option>
+                                </select>
+                            </li>
+                            <li class="grid-item">
+                                Nơi sinh:
+                                <input type="text" placeholder="Nơi sinh...">
+                            </li>
+                            <li class="grid-item">
+                                Dân tộc:
+                                <input type="text" placeholder="Dân tộc...">
+                            </li>
+                            <li class="grid-item">
+                                Quốc tịch:
+                                <input type="text" placeholder="Quốc tịch...">
+                            </li>
+                            <li class="grid-item">
+                                Đối tượng:
+                                <input type="text" placeholder="Đối tượng...">
+                            </li>
+                            <h1>Thông tin phụ huynh</h1>
+                            <li class="grid-item">
+                                Họ tên:
+                                <input type="text" placeholder="Họ tên...">
+                            </li>
+                            <li class="grid-item">
+                                Số chứng minh nhân dân:
+                                <input type="number" placeholder="Số CMND...">
+                            </li>
+                            <li class="grid-item">
+                                Ngày sinh:
+                                <input type="date" name="bday" placeholder="Ngày sinh...">
+                            </li>
+                            <li class="grid-item">
+                                Số điện thoại
+                                <input type="telephone" placeholder="SĐT...">
+                            </li>
+                            <li class="grid-item">
+                                Email:
+                                <input type="email" placeholder="Email...">
+                            </li>
+                            <input class="btn white" type="submit" value="Subscribe" />
+                        </ul>
+                    </fieldset>
+                </form>
+
+
+            </section>
+        </div>
+    </div>
+    <div class="top-blue-border"></div>
+    <footer id="footer">
+        <div class="footer-holder">
+            <div class="footer-frame">
+                <div class="footer-content">
+                    <div class="col-holder">
+                        <div class="col_wrap">
+                            <div class="col">
+                                <h3>Our address</h3>
+                                <address class="map">1186 Madison Ave, NY 10173</address>
+                                <address class="mail"><a href="mailto:contact@kidschool.com">contact@kidschool.com</a></address>
+                                <address class="phone">(580) 845 982 431</address>
+                            </div>
+                        </div>
+                        <div class="col_wrap">
+                            <div class="col">
+                                <h3>Latest posts</h3>
+                                <ul class="posts">
+                                    <li><a href="#">Dignissimos ducimus blanditiis</a></li>
+                                    <li><a href="#">Praesentium voluptatum deleniti</a></li>
+                                    <li><a href="#">Atque corrupti quos dolores</a></li>
+                                    <li><a href="#">Molestias excepturi sint occaecati</a></li>
+                                    <li><a href="#">Cupiditate provident similique</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col_wrap">
+                            <div class="col">
+                                <h3>Follow us</h3>
+                                <p class="social">Accusamus iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+                                <ul class="social">
+                                    <li><a class="facebook" href="#">Facebook</a></li>
+                                    <li><a class="google" href="#">Google+</a></li>
+                                    <li><a class="twitter" href="#">Twitter</a></li>
+                                    <li><a class="pinterest" href="#">Pinterest</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col_wrap">
+                            <div class="col">
+                                <h3>Newsletter</h3>
+                                <p class="form-newsletter">Voluptas sit aspernatur consequuntur.</p>
+                                <form action="#" class="form-newsletter">
+                                    <fieldset>
+                                        <input type="email" placeholder="Your email..." />
+                                        <input class="btn white" type="submit" value="Subscribe" />
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="holder">
+                        <p>Copyright 2014 Kid’ school. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+@*<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="js/jquery.placeholder.js"></script>
+<script type="text/javascript" src="js/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>*@
