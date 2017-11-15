@@ -53,3 +53,7 @@ D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\obj\Debug\
 D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\obj\Debug\QuanLyMamNon.pdb
 D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\Dapper.dll
 D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\Dapper.xml
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\EntityFramework.dll
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\EntityFramework.SqlServer.dll
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\EntityFramework.xml
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\QuanLyMamNon\bin\EntityFramework.SqlServer.xml

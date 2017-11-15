@@ -10,6 +10,7 @@ namespace QuanLyMamNon.Controllers
 {
     public class HomeController : Controller
     {
+        HocSinhReponsitory rep = new HocSinhReponsitory();
         public ActionResult Index()
         {
             return View();
@@ -28,33 +29,34 @@ namespace QuanLyMamNon.Controllers
         {
             return View();
         }
-        public ActionResult Infomation()
+
+        [HttpPost]
+        public ActionResult Infomation(int? id)
         {
-            return View();
+            if (id != null)
+            {
+                HocSinhInfor hs = null;
+                hs = rep.FindHocSinhInfor(id);
+                if (hs != null)
+                {
+                    return View(hs);
+                }
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
         public ActionResult Register()
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Register(HocSinh objHS)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    HocSinhReponsitory rep = new HocSinhReponsitory();
-                    rep.AddHocSinh(objHS);
-                    ViewBag.Message = "Records added successfully.";
-                }
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
+        {            
+            rep.Add(objHS);
+            return View();
         }
 
     }
+
 }

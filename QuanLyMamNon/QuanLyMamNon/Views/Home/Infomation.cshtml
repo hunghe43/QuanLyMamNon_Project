@@ -1,4 +1,4 @@
-﻿
+﻿@model QuanLyMamNon.Models.HocSinhInfor
 @{
     ViewBag.Title = "Infomation";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,49 +25,46 @@
         <div class="dvdr"></div>
         <div class="container">
             <section id="main">
-                <h1>Nguyen Van Linh</h1>
+                <h1>@Model.TenHocSinh</h1>
                 <ul>
                     <li class="event-description">
                         <div class="metadata">
-                            <time datetime="2014-04-17T09:00">Lớp: Nhỡ</time>
-                            <span>GVCN: Nguyễn Thị Nhàn</span>
-                            <span>GVP: Phạm Thu Hường</span>
+                            <time datetime="2014-04-17T09:00">Lớp: @Model.TenLop</time>
+                            <span>GVCN: @Model.TenGiaoVien</span>
                         </div>
                         <div class="metadata">
-                            <time datetime="2014-04-17T09:00"> chiều cao: 1m</time>
-                            <span>Cân nặng : 23kg</span>
-                            <span>Sức khỏe: Tốt</span>
+                            <time datetime="2014-04-17T09:00"> Ngày Sinh: @Model.NgaySinh</time>
+                        </div>
+                        <div class="metadata">
+                            <time datetime="2014-04-17T09:00"> Địa chỉ: @Model.DiaChi</time>
+                        </div>
+                        <div class="metadata">
+                            <time datetime="2014-04-17T09:00"> chiều cao: @Model.ChieuCao cm</time>
+                            <span>Cân nặng : @Model.CanNang kg</span>
                         </div>
                         <div class="metadata">
                             <time datetime="2014-04-17T09:00"> Đánh giá</time>
-
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In placerat ipsum dui, quis posuere urna fermentum nec. Aliquam erat volutpat. Quisque pellentesque nulla dui, in rhoncus dui vestibulum ac. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque convallis, sapien in tempus pharetra, leo lectus ultrices purus, vitae vestibulum arcu velit at leo. </p>
+                        <p>@Model.TinhTrang</p>
                     </li>
                     <li class="event-description">
-                        <h2><a href="#">Chi phí trong tháng</a></h2>
+                        <h2><a href="#">Môn học đăng ký</a></h2>
                         <div class="metadata">
                             <time datetime="2014-04-22T09:30">
-                                Học phí:23 buổi->1tr
-                                <span>Ăn sáng:23 ngày->500k</span>
+                                Vovinam
+                                <span>Ngày đăng ký: 05/11/2017</span>
                             </time>
-                            <span>Ăn trưa:23 ngày->500k</span>
                         </div>
                         <div class="metadata">
                             <time datetime="2014-04-22T09:30">
-                                năng khiếu:300k
-                                <span>học thêm thứ 7:300k</span>
+                                Năng khiếu mỹ thuật
+                                <span>Ngày đăng ký: 05/11/2017</span>
                             </time>
-                            <span>Tiền xây dựng:1tr</span>
                         </div>
-                        <div class="metadata">
-                            <time datetime="2014-04-22T09:30">Tổng: 2,3tr</time>
-                        </div>
-
                     </li>
                 </ul>
             </section>
-            <aside id="sidebar">
+            @*<aside id="sidebar">
                 <div class="widget-calendar">
                     <h3>Calendar</h3>
                     <div class="wrap-calendar">
@@ -265,7 +262,7 @@
                         <div class="legend"><span class="upcoming">Cease</span><span class="archival">Breakfast</span><span class="archival">Lunch</span> </div>
                     </div>
                 </div>
-            </aside>
+            </aside>*@
             <!-- / sidebar -->
         </div>
     </div>
