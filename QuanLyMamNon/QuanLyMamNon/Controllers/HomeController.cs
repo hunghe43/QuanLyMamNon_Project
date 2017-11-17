@@ -35,15 +35,15 @@ namespace QuanLyMamNon.Controllers
         {
             if (id != null)
             {
-                HocSinhInfor hs = null;
+                Infor_HocSinh hs = null;
                 hs = rep.FindHocSinhInfor(id);
                 if (hs != null)
                 {
                     return View(hs);
                 }
-                return RedirectToAction("Index");
+                return View("Index");
             }
-            return RedirectToAction("Index");
+            return View("Index");
         }
         public ActionResult Register()
         {

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace QuanLyMamNon.Models
 {
-    public class HocSinhInfor
+    public class Infor_HocSinh
     {
         public int MaHocSinh { get; set; }         
         public string TenHocSinh { get; set; }         

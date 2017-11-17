@@ -15,13 +15,24 @@ namespace QuanLyMamNon.Reponsitory
     {
         private IDbConnection _db = new SqlConnection
         (ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString);
+
+        /// <summary>
+        /// lấy ra tất cả học sinh
+        /// </summary>
+        /// <returns>Danh sách học sinh: List<HocSinh></returns>
         public List<HocSinh> GetAll()
         {
             List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh").ToList();
             return listHs;
 
         }
-        public HocSinhInfor FindHocSinhInfor(int? id)
+
+        /// <summary>
+        /// Tìm thông tin chi tiết học sinh có mã là ID
+        /// </summary>
+        /// <param name="id"> Mã học sinh truyền vào</param>
+        /// <returns> Infor_HocSinh</returns>
+        public Infor_HocSinh FindHocSinhInfor(int? id)
         {
             //QR001 
             string query = "select hs.MaHocSinh,hs.Ten as TenHocSinh,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.NgaySinhPhuHuynh,hs.Sdt as SdtPhuHuynh,hs.Email as EmailPhuHuynh,hs.GhiChu,lp.MaLop,lp.TenLop,nv.TenNhanVien as TenGiaoVien,nv.Sdt as SdtGiaoVien,nv.Email as EmailGiaoVien " +
@@ -29,11 +40,16 @@ namespace QuanLyMamNon.Reponsitory
                                 "inner join NhanVien nv on lp.MaLop = nv.MaLop " +
                                 "inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu " +
                                 "and cv.MaChucVu = 'GVC' and hs.TrangThai = '1'";
-            var hocsinhinfor = _db.Query<HocSinhInfor>(query).ToList();
+            var hocsinhinfor = _db.Query<Infor_HocSinh>(query).ToList();
             var hocsinh = hocsinhinfor.Where(x => x.MaHocSinh.Equals(id)).Single();
             return hocsinh;
         }
 
+        /// <summary>
+        /// đăng ký một học sinh mới
+        /// </summary>
+        /// <param name="hs"> đối tượng học sinh</param>
+        /// <returns> đối tượng hocsinh</returns>
         public HocSinh Add(HocSinh hs)
         {
             //QR002

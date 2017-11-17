@@ -40,3 +40,15 @@ $(function() {
         }
     }
 });
+//  Bind the event handler to the "submit" JavaScript event
+$('#formLogin').submit(function () {
+
+    // Get the Login Name value and trim it
+    var name = $.trim($('#log').val());
+
+    // Check if empty of not
+    if (name === '') {
+        alert('Text-field is empty.');
+        return false;
+    }
+});

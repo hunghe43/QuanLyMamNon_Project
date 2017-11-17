@@ -9,7 +9,7 @@ namespace QuanLyMamNon.Reponsitory
     public interface IHocSinhReponsitory
     {
         List<HocSinh> GetAll();
-        HocSinhInfor FindHocSinhInfor(int? id);
+        Infor_HocSinh FindHocSinhInfor(int? id);
         HocSinh Add(HocSinh hs);
         HocSinh Update(HocSinh hs);
         void Remove(int id);

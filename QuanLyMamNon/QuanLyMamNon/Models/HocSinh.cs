@@ -7,12 +7,12 @@ namespace QuanLyMamNon.Models
 {
     public class HocSinh
     {
-       public HocSinh()
-        {
-            this.CT_DichVu_HocSinh = new HashSet<CT_DichVu_HocSinh>();
-            this.CT_NgayTheoDoi = new HashSet<CT_NgayTheoDoi>();
-            this.PhieuThu = new HashSet<PhieuThu>();
-        }
+       //public HocSinh()
+       // {
+       //     this.CT_DichVu_HocSinh = new HashSet<CT_DichVu_HocSinh>();
+       //     this.CT_NgayTheoDoi = new HashSet<CT_NgayTheoDoi>();
+       //     this.PhieuThu = new HashSet<PhieuThu>();
+       // }
 
         public int MaHocSinh { get; set; }
         public string Ten { get; set; }
@@ -33,9 +33,9 @@ namespace QuanLyMamNon.Models
         public string Password { get; set; }
         public Nullable<int> TrangThai { get; set; }
         
-        public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }
-        public virtual ICollection<CT_NgayTheoDoi> CT_NgayTheoDoi { get; set; }
-        public virtual Lop Lop { get; set; }
-        public virtual ICollection<PhieuThu> PhieuThu { get; set; }
+        //public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }
+        //public virtual ICollection<CT_NgayTheoDoi> CT_NgayTheoDoi { get; set; }
+        //public virtual Lop Lop { get; set; }
+        //public virtual ICollection<PhieuThu> PhieuThu { get; set; }
     }
 }
