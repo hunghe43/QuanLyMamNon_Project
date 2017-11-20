@@ -29,8 +29,6 @@ namespace QuanLyMamNon.Models
         public Nullable<System.DateTime> NgaySinhPhuHuynh { get; set; }
         public string GhiChu { get; set; }
         public string MaLop { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
         public Nullable<int> TrangThai { get; set; }
         
         //public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }

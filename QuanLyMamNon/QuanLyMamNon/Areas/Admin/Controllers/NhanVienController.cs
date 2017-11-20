@@ -15,7 +15,6 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         public ActionResult Login()
         {
             var nhanvien = Session["NhanVien"];
-
             return View();
         }
      

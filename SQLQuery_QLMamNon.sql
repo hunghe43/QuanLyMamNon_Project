@@ -11,11 +11,39 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 
 -----------Phục vụ cho người đăng nhập hệ thống---------------------------------
 		--------------------giáo viên login-------------------
-				--QR004: lấy thông tin giáo viên cn phụ trách lớp: tên lớp phụ trách, thông tin giáo viên
+				--QR003: lấy thông tin giáo viên cn phụ trách lớp: tên lớp phụ trách, thông tin giáo viên
 				select nv.MaNhanVien as MaGiaoVien,nv.TenNhanVien as TenGiaoVien,cv.MaChucVu,cv.TenChucVu,lp.MaLop,lp.TenLop,lp.SiSo,nv.DiaChi,nv.Sdt,nv.Email 
 				from NhanVien nv inner join ChucVu cv on nv.MaChucVu=cv.MaChucVu
 								inner join Lop lp on nv.MaLop=lp.MaLop
-								and cv.MaChucVu='GVC';
+								and cv.MaChucVu='GVP';
+				--QR004: Lấy thông tin danh sách giáo viên phụ theo mã giáo viên chính
+				select nv.MaNhanVien as MaGiaoVien,nv.TenNhanVien as TenGiaoVien,cv.MaChucVu,cv.TenChucVu,lopNew.MaLop,lopNew.TenLop,lopNew.SiSo,nv.DiaChi,nv.Sdt,nv.Email 
+				from 
+					(select lp.MaLop,lp.TenLop,lp.SiSo,lp.MaLoaiLop
+					from Lop lp inner join NhanVien nv on lp.MaLop=nv.MaLop
+					inner join ChucVu cv on nv.MaChucVu=nv.MaChucVu
+					and cv.MaChucVu='GVC' and nv.MaNhanVien='GV1') as lopNew inner join NhanVien nv on nv.MaLop=lopNew.MaLop
+					inner join ChucVu cv on cv.MaChucVu=nv.MaChucVu
+					and cv.MaChucVu='GVP'
+				--QR005: lấy danh sách học sinh học lớp do giáo viên chủ nhiệm dạy
+				select hs.MaHocSinh,hs.Ten,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.SoCmt,hs.Sdt,hs.Email,hs.NgaySinhPhuHuynh,hs.GhiChu,hs.MaLop
+				from (select lp.*
+						from NhanVien nv inner join ChucVu cv on nv.MaChucVu=cv.MaChucVu
+						inner join Lop lp on nv.MaLop=lp.MaLop
+						and cv.MaChucVu='GVC' and nv.MaNhanVien='GV1') as lopNew inner join HocSinh hs on hs.MaLop=lopNew.MaLop
+				--QR006: danh sách theo dõi học sinh tương ứng với giáo viên chủ nhiệm
+				select p.NgayTheoDoi,ct.*
+				from (select hs.MaHocSinh,hs.Ten,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.SoCmt,hs.Sdt,hs.Email,hs.NgaySinhPhuHuynh,hs.GhiChu,hs.MaLop
+						from (select lp.*
+						from NhanVien nv inner join ChucVu cv on nv.MaChucVu=cv.MaChucVu
+						inner join Lop lp on nv.MaLop=lp.MaLop
+						and cv.MaChucVu='GVC' and nv.MaNhanVien='GV1') as lopNew inner join HocSinh hs on hs.MaLop=lopNew.MaLop) hs inner join CT_NgayTheoDoi ct on hs.MaHocSinh=ct.MaHocSinh
+				inner join PhieuTheoDoi p on ct.MaPhieuTheoDoi=p.MaPhieuTheoDoi
+				inner join NhanVien nv on nv.MaNhanVien=p.MaGiaoVien
+				--QR007: thêm dữ liệu vào Phiếu theo dõi khi điểm danh
+				INSERT INTO PhieuTheoDoi(MaGiaoVien,NgayTheoDoi,ChiPhiDuTinh) VALUES (@MaGV,@NgayTheoDoi,@ChiPhiDuTinh)
+
+
 --tìm học sinh có mã là @ID
 select hs.*
 from HocSinh hs inner join Lop lp

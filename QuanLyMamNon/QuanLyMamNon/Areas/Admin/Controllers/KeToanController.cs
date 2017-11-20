@@ -1,5 +1,4 @@
 ﻿using QuanLyMamNon.Models;
-using QuanLyMamNon.Reponsitory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +7,16 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
-    public class HomeAdminController : Controller
+    public class KeToanController : Controller
     {
-        // GET: Admin/HomeAdmin
+        // GET: Admin/KeToan
         public ActionResult Index()
         {
-            var nhanvien = Session["NhanVien"];
+            var nhanvien = (NhanVien)Session["NhanVien"];
+            TempData["nhanvien"] = nhanvien;
             if (nhanvien == null)
             {
-                return RedirectToAction("Login","NhanVien",null);
+                return RedirectToAction("Login", "NhanVien", null);
             }
             return View();
         }

@@ -24,6 +24,7 @@
 
     <!-- Custom Fonts -->
     <link href="~/Areas/Admin/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Admin/Content/vendor/bootstrap/css/bootstrap-datepicker.css" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -283,7 +284,7 @@
                             <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("HomeGiaoVien", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
+                            <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
@@ -395,7 +396,7 @@
     <script src="~/Areas/Admin/Content/vendor/raphael/raphael.min.js"></script>
     <script src="~/Areas/Admin/Content/vendor/morrisjs/morris.min.js"></script>
     <script src="~/Areas/Admin/Content/data/morris-data.js"></script>
-
+    <script src="~/Areas/Admin/Content/vendor/bootstrap/js/bootstrap-datepicker.js"></script>
     <!-- Custom Theme JavaScript -->
     <script>
     $(document).ready(function() {
@@ -403,6 +404,15 @@
             responsive: true
         });
     });
+    
+    $(function () { // will trigger when the document is ready
+        $('.datepicker').datepicker({
+            todayBtn: "linked",
+            autoclose: true
+        }); //Initialise any date pickers
+
+    });
+    
     </script>
 </body>
 

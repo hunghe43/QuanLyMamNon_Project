@@ -43,7 +43,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns> đối tượng infor_GiaoVien</returns>
         public Infor_GiaoVien GetGiaoVienChuNhiem(string id)
         {
-            //QR004
+            //QR003
             string query = "select nv.MaNhanVien as MaGiaoVien,nv.TenNhanVien as TenGiaoVien,cv.MaChucVu,cv.TenChucVu,lp.MaLop,lp.TenLop,lp.SiSo,nv.DiaChi,nv.Sdt,nv.Email "+
                                 "from NhanVien nv inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu "+
                                 "inner join Lop lp on nv.MaLop = lp.MaLop "+
@@ -51,6 +51,24 @@ namespace QuanLyMamNon.Reponsitory
             var listGiaoVienCN = _db.Query<Infor_GiaoVien>(query).ToList();
             var inforGiaoVien = listGiaoVienCN.Find(x => x.MaGiaoVien.Equals(id));
             return inforGiaoVien;
+        }
+        /// <summary>
+        ///lấy danh sách giáo viên phụ dạy cùng giáo viên chính
+        /// </summary>
+        /// <param name="id"> id giáo viên chính</param>
+        /// <returns> danh sách giáo viên infor</returns>
+        public List<Infor_GiaoVien> GetGiaoVienPhuForIdGiaoVien(string id)
+        {
+            //QR004
+            string query = "select nv.MaNhanVien as MaGiaoVien,nv.TenNhanVien as TenGiaoVien,cv.MaChucVu,cv.TenChucVu,lopNew.MaLop,lopNew.TenLop,lopNew.SiSo,nv.DiaChi,nv.Sdt,nv.Email "+
+                "from (select lp.MaLop, lp.TenLop, lp.SiSo, lp.MaLoaiLop "+
+                        "from Lop lp inner join NhanVien nv on lp.MaLop = nv.MaLop "+
+                        "inner join ChucVu cv on nv.MaChucVu = nv.MaChucVu "+
+                        "and cv.MaChucVu = 'GVC' and nv.MaNhanVien = @id) as lopNew inner join NhanVien nv on nv.MaLop = lopNew.MaLop "+
+                        "inner join ChucVu cv on cv.MaChucVu = nv.MaChucVu "+
+                        "and cv.MaChucVu = 'GVP'";
+            List<Infor_GiaoVien> lst = _db.Query<Infor_GiaoVien>(query,new { @id=id}).ToList();
+            return lst;
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Web;
 
 namespace QuanLyMamNon.Reponsitory
 {
-    public class HocSinhReponsitory : IHocSinhReponsitory
+    public class HocSinhReponsitory
     {
         private IDbConnection _db = new SqlConnection
         (ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString);
@@ -20,11 +20,26 @@ namespace QuanLyMamNon.Reponsitory
         /// lấy ra tất cả học sinh
         /// </summary>
         /// <returns>Danh sách học sinh: List<HocSinh></returns>
-        public List<HocSinh> GetAll()
+        public List<HocSinh> GetAllHocSinh()
         {
             List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh").ToList();
             return listHs;
-
+        }
+        /// <summary>
+        /// lấy danh sách học sinh do giáo viên chủ nhiệm dạy theo id giáo viên
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public List<HocSinh> GetAllHocSinhForIdGiaoVien(string id)
+        {
+            //QR005
+            string query = "select hs.MaHocSinh,hs.Ten,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.SoCmt,hs.Sdt,hs.Email,hs.NgaySinhPhuHuynh,hs.GhiChu,hs.MaLop "+
+                                "from(select lp.* "+
+                                    "from NhanVien nv inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu "+
+                                    "inner join Lop lp on nv.MaLop = lp.MaLop "+
+                                    "and cv.MaChucVu = 'GVC' and nv.MaNhanVien = @id) as lopNew inner join HocSinh hs on hs.MaLop = lopNew.MaLop";
+            List<HocSinh> lst = _db.Query<HocSinh>(query, new { @id = id }).ToList();
+            return lst;
         }
 
         /// <summary>
@@ -53,7 +68,7 @@ namespace QuanLyMamNon.Reponsitory
         public HocSinh Add(HocSinh hs)
         {
             //QR002
-            string sqlQuery = "INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[TenPhuHuynh],[SoCmt] ,[Sdt] ,[Email] ,[NgaySinhPhuHuynh]) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh) " +
+            string sqlQuery = "INSERT INTO HocSinh ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[TenPhuHuynh],[SoCmt] ,[Sdt] ,[Email] ,[NgaySinhPhuHuynh]) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh) " +
             "SELECT CAST(SCOPE_IDENTITY() as int)";
             var userId = _db.Query<int>(sqlQuery, hs).Single();
             hs.MaHocSinh = userId;
@@ -74,27 +89,4 @@ namespace QuanLyMamNon.Reponsitory
             this._db.Execute(sqlQuery, new { @id = id });
         }
     }
-    //public SqlConnection con;
-    ////To Handle connection related activities
-    //private void connection()
-    //{
-    //    string constr = ConfigurationManager.ConnectionStrings["SqlConn"].ToString();
-    //    con = new SqlConnection(constr);
-    //}
-
-    //public void AddHocSinh(HocSinh objHS)
-    //{
-    //    try
-    //    {
-    //        connection();
-    //        con.Open();
-    //        string sql = "INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[DanToc],[DoiTuong],[TenPhuHuynh],[SoCmt] ,[Sdt] ,[Email] ,[NgaySinhPhuHuynh]) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @DanToc , @DoiTuong , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh)";
-    //        con.Execute(sql, objHS);  
-    //        con.Close();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw ex;
-    //    }
-    //}
 }
