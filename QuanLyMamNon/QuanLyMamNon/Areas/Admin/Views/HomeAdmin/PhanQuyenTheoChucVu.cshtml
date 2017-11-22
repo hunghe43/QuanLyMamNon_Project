@@ -1,0 +1,117 @@
+﻿@using QuanLyMamNon.Models
+@model QuanLyMamNon.Models.Dao.ViewModel
+
+
+@{
+    ViewBag.Title = "CapQuyen";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Phân quyền</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <form class="col-xs-7 col-sm-7 header-search-box" style="text-align:right" method="post">
+            <p>
+                <div class="form-inline">
+                    <div class="input-group">
+                        @Html.DropDownList("SL", new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu", ViewBag.hienthi), new { @class = "form-control", @id = "ddl" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">Hiển thị</button>
+                        </span>
+                    </div><!-- /input-group -->
+
+                </div>
+            </p>
+        </form>
+    </div>
+    <div class="row">
+        <div style="margin-top:80px;" class="alert alert-success" id="successMessage"><h4 style="text-align:center">Cấp quyền thành công</h4></div>
+        @foreach (var item in Model.listQuyen.Where(n => n.ParentId == null))
+        {
+            var child = Model.listQuyen.Where(n => n.ParentId == item.MaQuyen);
+            
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            @item.MoTa
+                        </div>
+
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Checkboxes</label>
+                                <div class="checkbox">
+                                    <ul>
+                                        @foreach (var i in child)
+                                        {
+                                            <li>
+                                                <label>
+                                                    <input class="test" value="@i.MaQuyen" type="checkbox"
+                                                    @foreach (var role in Model.listQuyenForChucVu)
+                                                    {
+                                                        if (i.MaQuyen == role.MaQuyen)
+                                                        { @: checked
+}
+                                                    } />@i.MoTa
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+}
+    </div>
+    <div class="row">
+        <button id="btnLuu" onclick="return check();" class="btn btn-primary">Lưu</button>
+    </div>
+    </div>
+    
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $("#successMessage").hide();
+    function check() {
+        var usergroupid = $("#ddl").val();
+        var role_id = [];
+        $('.test:checked').each(function () {
+            role_id.push($(this).val());
+        });
+        var role_id_uncheck = [];
+        $('.test:not(:checked)').each(function () {
+            role_id_uncheck.push($(this).val());
+        });
+        if (role_id == "") {
+            alert("Bạn chưa cấp quyền!");
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("Save", "HomeAdmin")',
+                data: { role_id: role_id, usergroupid: usergroupid, role_id_uncheck: role_id_uncheck },
+                type: 'POST',
+                dataType: 'json',
+                traditional: true,
+                success: function (data) {
+                    $("#successMessage").show();
+                    $("#successMessage").delay(2000).slideUp();
+
+                },
+            });
+        }
+    }
+
+
+</script>

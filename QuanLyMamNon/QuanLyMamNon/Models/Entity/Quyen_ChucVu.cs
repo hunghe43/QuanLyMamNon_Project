@@ -9,10 +9,6 @@ namespace QuanLyMamNon.Models
     {
         public string MaQuyen { get; set; }
         public string MaChucVu { get; set; }
-        public Nullable<System.DateTime> NgayTao { get; set; }
-        public string NguoiTao { get; set; }
-
-        public virtual ChucVu ChucVu { get; set; }
-        public virtual Quyen Quyen { get; set; }
+        
     }
 }

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
+    [AuthorizeController]
     public class GiaoVienController : Controller
     {
         // GET: Admin/GiaoVien
@@ -15,52 +16,47 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             var nhanvien = (NhanVien)Session["NhanVien"];
             TempData["nhanvien"] = nhanvien;
-            if (nhanvien == null)
-            {
-                return RedirectToAction("Login", "NhanVien", null);
-            }
             return View();   
         }
-        public PartialViewResult ThongTinLop()
+        public PartialViewResult Partial_ThongTinLop()
         {
             var nhanvien = TempData["nhanvien"] as NhanVien;
             NhanVienReponsitory nvRepon = new NhanVienReponsitory();
             //thông tin gv chính
             var giaoVienChuNhiem = nvRepon.GetGiaoVienChuNhiem(nhanvien.MaNhanVien);
-            ViewBag.TenGVCN = giaoVienChuNhiem.TenGiaoVien;
-            ViewBag.DiaChi = giaoVienChuNhiem.DiaChi;
-            ViewBag.Sdt = giaoVienChuNhiem.Sdt;
-            ViewBag.Email = giaoVienChuNhiem.Email;
-            ViewBag.TenLop = giaoVienChuNhiem.TenLop;
-            ViewBag.Siso = giaoVienChuNhiem.Siso;
-
+            if (giaoVienChuNhiem != null)
+            {
+                ViewBag.TenGVCN = giaoVienChuNhiem.TenGiaoVien;
+                ViewBag.DiaChi = giaoVienChuNhiem.DiaChi;
+                ViewBag.Sdt = giaoVienChuNhiem.Sdt;
+                ViewBag.Email = giaoVienChuNhiem.Email;
+                ViewBag.TenLop = giaoVienChuNhiem.TenLop;
+                ViewBag.Siso = giaoVienChuNhiem.Siso;
+            }
             //list gv phụ
             var gvPhu = nvRepon.GetGiaoVienPhuForIdGiaoVien(nhanvien.MaNhanVien);
             ViewData["List GVP"] = gvPhu;
-            return PartialView("_Partial_ThongTinLop");
+            return PartialView("Partial_ThongTinLop");
         }
         
-        public PartialViewResult DanhSachHocSinh()
+        public PartialViewResult Partial_DanhSachHocSinh()
         {
             var nhanvien = TempData["nhanvien"] as NhanVien;
             HocSinhReponsitory HsRepon = new HocSinhReponsitory();
             var lstHS = HsRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
             ViewData["ListHocSinh"] = lstHS;
-            return PartialView("_Partial_DanhSachHocSinh");
+            return PartialView("Partial_DanhSachHocSinh");
         }
-        public PartialViewResult DiemDanhLop()
+        public PartialViewResult Partial_DiemDanhLop()
         {
-            ///đang sửa.....
+            //đang sửa.....
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             var nhanvien = TempData["nhanvien"] as NhanVien;
-            PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
+            var listHS = hocSinhRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
             var currentDate = DateTime.Now;
-            PhieuTheoDoi ptd = new PhieuTheoDoi();
-            ptd.MaGiaoVien = nhanvien.MaNhanVien;
-            ptd.NgayTheoDoi = currentDate;
-            ptd.ChiPhiDuTinh = 0;
+            //lấy danh sách tất cả học sinh do giáo viên chủ nhiệm
 
-            ptdRepon.insertPhieuTheoDoiForIdGiaoVien(ptd);
-            return PartialView("_Partial_DiemDanhLop");
+            return PartialView(listHS);
         }
     }
 }

@@ -70,5 +70,20 @@ namespace QuanLyMamNon.Reponsitory
             List<Infor_GiaoVien> lst = _db.Query<Infor_GiaoVien>(query,new { @id=id}).ToList();
             return lst;
         }
+       
+        /// <summary>
+        /// lấy danh sách quyền của nhân viên
+        /// </summary>
+        /// <param name="id">id nhanvien</param>
+        /// <returns>list String</returns>
+        public List<string> GetQuyenNhanVien(string id)
+        {            
+            string query = "select q.MaQuyen from NhanVien nv inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu "+
+                "inner join Quyen_ChucVu qc on cv.MaChucVu = qc.MaChucVu "+
+                "inner join Quyen q on qc.MaQuyen = q.MaQuyen "+
+                "and nv.MaNhanVien = @id";
+            List<string> lst = _db.Query<string>(query, new { @id = id }).ToList();
+            return lst;
+        }
     }
 }

@@ -6,9 +6,11 @@
 
 <div id="page-wrapper">
   
-    <!-- /.row -->    
-    @{Html.RenderAction("ThongTinLop", "GiaoVien");}
+    <!-- /.row -->   
+    @Html.Action("Partial_ThongTinLop", "GiaoVien") 
     <!-- /.row -->
-    @{Html.RenderAction("DiemDanhLop", "GiaoVien");}
-    @{Html.RenderAction("DanhSachHocSinh", "GiaoVien");}
+    @Html.Action("Partial_DiemDanhLop", "GiaoVien")
+    
+    @Html.Action("Partial_DanhSachHocSinh", "GiaoVien")
+</div>
 <!-- /#page-wrapper -->

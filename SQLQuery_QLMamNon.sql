@@ -9,7 +9,8 @@ select hs.MaHocSinh,hs.Ten as TenHocSinh,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.Ti
 INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[TenPhuHuynh],[SoCmt] ,[Sdt] ,[Email] ,[NgaySinhPhuHuynh]) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh)
             SELECT CAST(SCOPE_IDENTITY() as int)
 
------------Phục vụ cho người đăng nhập hệ thống---------------------------------
+-----------Phục vụ cho người đăng nhập hệ thống---------------------------------		
+		
 		--------------------giáo viên login-------------------
 				--QR003: lấy thông tin giáo viên cn phụ trách lớp: tên lớp phụ trách, thông tin giáo viên
 				select nv.MaNhanVien as MaGiaoVien,nv.TenNhanVien as TenGiaoVien,cv.MaChucVu,cv.TenChucVu,lp.MaLop,lp.TenLop,lp.SiSo,nv.DiaChi,nv.Sdt,nv.Email 
@@ -43,7 +44,23 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 				--QR007: thêm dữ liệu vào Phiếu theo dõi khi điểm danh
 				INSERT INTO PhieuTheoDoi(MaGiaoVien,NgayTheoDoi,ChiPhiDuTinh) VALUES (@MaGV,@NgayTheoDoi,@ChiPhiDuTinh)
 
+				------------------Phân Quyền-------------------------
 
+				--QR008: lấy danh sách quyền của nhân viên
+				select q.*
+				from NhanVien nv inner join ChucVu cv on nv.MaChucVu=cv.MaChucVu
+					inner join Quyen_ChucVu qc on cv.MaChucVu=qc.MaChucVu
+					inner join Quyen q on qc.MaQuyen=q.MaQuyen
+					and nv.MaNhanVien='Admin'
+				--QR009: lấy danh sách chức vụ
+				select * from ChucVu where MaChucVu != 'ADMIN'
+				--QR010: lấy danh sách quyền theo id chức vụ trả về bảng Quyen_ChucVu
+				select qc.*
+				from  Quyen_ChucVu qc 
+				--QR011: thêm mới quyền cho chức vụ theo id chức vụ
+				INSERT INTO Quyen_ChucVu (MaChucVu,MaQuyen) VALUES (@MaChucVu,@MaQuyen)
+				--QR012: xóa quyền cho chức vụ theo id chức vụ
+				delete from Quyen_ChucVu where MaChucVu=@MaChucVu,MaQuyen=@MaQuyen
 --tìm học sinh có mã là @ID
 select hs.*
 from HocSinh hs inner join Lop lp

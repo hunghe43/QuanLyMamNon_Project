@@ -167,32 +167,38 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\KeToanController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
+    <Compile Include="Models\AuthorizeController.cs" />
+    <Compile Include="Models\Dao\ViewModel.cs" />
+    <Compile Include="Models\ReflectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChucVu.cs" />
-    <Compile Include="Models\CT_DichVu_HocSinh.cs" />
-    <Compile Include="Models\CT_NgayTheoDoi.cs" />
-    <Compile Include="Models\DichVuNgoai.cs" />
-    <Compile Include="Models\HoaDon.cs" />
-    <Compile Include="Models\HocSinh.cs" />
-    <Compile Include="Models\Infor_GiaoVien.cs" />
-    <Compile Include="Models\Infor_HocSinh.cs" />
-    <Compile Include="Models\LoaiLop.cs" />
-    <Compile Include="Models\Lop.cs" />
-    <Compile Include="Models\NhanVien.cs" />
-    <Compile Include="Models\PhieuTheoDoi.cs" />
-    <Compile Include="Models\PhieuThu.cs" />
-    <Compile Include="Models\Quyen.cs" />
-    <Compile Include="Models\Quyen_ChucVu.cs" />
+    <Compile Include="Models\Entity\ChucVu.cs" />
+    <Compile Include="Models\Entity\CT_DichVu_HocSinh.cs" />
+    <Compile Include="Models\Entity\CT_NgayTheoDoi.cs" />
+    <Compile Include="Models\Entity\DichVuNgoai.cs" />
+    <Compile Include="Models\Entity\HoaDon.cs" />
+    <Compile Include="Models\Entity\HocSinh.cs" />
+    <Compile Include="Models\Entity\Infor_GiaoVien.cs" />
+    <Compile Include="Models\Entity\Infor_HocSinh.cs" />
+    <Compile Include="Models\Entity\LoaiLop.cs" />
+    <Compile Include="Models\Entity\Lop.cs" />
+    <Compile Include="Models\Entity\NhanVien.cs" />
+    <Compile Include="Models\Entity\PhieuTheoDoi.cs" />
+    <Compile Include="Models\Entity\PhieuThu.cs" />
+    <Compile Include="Models\Entity\Quyen.cs" />
+    <Compile Include="Models\Entity\Quyen_ChucVu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reponsitory\ChucVuReponsitory.cs" />
     <Compile Include="Reponsitory\HocSinhReponsitory.cs" />
     <Compile Include="Reponsitory\LopReponsitory.cs" />
     <Compile Include="Reponsitory\NhanVienReponsitory.cs" />
     <Compile Include="Reponsitory\PhieuTheoDoiReponsitory.cs" />
+    <Compile Include="Reponsitory\QuyenReponsitory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Content\js\main.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap-datepicker.css" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap-datepicker.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap-datepicker.min.css" />
@@ -338,9 +344,11 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\NhanVien\Login.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\_Partial_ThongTinLop.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\_Partial_DiemDanhLop.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\_Partial_DanhSachHocSinh.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Partial_ThongTinLop.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Partial_DiemDanhLop.cshtml" />
+    <Content Include="Areas\Admin\Views\GiaoVien\Partial_DanhSachHocSinh.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\NotificationAuthorize.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\PhanQuyenTheoChucVu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -383,7 +391,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Content\data\" />
     <Folder Include="Areas\Admin\Content\dist\" />
-    <Folder Include="Areas\Admin\Content\js\" />
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\KeToan\" />

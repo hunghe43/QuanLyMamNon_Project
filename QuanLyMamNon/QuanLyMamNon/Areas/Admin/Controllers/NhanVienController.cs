@@ -7,7 +7,7 @@ using QuanLyMamNon.Reponsitory;
 using QuanLyMamNon.Models;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
-{
+{    
     public class NhanVienController : Controller
     {
         // GET: Admin/Login
@@ -49,6 +49,10 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             Session.Clear();
             Session.Abandon();
             return View("Login");
+        }
+        public ActionResult NotificationAuthorize()
+        {
+            return View();
         }
     }
 }

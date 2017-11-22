@@ -14,7 +14,8 @@ namespace QuanLyMamNon.Models
 
         public string MaQuyen { get; set; }
         public string MoTa { get; set; }
-        
+        public string ParentId { get; set; }
+
         //public virtual ICollection<Quyen_ChucVu> Quyen_ChucVu { get; set; }
     }
 }
