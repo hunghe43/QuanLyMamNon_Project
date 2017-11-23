@@ -41,8 +41,10 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 						and cv.MaChucVu='GVC' and nv.MaNhanVien='GV1') as lopNew inner join HocSinh hs on hs.MaLop=lopNew.MaLop) hs inner join CT_NgayTheoDoi ct on hs.MaHocSinh=ct.MaHocSinh
 				inner join PhieuTheoDoi p on ct.MaPhieuTheoDoi=p.MaPhieuTheoDoi
 				inner join NhanVien nv on nv.MaNhanVien=p.MaGiaoVien
-				--QR007: thêm dữ liệu vào Phiếu theo dõi khi điểm danh
+				--QR007: tạo phiếu theo dõi
 				INSERT INTO PhieuTheoDoi(MaGiaoVien,NgayTheoDoi,ChiPhiDuTinh) VALUES (@MaGV,@NgayTheoDoi,@ChiPhiDuTinh)
+				insert into CT_NgayTheoDoi(MaHocSinh,MaPhieuTheoDoi,DDVang,DDAnSang,DDAnTrua) values ()
+
 
 				------------------Phân Quyền-------------------------
 

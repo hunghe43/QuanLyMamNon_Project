@@ -15,7 +15,7 @@ namespace QuanLyMamNon.Models
         public string GhiChu { get; set; }
         public Nullable<decimal> ChiPhi { get; set; }
 
-        public virtual HocSinh HocSinh { get; set; }
-        public virtual PhieuTheoDoi PhieuTheoDoi { get; set; }
+        //public virtual HocSinh HocSinh { get; set; }
+        //public virtual PhieuTheoDoi PhieuTheoDoi { get; set; }
     }
 }

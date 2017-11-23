@@ -1,56 +1,90 @@
 ﻿@using QuanLyMamNon.Models
-@model List<HocSinh>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>Điểm danh lớp học ngày @ViewData["currentDate"] </h2>
-            </div>
+        <form method="post" action="#">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Điểm danh lớp học ngày @ViewData["currentDate"] </h2>
+                </div>
 
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div class="row">
-                    <div class='col-sm-8'>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Họ và tên</th>
-                                        <th>Vắng</th>
-                                        <th>Ăn sáng</th>
-                                        <th>Ăn Trưa</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                   
-                                        @foreach (var hocsinh in Model)
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class='col-sm-8'>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Họ và tên</th>
+                                            <th>Vắng</th>
+                                            <th>Ăn sáng</th>
+                                            <th>Ăn Trưa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var hocsinh in (List<HocSinh>)ViewData["listHS"])
                                         {
-                                            <tr>
+                                            <tr id="MaHocSinh">
                                                 <td>@hocsinh.Ten</td>
                                                 <td>
-                                                    <input type="checkbox" value="">
+                                                    <input class="DDVang" type="checkbox" id="DDVang">
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" value="">
+                                                    <input class="DDAnSang" type="checkbox" id="DDAnSang">
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" value="">
+                                                    <input class="DDAnTrua" type="checkbox" id="DDAnTrua">
                                                 </td>
                                             </tr>
                                         }
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+
+                        <!-- /.table-responsive -->
                     </div>
-
-                    <!-- /.table-responsive -->
+                    <div class="row">
+                        <button id="btnLuu" onclick="return check1();" class="btn btn-primary">Lưu</button>
+                    </div>
                 </div>
-
+                <!-- /.panel-body -->
             </div>
-            <!-- /.panel-body -->
-        </div>
+        </form>
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-6 -->
 </div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $("#successMessage").hide();
+    function check1() {
+        var usergroupid = $("#ddl").val();
+        var role_id = [];
+        $('.test:checked').each(function () {
+            role_id.push($(this).val());
+        });
+        var role_id_uncheck = [];
+        $('.test:not(:checked)').each(function () {
+            role_id_uncheck.push($(this).val());
+        });
+        if (role_id == "") {
+            alert("Bạn chưa cấp quyền!");
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("ACTION", "CONTROLLER")',
+                data: { role_id: role_id, usergroupid: usergroupid, role_id_uncheck: role_id_uncheck },
+                type: 'POST',
+                dataType: 'json',
+                traditional: true,
+                success: function (data) {
+                    $("#successMessage").show();
+                    $("#successMessage").delay(2000).slideUp();
+
+                },
+            });
+        }
+    }
+</script>

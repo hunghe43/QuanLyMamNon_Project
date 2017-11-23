@@ -14,17 +14,17 @@ namespace QuanLyMamNon.Reponsitory
     {
         private IDbConnection _db = new SqlConnection
      (ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString);
-            
-        public bool insertPhieuTheoDoiForIdGiaoVien(PhieuTheoDoi phieuTheoDoi){
-            string query = "INSERT INTO PhieuTheoDoi(MaGiaoVien,NgayTheoDoi,ChiPhiDuTinh) VALUES (@MaGV,@NgayTheoDoi,@ChiPhiDuTinh) "+
-                "SELECT CAST(SCOPE_IDENTITY() as int)";
-            var affectedRows = _db.Execute(query, new { @MaGV = phieuTheoDoi.MaGiaoVien, @NgayTheoDoi = phieuTheoDoi.NgayTheoDoi, @ChiPhiDuTinh = phieuTheoDoi.ChiPhiDuTinh });
-            if (affectedRows == 0)
-            {
-                return false;
-            }
-            return true;
-
+                  
+        public void diemdanh(string MaGiaoVien,DateTime NgayDD,int MaHocSinh,bool? ddVang,bool? ddAnSang,bool? ddAnTrua)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaGiaoVien", MaGiaoVien);
+            parameters.Add("@NgayTheoDoi", NgayDD);
+            parameters.Add("@MaHocSinh", MaHocSinh);
+            parameters.Add("@ddVang", ddVang);
+            parameters.Add("@ddAnSang", ddAnSang);
+            parameters.Add("@ddAnTrua", ddAnTrua);
+            var result = _db.Execute("DiemDanhProc", parameters,commandType: CommandType.StoredProcedure);
         }
 
     }

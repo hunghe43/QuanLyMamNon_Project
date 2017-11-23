@@ -1,0 +1,68 @@
+﻿@using QuanLyMamNon.Models
+@model List<CT_NgayTheoDoi>
+@{
+    ViewBag.Title = "DiemDanh";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="post" action="#">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>Điểm danh lớp học ngày @ViewData["currentDate"] </h2>
+                    </div>
+
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class='col-sm-8'>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Họ và tên</th>
+                                                <th>Vắng</th>
+                                                <th>Ăn sáng</th>
+                                                <th>Ăn Trưa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var ct in Model)
+                                            {
+                                                <tr >
+                                                    <td>@ct.MaHocSinh</td>
+                                                    <td>
+                                                        @Html.CheckBox("DDVang",ct.DDVang.GetValueOrDefault())
+                                                    </td>
+                                                    <td>
+                                                        @Html.CheckBox("DDAnSang",ct.DDAnSang.GetValueOrDefault())
+                                                    </td>
+                                                    <td>
+                                                        @Html.CheckBox("DDAnTrua", ct.DDAnTrua.GetValueOrDefault())
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- /.table-responsive -->
+                        </div>
+                        <div class="row">
+                            <button id="btnLuu" onclick="return check1();" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </form>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+
+</div>
