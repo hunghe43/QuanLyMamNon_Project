@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="faadd80fc8364b2081ff674ab64955d6" Name="Diagram1">
+        <EntityTypeShape EntityType="QLMamNonModel.CT_NgayTheoDoi" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLMamNonModel.HocSinh" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="QLMamNonModel.NhanVien" Width="1.5" PointX="0.75" PointY="18.375" />
+        <EntityTypeShape EntityType="QLMamNonModel.PhieuTheoDoi" Width="1.5" PointX="0.75" PointY="14.625" />
+        <AssociationConnector Association="QLMamNonModel.FK_CT_NgayTheoDoi_HocSinh" />
+        <AssociationConnector Association="QLMamNonModel.FK_CT_NgayTheoDoi_PhieuTheoDoi" />
+        <AssociationConnector Association="QLMamNonModel.FK_PhieuTheoDoi_NhanVien" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

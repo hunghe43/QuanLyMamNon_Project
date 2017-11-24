@@ -168,7 +168,8 @@
     <Compile Include="Areas\Admin\Controllers\KeToanController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
     <Compile Include="Models\AuthorizeController.cs" />
-    <Compile Include="Models\Dao\ViewModel.cs" />
+    <Compile Include="Models\Dao\ViewModelDiemDanh.cs" />
+    <Compile Include="Models\Dao\ViewModelPhanQuyen.cs" />
     <Compile Include="Models\ReflectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -349,7 +350,6 @@
     <Content Include="Areas\Admin\Views\GiaoVien\Partial_DanhSachHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\NhanVien\NotificationAuthorize.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\PhanQuyenTheoChucVu.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\DiemDanh.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

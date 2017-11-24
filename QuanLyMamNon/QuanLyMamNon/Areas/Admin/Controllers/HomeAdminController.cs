@@ -30,14 +30,14 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 maChucVu = f["SL"].ToString();
                 ViewBag.hienthi = maChucVu;
             }
-            var viewModel = new ViewModel
+            var viewModel = new ViewModelPhanQuyen
             {
                 listChucVu = chucVuRepon.getAllChucVu(),
                 listQuyen = quyenRepon.GetAllQuyen(),
                 listQuyenForChucVu = quyenRepon.getAllQuyenChucVu().Where(x => x.MaChucVu == maChucVu).ToList(),
             };
 
-            return PartialView(viewModel);
+            return View(viewModel);
         }
         public JsonResult Save(List<string> role_id, string usergroupid, List<string> role_id_uncheck)
         {

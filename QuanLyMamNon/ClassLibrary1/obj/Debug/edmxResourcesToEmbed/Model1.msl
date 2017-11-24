@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLMamNonModelStoreContainer" CdmEntityContainer="QLMamNonEntities">
+    <EntitySetMapping Name="CT_NgayTheoDoi">
+      <EntityTypeMapping TypeName="QLMamNonModel.CT_NgayTheoDoi">
+        <MappingFragment StoreEntitySet="CT_NgayTheoDoi">
+          <ScalarProperty Name="MaPhieuTheoDoi" ColumnName="MaPhieuTheoDoi" />
+          <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
+          <ScalarProperty Name="DDVang" ColumnName="DDVang" />
+          <ScalarProperty Name="DDAnSang" ColumnName="DDAnSang" />
+          <ScalarProperty Name="DDAnTrua" ColumnName="DDAnTrua" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HocSinh">
+      <EntityTypeMapping TypeName="QLMamNonModel.HocSinh">
+        <MappingFragment StoreEntitySet="HocSinh">
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="NgaySinhPhuHuynh" ColumnName="NgaySinhPhuHuynh" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+          <ScalarProperty Name="SoCmt" ColumnName="SoCmt" />
+          <ScalarProperty Name="TenPhuHuynh" ColumnName="TenPhuHuynh" />
+          <ScalarProperty Name="CanNang" ColumnName="CanNang" />
+          <ScalarProperty Name="ChieuCao" ColumnName="ChieuCao" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhanVien">
+      <EntityTypeMapping TypeName="QLMamNonModel.NhanVien">
+        <MappingFragment StoreEntitySet="NhanVien">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
+          <ScalarProperty Name="MaChucVu" ColumnName="MaChucVu" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+          <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhieuTheoDoi">
+      <EntityTypeMapping TypeName="QLMamNonModel.PhieuTheoDoi">
+        <MappingFragment StoreEntitySet="PhieuTheoDoi">
+          <ScalarProperty Name="ChiPhiDuTinh" ColumnName="ChiPhiDuTinh" />
+          <ScalarProperty Name="NgayTheoDoi" ColumnName="NgayTheoDoi" />
+          <ScalarProperty Name="MaGiaoVien" ColumnName="MaGiaoVien" />
+          <ScalarProperty Name="MaPhieuTheoDoi" ColumnName="MaPhieuTheoDoi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

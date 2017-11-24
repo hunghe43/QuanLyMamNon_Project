@@ -1,0 +1,10 @@
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\bin\Debug\ClassLibrary1.dll.config
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\bin\Debug\EntityFramework.dll
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\bin\Debug\EntityFramework.SqlServer.dll
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\bin\Debug\EntityFramework.xml
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\bin\Debug\EntityFramework.SqlServer.xml
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\obj\Debug\ClassLibrary1.csprojResolveAssemblyReference.cache
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+D:\WORKING_Hung\GITHUB\QuanLyMamNon_Project\QuanLyMamNon\ClassLibrary1\obj\Debug\ClassLibrary1.pdb

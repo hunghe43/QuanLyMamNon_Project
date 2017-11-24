@@ -1,4 +1,5 @@
 ﻿using QuanLyMamNon.Models;
+using QuanLyMamNon.Models.Dao;
 using QuanLyMamNon.Reponsitory;
 using System;
 using System.Collections.Generic;
@@ -49,40 +50,64 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         }
         public PartialViewResult Partial_DiemDanhLop()
         {
+            var nhanvien = (NhanVien)Session["NhanVien"];
             HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            var nhanvien = TempData["nhanvien"] as NhanVien;
-            //lấy danh sách tất cả học sinh do giáo viên login phụ trách
+            PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
+            var listCT_NgayTheoDoi = new List<CT_NgayTheoDoi>();
+            var ngayTheoDoi = DateTime.Now.Date;
+            string thongbao = "";
             var listHS = hocSinhRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
-            ViewData["listHS"] = listHS;
-            return PartialView();
+            //biến kiểm tra điểm danh, gửi qua view
+            var checkDiemDanh = ptdRepon.checkExistsPhieuTheoDoi(nhanvien.MaNhanVien, ngayTheoDoi);
+
+            //kiểm tra xem đã thực hiện điểm danh chưa, là kiểm tra xem tồn tại phiếu theo dõi chưa
+            //đã điểm danh
+            if (checkDiemDanh)
+            {
+                //lấy danh sách đã điểm danh
+                listCT_NgayTheoDoi = ptdRepon.getAll_CT_NgayTheoDoi(nhanvien.MaNhanVien, ngayTheoDoi);                
+            }
+            else //chưa điểm danh
+            {
+                //lấy danh sách tất cả học sinh do giáo viên login phụ trách
+                foreach (HocSinh hs in listHS)
+                {
+                    var ct_ptd = new CT_NgayTheoDoi();
+                    ct_ptd.MaHocSinh = hs.MaHocSinh;
+                    ct_ptd.DDVang = false;
+                    ct_ptd.DDAnSang = false;
+                    ct_ptd.DDAnTrua = false;
+                    listCT_NgayTheoDoi.Add(ct_ptd);
+                }
+            }
+            ViewData["checkDiemDanh"] = checkDiemDanh;
+            //lưu dữ liệu và đẩy lên view
+            var viewmodel = new ViewModelDiemDanh
+            {
+                listCT_NgayTheoDoiModel = listCT_NgayTheoDoi,
+                listHocSinhModel = listHS
+            };
+            return PartialView(viewmodel);
         }
-        public ActionResult DiemDanh()
+       
+        [HttpPost]
+        public ActionResult DiemDanh(ViewModelDiemDanh model)
         {
             PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
-
-            List<CT_NgayTheoDoi> lstCT_Ptd = new List<CT_NgayTheoDoi>();
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             var nhanvien = (NhanVien)Session["NhanVien"];
-            //lấy danh sách tất cả học sinh do giáo viên login phụ trách
-            var listHS = hocSinhRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
-            foreach(HocSinh hs in listHS)
+            DateTime ngayTheoDoi = DateTime.Now;
+            List<CT_NgayTheoDoi> lstCT_Ptd = new List<CT_NgayTheoDoi>();
+            foreach (var i in model.listCT_NgayTheoDoiModel)
             {
                 var ct_ptd = new CT_NgayTheoDoi();
-                ct_ptd.MaHocSinh = hs.MaHocSinh;
-                ct_ptd.DDVang = false;
-                ct_ptd.DDAnSang = true;
-                ct_ptd.DDAnTrua = false;
-                lstCT_Ptd.Add(ct_ptd);
+                ct_ptd.MaHocSinh = i.MaHocSinh;
+                ct_ptd.DDVang = i.DDVang;
+                ct_ptd.DDAnSang = i.DDAnSang;
+                ct_ptd.DDAnTrua = i.DDAnTrua;
+                //thực hiện thêm mới điểm danh học sinh(ct_ngaytheodoi)
+                ptdRepon.diemdanh(nhanvien.MaNhanVien, ngayTheoDoi, ct_ptd.MaHocSinh, ct_ptd.DDVang, ct_ptd.DDAnSang, ct_ptd.DDAnTrua);
             }
-
-            return View(lstCT_Ptd);
-        }
-
-        [HttpPost]
-        public ActionResult DiemDanh(List<CT_NgayTheoDoi> lstCT_Ptd)
-        {
-            
-            return View(lstCT_Ptd);
+            return RedirectToAction("Index","GiaoVien");
         }
 
         //public JsonResult SaveDiemDanh(List<bool> check, string MaGiaoVien, DateTime currentdate)

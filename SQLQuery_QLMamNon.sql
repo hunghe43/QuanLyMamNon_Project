@@ -41,11 +41,12 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 						and cv.MaChucVu='GVC' and nv.MaNhanVien='GV1') as lopNew inner join HocSinh hs on hs.MaLop=lopNew.MaLop) hs inner join CT_NgayTheoDoi ct on hs.MaHocSinh=ct.MaHocSinh
 				inner join PhieuTheoDoi p on ct.MaPhieuTheoDoi=p.MaPhieuTheoDoi
 				inner join NhanVien nv on nv.MaNhanVien=p.MaGiaoVien
-				--QR007: tạo phiếu theo dõi
-				INSERT INTO PhieuTheoDoi(MaGiaoVien,NgayTheoDoi,ChiPhiDuTinh) VALUES (@MaGV,@NgayTheoDoi,@ChiPhiDuTinh)
-				insert into CT_NgayTheoDoi(MaHocSinh,MaPhieuTheoDoi,DDVang,DDAnSang,DDAnTrua) values ()
+				--QR007: tạo phiếu theo dõi:  đã sử dụng store procceduce Điemanh
 
-
+				--QR013: lấy danh sách theo dõi trong ngày của giáo viên điểm danh
+				select ct.*
+				from PhieuTheoDoi ptd inner join CT_NgayTheoDoi ct on ptd.MaPhieuTheoDoi=ct.MaPhieuTheoDoi
+					where ptd.MaGiaoVien=@MaGiaoVien and ptd.NgayTheoDoi=@NgayTheoDoi
 				------------------Phân Quyền-------------------------
 
 				--QR008: lấy danh sách quyền của nhân viên
@@ -63,6 +64,10 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 				INSERT INTO Quyen_ChucVu (MaChucVu,MaQuyen) VALUES (@MaChucVu,@MaQuyen)
 				--QR012: xóa quyền cho chức vụ theo id chức vụ
 				delete from Quyen_ChucVu where MaChucVu=@MaChucVu,MaQuyen=@MaQuyen
+
+
+
+
 --tìm học sinh có mã là @ID
 select hs.*
 from HocSinh hs inner join Lop lp
