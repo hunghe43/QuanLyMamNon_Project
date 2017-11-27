@@ -1,4 +1,5 @@
-﻿
+﻿@using QuanLyMamNon.Models
+@model QuanLyMamNon.Models.Infor_GiaoVien
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -7,10 +8,171 @@
 <div id="page-wrapper">
   
     <!-- /.row -->   
-    @Html.Action("Partial_ThongTinLop", "GiaoVien") 
-    <!-- /.row -->
-    @Html.Action("Partial_DiemDanhLop", "GiaoVien")
-    
-    @Html.Action("Partial_DanhSachHocSinh", "GiaoVien")
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Xin Chào @Model.TenGiaoVien !</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-8 text-left">
+                            <div><i class="fa fa-info fa-2x"> Lớp @Model.TenLop</i></div>
+                            <div><i class="fa fa-slack"> Sỉ số @Model.Siso</i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Giáo viên chủ nhiệm: @Model.TenGiaoVien
+                            </div>
+                            <div class="panel-body">
+                                <address>
+                                    <p>Địa chỉ: @Model.DiaChi</p>
+                                    <abbr title="Phone">Phone:</abbr>@Model.Sdt
+                                </address>
+                                <address>
+                                    <strong>Email:</strong>
+                                    <a href="mailto:#">@Model.Email</a>
+                                </address>
+                            </div>
+
+                        </div>
+                    </div>
+                    @foreach (var gvp in (List<Infor_GiaoVien>)ViewData["List GVP"])
+                    {
+                        <div class="col-lg-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Giáo viên phụ: @gvp.TenGiaoVien
+                                </div>
+                                <div class="panel-body">
+                                    <address>
+                                        <p>Địa chỉ: @gvp.DiaChi</p>
+                                        <abbr title="Phone">Phone:</abbr>@gvp.Sdt
+                                    </address>
+                                    <address>
+                                        <strong>Email:</strong>
+                                        <a href="mailto:#">@gvp.Email</a>
+                                    </address>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">26</div>
+                            <div>New Comments!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">12</div>
+                            <div>New Tasks!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-shopping-cart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">124</div>
+                            <div>New Orders!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-support fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">13</div>
+                            <div>Support Tickets!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="result">
+        <!-- /.row -->
+        @Html.Action("Partial_DiemDanhLop", "GiaoVien")
+    </div>
+        @Html.Action("Partial_DanhSachHocSinh", "GiaoVien")
 </div>
 <!-- /#page-wrapper -->

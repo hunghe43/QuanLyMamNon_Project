@@ -41,12 +41,13 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 						and cv.MaChucVu='GVC' and nv.MaNhanVien='GV1') as lopNew inner join HocSinh hs on hs.MaLop=lopNew.MaLop) hs inner join CT_NgayTheoDoi ct on hs.MaHocSinh=ct.MaHocSinh
 				inner join PhieuTheoDoi p on ct.MaPhieuTheoDoi=p.MaPhieuTheoDoi
 				inner join NhanVien nv on nv.MaNhanVien=p.MaGiaoVien
-				--QR007: tạo phiếu theo dõi:  đã sử dụng store procceduce Điemanh
+				--QR007: tạo phiếu theo dõi:  đã sử dụng store procceduce DiemDanh
 
 				--QR013: lấy danh sách theo dõi trong ngày của giáo viên điểm danh
 				select ct.*
 				from PhieuTheoDoi ptd inner join CT_NgayTheoDoi ct on ptd.MaPhieuTheoDoi=ct.MaPhieuTheoDoi
 					where ptd.MaGiaoVien=@MaGiaoVien and ptd.NgayTheoDoi=@NgayTheoDoi
+				--QR
 				------------------Phân Quyền-------------------------
 
 				--QR008: lấy danh sách quyền của nhân viên

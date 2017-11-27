@@ -75,6 +75,5 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@ddAnTrua", ddAnTrua);
             var result = _db.Execute("DiemDanhProc", parameters,commandType: CommandType.StoredProcedure);
         }
-
     }
 }

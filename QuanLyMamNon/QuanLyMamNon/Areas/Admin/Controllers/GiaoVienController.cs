@@ -3,13 +3,14 @@ using QuanLyMamNon.Models.Dao;
 using QuanLyMamNon.Reponsitory;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
-    //[AuthorizeController]
+    [AuthorizeController]
     public class GiaoVienController : Controller
     {
         // GET: Admin/GiaoVien
@@ -17,27 +18,13 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             var nhanvien = (NhanVien)Session["NhanVien"];
             TempData["nhanvien"] = nhanvien;
-            return View();
-        }
-        public PartialViewResult Partial_ThongTinLop()
-        {
-            var nhanvien = TempData["nhanvien"] as NhanVien;
             NhanVienReponsitory nvRepon = new NhanVienReponsitory();
             //thông tin gv chính
             var giaoVienChuNhiem = nvRepon.GetGiaoVienChuNhiem(nhanvien.MaNhanVien);
-            if (giaoVienChuNhiem != null)
-            {
-                ViewBag.TenGVCN = giaoVienChuNhiem.TenGiaoVien;
-                ViewBag.DiaChi = giaoVienChuNhiem.DiaChi;
-                ViewBag.Sdt = giaoVienChuNhiem.Sdt;
-                ViewBag.Email = giaoVienChuNhiem.Email;
-                ViewBag.TenLop = giaoVienChuNhiem.TenLop;
-                ViewBag.Siso = giaoVienChuNhiem.Siso;
-            }
             //list gv phụ
             var gvPhu = nvRepon.GetGiaoVienPhuForIdGiaoVien(nhanvien.MaNhanVien);
             ViewData["List GVP"] = gvPhu;
-            return PartialView("Partial_ThongTinLop");
+            return View(giaoVienChuNhiem);
         }
 
         public PartialViewResult Partial_DanhSachHocSinh()
@@ -48,19 +35,26 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             ViewData["ListHocSinh"] = lstHS;
             return PartialView("Partial_DanhSachHocSinh");
         }
-        public PartialViewResult Partial_DiemDanhLop()
+        [HttpGet]
+        public ActionResult Partial_DiemDanhLop(string date)
         {
+            DateTime ngayTheoDoi;
+            if (date != null)
+            {
+                ngayTheoDoi = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture).Date;
+            }
+            else
+            {
+                ngayTheoDoi = DateTime.Now.Date;
+            }            
             var nhanvien = (NhanVien)Session["NhanVien"];
             HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
-            var listCT_NgayTheoDoi = new List<CT_NgayTheoDoi>();
-            var ngayTheoDoi = DateTime.Now.Date;
-            string thongbao = "";
+            var listCT_NgayTheoDoi = new List<CT_NgayTheoDoi>();      
             var listHS = hocSinhRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
-            //biến kiểm tra điểm danh, gửi qua view
-            var checkDiemDanh = ptdRepon.checkExistsPhieuTheoDoi(nhanvien.MaNhanVien, ngayTheoDoi);
-
             //kiểm tra xem đã thực hiện điểm danh chưa, là kiểm tra xem tồn tại phiếu theo dõi chưa
+            var checkDiemDanh = ptdRepon.checkExistsPhieuTheoDoi(nhanvien.MaNhanVien, ngayTheoDoi);
+            
             //đã điểm danh
             if (checkDiemDanh)
             {
@@ -81,11 +75,15 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 }
             }
             ViewData["checkDiemDanh"] = checkDiemDanh;
+            var phieuTheoDoi = new PhieuTheoDoi();
+            phieuTheoDoi.NgayTheoDoi = ngayTheoDoi;
+            phieuTheoDoi.MaGiaoVien = nhanvien.MaNhanVien;
             //lưu dữ liệu và đẩy lên view
             var viewmodel = new ViewModelDiemDanh
             {
                 listCT_NgayTheoDoiModel = listCT_NgayTheoDoi,
-                listHocSinhModel = listHS
+                listHocSinhModel = listHS,
+                phieuTheoDoiModel= phieuTheoDoi
             };
             return PartialView(viewmodel);
         }
@@ -95,8 +93,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
             var nhanvien = (NhanVien)Session["NhanVien"];
-            DateTime ngayTheoDoi = DateTime.Now;
-            List<CT_NgayTheoDoi> lstCT_Ptd = new List<CT_NgayTheoDoi>();
+            var ngayTheoDoi = model.phieuTheoDoiModel.NgayTheoDoi;
             foreach (var i in model.listCT_NgayTheoDoiModel)
             {
                 var ct_ptd = new CT_NgayTheoDoi();
@@ -104,54 +101,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 ct_ptd.DDVang = i.DDVang;
                 ct_ptd.DDAnSang = i.DDAnSang;
                 ct_ptd.DDAnTrua = i.DDAnTrua;
-                //thực hiện thêm mới điểm danh học sinh(ct_ngaytheodoi)
-                ptdRepon.diemdanh(nhanvien.MaNhanVien, ngayTheoDoi, ct_ptd.MaHocSinh, ct_ptd.DDVang, ct_ptd.DDAnSang, ct_ptd.DDAnTrua);
+                ptdRepon.diemdanh(nhanvien.MaNhanVien, ngayTheoDoi, ct_ptd.MaHocSinh, ct_ptd.DDVang, ct_ptd.DDAnSang, ct_ptd.DDAnTrua);                       
             }
-            return RedirectToAction("Index","GiaoVien");
+            return RedirectToAction("Index", "GiaoVien");
         }
-
-        //public JsonResult SaveDiemDanh(List<bool> check, string MaGiaoVien, DateTime currentdate)
-        //{
-        //    PhieuTheoDoiReponsitory theoDoiRepon = new PhieuTheoDoiReponsitory();
-
-        //    //insert phiếu theo dõi
-        //    //insertphieutheodoi(string maGiaoVien,DateTime ngayDiemDanh){    }
-
-        //    //insert ct_phiếu theo dõi
-        //    //foreach(hs in listhocsinh){
-        //    //insertCT_PhieuTheoDoi(int maHocSinh,bool DDVang,bool,DDAnSang,bool DDAnTrua){
-        //    //
-        //    //}
-        //    //}
-        //    foreach (var hs in listHS)
-        //    {
-
-        //    }
-        //    return Json("ok", JsonRequestBehavior.AllowGet);
-        //}
-        //public void Before()
-        //{
-        //    List<CT_NgayTheoDoi> lit = new List<CT_NgayTheoDoi>();
-        //    foreach (var item in lit)
-        //    {
-
-        //    }
-        //    DiemDanh();
-        //}
-       
-            //store(phieutheodoi.param1, phieutheodoi.param2,ct.para);
-            //for (var i = 0; i < count; i++)
-            //{
-            //    if (success)
-            //        i++;
-            //    else
-            //    {
-            //        i++;
-            //        SaveList(i)
-            //    }
-            //}
-            //if (SaveList.COunt() > 0)
-            //    DiemDanh(SaveList);
-        
     }
 }

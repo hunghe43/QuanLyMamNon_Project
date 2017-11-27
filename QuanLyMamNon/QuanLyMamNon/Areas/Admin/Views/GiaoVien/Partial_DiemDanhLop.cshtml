@@ -1,22 +1,32 @@
 ﻿@using QuanLyMamNon.Models
 @model QuanLyMamNon.Models.Dao.ViewModelDiemDanh
+@*@{
+        var val = Json.Encode(Model);
+    }*@
 <div class="row">
     <div class="col-lg-12">
-        @using (Html.BeginForm("DiemDanh","GiaoVien",FormMethod.Post))
-            {
-            <div class="panel panel-default">
+        @using (Html.BeginForm("DiemDanh", "GiaoVien", FormMethod.Post))
+        {
+            <div class="panel panel-red">
                 <div class="panel-heading">
-                    <h2>Điểm danh lớp học ngày:</h2>
-                    <input  id="datetime" type="date">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="fa fa-bullhorn fa-2x">  Điểm danh...</i>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="row">
-                        <div class='col-sm-8'>
+                        <div class="span5 col-md-5" id="sandbox-container">
+                            @Html.TextBoxFor(model => model.phieuTheoDoiModel.NgayTheoDoi, new { @class = "form-control datetime", @type = "date", @Value = Model.phieuTheoDoiModel.NgayTheoDoi.ToString("yyyy-MM-dd") })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class='col-sm-7'>
                             <div class="table-responsive">
-                                <div class="alert alert-success" id="messDiemDanh"><h4 style="text-align:center">Đã điểm danh!</h4></div>
-                                <div class="alert alert-danger" id="messChuaDiemDanh"><h4 style="text-align:center">Chưa điểm danh</h4></div>
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -33,32 +43,36 @@
                                             var mahs = Model.listCT_NgayTheoDoiModel[i].MaHocSinh;
                                             var tenhs = Model.listHocSinhModel.Where(n => n.MaHocSinh == mahs).Single().Ten;
 
-                                            <tr>
-                                                @Html.HiddenFor(m => m.listCT_NgayTheoDoiModel[i].MaHocSinh)
-                                                <td>@tenhs</td>
-                                                <td>
-                                                    @Html.EditorFor(m => m.listCT_NgayTheoDoiModel[i].DDVang)
-                                                </td>
-                                                <td>
-                                                    @Html.EditorFor(m => m.listCT_NgayTheoDoiModel[i].DDAnSang)
-                                                </td>
-                                                <td>
-                                                    @Html.EditorFor(m => m.listCT_NgayTheoDoiModel[i].DDAnTrua)
-                                                </td>
-                                            </tr>
-
-
+                                        <tr>
+                                            @Html.HiddenFor(m => m.listCT_NgayTheoDoiModel[i].MaHocSinh)
+                                            <td>@tenhs</td>
+                                            <td>
+                                                @Html.EditorFor(m => m.listCT_NgayTheoDoiModel[i].DDVang)
+                                            </td>
+                                            <td>
+                                                @Html.EditorFor(m => m.listCT_NgayTheoDoiModel[i].DDAnSang)
+                                            </td>
+                                            <td>
+                                                @Html.EditorFor(m => m.listCT_NgayTheoDoiModel[i].DDAnTrua)
+                                            </td>
+                                        </tr>
                                         }
 
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
-
+                        <div class="col-sm-5">
+                            <div class="alert alert-success" id="messDiemDanh"><h4 style="text-align:center">Đã điểm danh!</h4></div>
+                            <div class="alert alert-danger" id="messChuaDiemDanh"><h4 style="text-align:center">Chưa điểm danh</h4></div>
+                            <div class="alert alert-success" id="messDiemDanhThanhCong"><h4 style="text-align:center">Đã sửa thành công!</h4></div>
+                        </div>
                         <!-- /.table-responsive -->
                     </div>
-                    <div class="row">
-                        <button id="btnLuu" class="btn btn-primary">Lưu</button>
+                    <div class="row col-sm-5">
+                        <button id="btnLuu" type="submit" class="btn btn-success btn-lg">Lưu</button>
+                        <a id="btnSua" class="btn btn-warning btn-lg">Sửa</a>
                     </div>
                 </div>
                 <!-- /.panel-body -->
@@ -73,34 +87,41 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
     $("#messDiemDanh").hide();
+    $("#messDiemDanhThanhCong").hide();
     $("#messChuaDiemDanh").hide();
+    $("#btnLuu").hide();
+    $("#btnSua").hide();
     if( @ViewData["checkDiemDanh"].ToString().ToLower() == true ) {
         $(".check-box").attr("disabled", true);
         $("#messDiemDanh").show();
+        $("#btnSua").show();
     }
     else{
         $("#messChuaDiemDanh").show();
+        $("#btnLuu").show();
     }
-
-    function viewCTDD() {
-        var date = $(".datetime").val();
-        $.ajax({
-            url: '@Url.Action("JsonDiemDanh", "GiaoVien")',
-            data: { ngayTheoDoi: date},
-            type: 'GET',
-            dataType: 'json',
-            traditional: true,
-            success: function (data) {
-                
-            },
-        });
-        
-    }
-
     $(document).ready(function(){
-        $('#datetime').change(function(){
-            alert(this.value);         //Date in full format alert(new Date(this.value));
-            //var inputDate = new Date(this.value);
+        $('#btnSua').click(function(){
+            $(".check-box").attr("disabled", false);
+            $("#btnLuu").show();
+            $("#btnSua").hide();
+
+        });
+    });
+
+    $(function() {
+        $('.datetime').change(function() {
+            var date = $(this).val();
+            if (date && date != '') {
+                $.ajax({
+                    url: '@Url.Action("Partial_DiemDanhLop")',
+                    type: 'GET',
+                    cache: false,
+                    data: { date: date }
+                }).done(function(result) {
+                    $('#result').html(result);
+                });
+            }
         });
     });
 </script>

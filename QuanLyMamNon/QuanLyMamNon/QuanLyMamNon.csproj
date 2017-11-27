@@ -350,6 +350,7 @@
     <Content Include="Areas\Admin\Views\GiaoVien\Partial_DanhSachHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\NhanVien\NotificationAuthorize.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\PhanQuyenTheoChucVu.cshtml" />
+    <Content Include="Areas\Admin\Views\KeToan\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -394,7 +395,6 @@
     <Folder Include="Areas\Admin\Content\dist\" />
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\KeToan\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

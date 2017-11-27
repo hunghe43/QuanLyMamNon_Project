@@ -14,7 +14,7 @@ namespace QuanLyMamNon.Models
 
         public int MaPhieuTheoDoi { get; set; }
         public string MaGiaoVien { get; set; }
-        public Nullable<System.DateTime> NgayTheoDoi { get; set; }
+        public DateTime NgayTheoDoi { get; set; }
         public Nullable<decimal> ChiPhiDuTinh { get; set; }
         
         //public virtual ICollection<CT_NgayTheoDoi> CT_NgayTheoDoi { get; set; }

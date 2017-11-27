@@ -14,6 +14,8 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="~/Areas/Admin/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Areas/Admin/Content/vendor/bootstrap/css/bootstrap-datepicker.css" rel="stylesheet" />
     <!-- MetisMenu CSS -->
     <link href="~/Areas/Admin/Content/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
@@ -25,7 +27,6 @@
 
     <!-- Custom Fonts -->
     <link href="~/Areas/Admin/Content/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="~/Areas/Admin/Content/vendor/bootstrap/css/bootstrap-datepicker.css" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -295,52 +296,52 @@
                         <li>
                             <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Phân quyền</a>
                         </li>
-                       @*@{
-                           var nhanvien = ((NhanVien)Session["NhanVien"]).MaChucVu;
-                           switch (nhanvien)
-                           {
-                               case "ADMIN":
-                                <li>
-                                    <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ Admin</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ kế toán</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ tổ nuôi</a>
-                                </li>
-                                <li>
-                                    <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Phân quyền</a>
-                                </li>
-                                   break;
-                               case "GVC":
-                                <li>
-                                    <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
-                                </li>
-                                   break;
-                               case "TONUOI":
-                                <li>
-                                    <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ tổ nuôi</a>
-                                </li>
-                                   break;
-                               case "KETOAN":
-                                <li>
-                                    <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ kế toán</a>
-                                </li>
-                                   break;
-                           }
-                    }*@
+                        @*@{
+                                   var nhanvien = ((NhanVien)Session["NhanVien"]).MaChucVu;
+                                   switch (nhanvien)
+                                   {
+                                       case "ADMIN":
+                                        <li>
+                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ Admin</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ kế toán</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ tổ nuôi</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Phân quyền</a>
+                                        </li>
+                                           break;
+                                       case "GVC":
+                                        <li>
+                                            <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
+                                        </li>
+                                           break;
+                                       case "TONUOI":
+                                        <li>
+                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ tổ nuôi</a>
+                                        </li>
+                                           break;
+                                       case "KETOAN":
+                                        <li>
+                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ kế toán</a>
+                                        </li>
+                                           break;
+                                   }
+                            }*@
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-            @RenderBody()
-        </div>
+        @RenderBody()
+    </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="~/Areas/Admin/Content/vendor/jquery/jquery.min.js"></script>
@@ -362,24 +363,12 @@
     <script src="~/Areas/Admin/Content/vendor/bootstrap/js/bootstrap-datepicker.js"></script>
     <!-- Custom Theme JavaScript -->
     <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
         });
-    });
-    
-    $(function () { // will trigger when the document is ready
-        $('.datepicker').datepicker({
-            todayBtn: "linked",
-            autoclose: true
-        }); //Initialise any date pickers
-
-    });
-
-    function getQuyenForIdChucVu(action,idChucVu)
-    {
-       
-    }
+        
     </script>
 </body>
 
