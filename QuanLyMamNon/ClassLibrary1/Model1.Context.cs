@@ -29,5 +29,15 @@ namespace ClassLibrary1
         public virtual DbSet<HocSinh> HocSinh { get; set; }
         public virtual DbSet<NhanVien> NhanVien { get; set; }
         public virtual DbSet<PhieuTheoDoi> PhieuTheoDoi { get; set; }
+        public virtual DbSet<PhieuThu> PhieuThu { get; set; }
+        public virtual DbSet<ChucVu> ChucVu { get; set; }
+        public virtual DbSet<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }
+        public virtual DbSet<DichVuNgoai> DichVuNgoai { get; set; }
+        public virtual DbSet<HoaDon> HoaDon { get; set; }
+        public virtual DbSet<LoaiLop> LoaiLop { get; set; }
+        public virtual DbSet<Lop> Lop { get; set; }
+        public virtual DbSet<Quyen> Quyen { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<KhoanThuDauNam> KhoanThuDauNam { get; set; }
     }
 }

@@ -41,7 +41,26 @@ namespace QuanLyMamNon.Reponsitory
             List<HocSinh> lst = _db.Query<HocSinh>(query, new { @id = id }).ToList();
             return lst;
         }
-
+        /// <summary>
+        /// lấy học sinh theo lớp
+        /// </summary>
+        /// <param name="maLop"> mã lớp</param>
+        /// <returns>list hoc sinh</returns>
+        public List<HocSinh> GetHocSinhForIdLop(string maLop)
+        {
+            List<HocSinh> lst = GetAllHocSinh().FindAll(x => x.MaLop==maLop);
+            return lst;
+        }
+        /// <summary>
+        /// lấy thông tin học sinh theo mã
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public HocSinh GetHocSinhForId(int id)
+        {
+            HocSinh hs = GetAllHocSinh().Find(x => x.MaHocSinh==id);
+            return hs;
+        }
         /// <summary>
         /// Tìm thông tin chi tiết học sinh có mã là ID
         /// </summary>

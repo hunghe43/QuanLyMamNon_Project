@@ -17,7 +17,6 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var nhanvien = (NhanVien)Session["NhanVien"];
-            TempData["nhanvien"] = nhanvien;
             NhanVienReponsitory nvRepon = new NhanVienReponsitory();
             //thông tin gv chính
             var giaoVienChuNhiem = nvRepon.GetGiaoVienChuNhiem(nhanvien.MaNhanVien);
@@ -29,7 +28,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
 
         public PartialViewResult Partial_DanhSachHocSinh()
         {
-            var nhanvien = TempData["nhanvien"] as NhanVien;
+            var nhanvien = (NhanVien)Session["NhanVien"];
             HocSinhReponsitory HsRepon = new HocSinhReponsitory();
             var lstHS = HsRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
             ViewData["ListHocSinh"] = lstHS;

@@ -12,32 +12,21 @@ namespace ClassLibrary1
     using System;
     using System.Collections.Generic;
     
-    public partial class NhanVien
+    public partial class ChucVu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NhanVien()
+        public ChucVu()
         {
-            this.PhieuTheoDoi = new HashSet<PhieuTheoDoi>();
-            this.PhieuThu = new HashSet<PhieuThu>();
-            this.HoaDon = new HashSet<HoaDon>();
+            this.NhanVien = new HashSet<NhanVien>();
+            this.Quyen = new HashSet<Quyen>();
         }
     
-        public string MaNhanVien { get; set; }
-        public string TenNhanVien { get; set; }
-        public string DiaChi { get; set; }
-        public string Sdt { get; set; }
-        public string Email { get; set; }
         public string MaChucVu { get; set; }
-        public string MaLop { get; set; }
-        public string Password { get; set; }
+        public string TenChucVu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuTheoDoi> PhieuTheoDoi { get; set; }
+        public virtual ICollection<NhanVien> NhanVien { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuThu> PhieuThu { get; set; }
-        public virtual ChucVu ChucVu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDon { get; set; }
-        public virtual Lop Lop { get; set; }
+        public virtual ICollection<Quyen> Quyen { get; set; }
     }
 }

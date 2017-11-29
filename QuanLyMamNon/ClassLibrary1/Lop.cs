@@ -12,32 +12,24 @@ namespace ClassLibrary1
     using System;
     using System.Collections.Generic;
     
-    public partial class NhanVien
+    public partial class Lop
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NhanVien()
+        public Lop()
         {
-            this.PhieuTheoDoi = new HashSet<PhieuTheoDoi>();
-            this.PhieuThu = new HashSet<PhieuThu>();
-            this.HoaDon = new HashSet<HoaDon>();
+            this.HocSinh = new HashSet<HocSinh>();
+            this.NhanVien = new HashSet<NhanVien>();
         }
     
-        public string MaNhanVien { get; set; }
-        public string TenNhanVien { get; set; }
-        public string DiaChi { get; set; }
-        public string Sdt { get; set; }
-        public string Email { get; set; }
-        public string MaChucVu { get; set; }
         public string MaLop { get; set; }
-        public string Password { get; set; }
+        public string TenLop { get; set; }
+        public string MaLoaiLop { get; set; }
+        public Nullable<int> SiSo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuTheoDoi> PhieuTheoDoi { get; set; }
+        public virtual ICollection<HocSinh> HocSinh { get; set; }
+        public virtual LoaiLop LoaiLop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuThu> PhieuThu { get; set; }
-        public virtual ChucVu ChucVu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDon { get; set; }
-        public virtual Lop Lop { get; set; }
+        public virtual ICollection<NhanVien> NhanVien { get; set; }
     }
 }

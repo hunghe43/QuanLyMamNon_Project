@@ -18,6 +18,8 @@ namespace ClassLibrary1
         public HocSinh()
         {
             this.CT_NgayTheoDoi = new HashSet<CT_NgayTheoDoi>();
+            this.PhieuThu = new HashSet<PhieuThu>();
+            this.CT_DichVu_HocSinh = new HashSet<CT_DichVu_HocSinh>();
         }
     
         public int MaHocSinh { get; set; }
@@ -39,5 +41,10 @@ namespace ClassLibrary1
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_NgayTheoDoi> CT_NgayTheoDoi { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuThu> PhieuThu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }
+        public virtual Lop Lop { get; set; }
     }
 }

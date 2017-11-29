@@ -14,9 +14,9 @@ namespace QuanLyMamNon.Models
 
         public int MaDichVu { get; set; }
         public string TenDV { get; set; }
-        public Nullable<decimal> ChiPhi { get; set; }
-        public string MoTa { get; set; }
-        
+        public decimal ChiPhi { get; set; }
+        public string GhiChu { get; set; }
+
         //public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }
     }
 }

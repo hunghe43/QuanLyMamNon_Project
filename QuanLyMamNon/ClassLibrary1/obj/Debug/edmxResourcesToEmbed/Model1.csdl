@@ -32,6 +32,60 @@
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="PhieuTheoDoi" EntitySet="PhieuTheoDoi" />
     </AssociationSet>
+    <EntitySet Name="PhieuThu" EntityType="QLMamNonModel.PhieuThu" />
+    <AssociationSet Name="FK_PhieuThu_HocSinh" Association="QLMamNonModel.FK_PhieuThu_HocSinh">
+      <End Role="HocSinh" EntitySet="HocSinh" />
+      <End Role="PhieuThu" EntitySet="PhieuThu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PhieuThu_NhanVien" Association="QLMamNonModel.FK_PhieuThu_NhanVien">
+      <End Role="NhanVien" EntitySet="NhanVien" />
+      <End Role="PhieuThu" EntitySet="PhieuThu" />
+    </AssociationSet>
+    <EntitySet Name="ChucVu" EntityType="QLMamNonModel.ChucVu" />
+    <EntitySet Name="CT_DichVu_HocSinh" EntityType="QLMamNonModel.CT_DichVu_HocSinh" />
+    <EntitySet Name="DichVuNgoai" EntityType="QLMamNonModel.DichVuNgoai" />
+    <EntitySet Name="HoaDon" EntityType="QLMamNonModel.HoaDon" />
+    <EntitySet Name="LoaiLop" EntityType="QLMamNonModel.LoaiLop" />
+    <EntitySet Name="Lop" EntityType="QLMamNonModel.Lop" />
+    <EntitySet Name="Quyen" EntityType="QLMamNonModel.Quyen" />
+    <EntitySet Name="sysdiagrams" EntityType="QLMamNonModel.sysdiagrams" />
+    <EntitySet Name="KhoanThuDauNam" EntityType="QLMamNonModel.KhoanThuDauNam" />
+    <AssociationSet Name="FK_NhanVien_ChucVu" Association="QLMamNonModel.FK_NhanVien_ChucVu">
+      <End Role="ChucVu" EntitySet="ChucVu" />
+      <End Role="NhanVien" EntitySet="NhanVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CT_DichVu_HocSinh_DichVuNgoai" Association="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai">
+      <End Role="DichVuNgoai" EntitySet="DichVuNgoai" />
+      <End Role="CT_DichVu_HocSinh" EntitySet="CT_DichVu_HocSinh" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CT_DichVu_HocSinh_HocSinh" Association="QLMamNonModel.FK_CT_DichVu_HocSinh_HocSinh">
+      <End Role="HocSinh" EntitySet="HocSinh" />
+      <End Role="CT_DichVu_HocSinh" EntitySet="CT_DichVu_HocSinh" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HoaDon_NhanVien" Association="QLMamNonModel.FK_HoaDon_NhanVien">
+      <End Role="NhanVien" EntitySet="NhanVien" />
+      <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HocSinh_Lop1" Association="QLMamNonModel.FK_HocSinh_Lop1">
+      <End Role="Lop" EntitySet="Lop" />
+      <End Role="HocSinh" EntitySet="HocSinh" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lop_LoaiLop" Association="QLMamNonModel.FK_Lop_LoaiLop">
+      <End Role="LoaiLop" EntitySet="LoaiLop" />
+      <End Role="Lop" EntitySet="Lop" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NhanVien_Lop" Association="QLMamNonModel.FK_NhanVien_Lop">
+      <End Role="Lop" EntitySet="Lop" />
+      <End Role="NhanVien" EntitySet="NhanVien" />
+    </AssociationSet>
+    <AssociationSet Name="Quyen_ChucVu" Association="QLMamNonModel.Quyen_ChucVu">
+      <End Role="ChucVu" EntitySet="ChucVu" />
+      <End Role="Quyen" EntitySet="Quyen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CT_DichVu_HocSinh_DichVuNgoai1" Association="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai1">
+      <End Role="DichVuNgoai" EntitySet="DichVuNgoai" />
+      <End Role="CT_DichVu_HocSinh" EntitySet="CT_DichVu_HocSinh" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="HocSinh">
     <Key>
@@ -54,6 +108,9 @@
     <Property Name="MaLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TrangThai" Type="Int32" />
     <NavigationProperty Name="CT_NgayTheoDoi" Relationship="QLMamNonModel.FK_CT_NgayTheoDoi_HocSinh" FromRole="HocSinh" ToRole="CT_NgayTheoDoi" />
+    <NavigationProperty Name="PhieuThu" Relationship="QLMamNonModel.FK_PhieuThu_HocSinh" FromRole="HocSinh" ToRole="PhieuThu" />
+    <NavigationProperty Name="CT_DichVu_HocSinh" Relationship="QLMamNonModel.FK_CT_DichVu_HocSinh_HocSinh" FromRole="HocSinh" ToRole="CT_DichVu_HocSinh" />
+    <NavigationProperty Name="Lop" Relationship="QLMamNonModel.FK_HocSinh_Lop1" FromRole="HocSinh" ToRole="Lop" />
   </EntityType>
   <EntityType Name="NhanVien">
     <Key>
@@ -68,6 +125,10 @@
     <Property Name="MaLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PhieuTheoDoi" Relationship="QLMamNonModel.FK_PhieuTheoDoi_NhanVien" FromRole="NhanVien" ToRole="PhieuTheoDoi" />
+    <NavigationProperty Name="PhieuThu" Relationship="QLMamNonModel.FK_PhieuThu_NhanVien" FromRole="NhanVien" ToRole="PhieuThu" />
+    <NavigationProperty Name="ChucVu" Relationship="QLMamNonModel.FK_NhanVien_ChucVu" FromRole="NhanVien" ToRole="ChucVu" />
+    <NavigationProperty Name="HoaDon" Relationship="QLMamNonModel.FK_HoaDon_NhanVien" FromRole="NhanVien" ToRole="HoaDon" />
+    <NavigationProperty Name="Lop" Relationship="QLMamNonModel.FK_NhanVien_Lop" FromRole="NhanVien" ToRole="Lop" />
   </EntityType>
   <EntityType Name="PhieuTheoDoi">
     <Key>
@@ -113,6 +174,241 @@
       </Principal>
       <Dependent Role="PhieuTheoDoi">
         <PropertyRef Name="MaGiaoVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PhieuThu">
+    <Key>
+      <PropertyRef Name="MaHocSinh" />
+      <PropertyRef Name="MaNhanVien" />
+    </Key>
+    <Property Name="NgayTaoPhieu" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="MaHocSinh" Type="Int32" Nullable="false" />
+    <Property Name="MaNhanVien" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SoNgayVang" Type="Int32" Nullable="false" />
+    <Property Name="SoNgayAnSang" Type="Int32" Nullable="false" />
+    <Property Name="SoNgayAnTrua" Type="Int32" Nullable="false" />
+    <Property Name="ChiPhi" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="HocSinh" Relationship="QLMamNonModel.FK_PhieuThu_HocSinh" FromRole="PhieuThu" ToRole="HocSinh" />
+    <NavigationProperty Name="NhanVien" Relationship="QLMamNonModel.FK_PhieuThu_NhanVien" FromRole="PhieuThu" ToRole="NhanVien" />
+  </EntityType>
+  <Association Name="FK_PhieuThu_HocSinh">
+    <End Type="QLMamNonModel.HocSinh" Role="HocSinh" Multiplicity="1" />
+    <End Type="QLMamNonModel.PhieuThu" Role="PhieuThu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HocSinh">
+        <PropertyRef Name="MaHocSinh" />
+      </Principal>
+      <Dependent Role="PhieuThu">
+        <PropertyRef Name="MaHocSinh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PhieuThu_NhanVien">
+    <End Type="QLMamNonModel.NhanVien" Role="NhanVien" Multiplicity="1" />
+    <End Type="QLMamNonModel.PhieuThu" Role="PhieuThu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="PhieuThu">
+        <PropertyRef Name="MaNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ChucVu">
+    <Key>
+      <PropertyRef Name="MaChucVu" />
+    </Key>
+    <Property Name="MaChucVu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TenChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NhanVien" Relationship="QLMamNonModel.FK_NhanVien_ChucVu" FromRole="ChucVu" ToRole="NhanVien" />
+    <NavigationProperty Name="Quyen" Relationship="QLMamNonModel.Quyen_ChucVu" FromRole="ChucVu" ToRole="Quyen" />
+  </EntityType>
+  <EntityType Name="CT_DichVu_HocSinh">
+    <Key>
+      <PropertyRef Name="MaHocSinh" />
+      <PropertyRef Name="MaDV" />
+      <PropertyRef Name="MaDichVu" />
+    </Key>
+    <Property Name="MaHocSinh" Type="Int32" Nullable="false" />
+    <Property Name="MaDV" Type="Int32" Nullable="false" />
+    <Property Name="ThangDangKy" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DichVuNgoai" Relationship="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai" FromRole="CT_DichVu_HocSinh" ToRole="DichVuNgoai" />
+    <NavigationProperty Name="HocSinh" Relationship="QLMamNonModel.FK_CT_DichVu_HocSinh_HocSinh" FromRole="CT_DichVu_HocSinh" ToRole="HocSinh" />
+    <Property Name="MaDichVu" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DichVuNgoai1" Relationship="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai1" FromRole="CT_DichVu_HocSinh" ToRole="DichVuNgoai" />
+  </EntityType>
+  <EntityType Name="DichVuNgoai">
+    <Key>
+      <PropertyRef Name="MaDichVu" />
+    </Key>
+    <Property Name="MaDichVu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenDV" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChiPhi" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="CT_DichVu_HocSinh" Relationship="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai" FromRole="DichVuNgoai" ToRole="CT_DichVu_HocSinh" />
+    <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CT_DichVu_HocSinh1" Relationship="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai1" FromRole="DichVuNgoai" ToRole="CT_DichVu_HocSinh" />
+  </EntityType>
+  <EntityType Name="HoaDon">
+    <Key>
+      <PropertyRef Name="MaHoaDon" />
+    </Key>
+    <Property Name="MaHoaDon" Type="Int32" Nullable="false" />
+    <Property Name="TenHoaDon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgayGiaoDich" Type="DateTime" Precision="0" />
+    <Property Name="MaNhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="NhanVien" Relationship="QLMamNonModel.FK_HoaDon_NhanVien" FromRole="HoaDon" ToRole="NhanVien" />
+  </EntityType>
+  <EntityType Name="LoaiLop">
+    <Key>
+      <PropertyRef Name="MaLoaiLop" />
+    </Key>
+    <Property Name="MaLoaiLop" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TenLoaiLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Lop" Relationship="QLMamNonModel.FK_Lop_LoaiLop" FromRole="LoaiLop" ToRole="Lop" />
+  </EntityType>
+  <EntityType Name="Lop">
+    <Key>
+      <PropertyRef Name="MaLop" />
+    </Key>
+    <Property Name="MaLop" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TenLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaLoaiLop" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SiSo" Type="Int32" />
+    <NavigationProperty Name="HocSinh" Relationship="QLMamNonModel.FK_HocSinh_Lop1" FromRole="Lop" ToRole="HocSinh" />
+    <NavigationProperty Name="LoaiLop" Relationship="QLMamNonModel.FK_Lop_LoaiLop" FromRole="Lop" ToRole="LoaiLop" />
+    <NavigationProperty Name="NhanVien" Relationship="QLMamNonModel.FK_NhanVien_Lop" FromRole="Lop" ToRole="NhanVien" />
+  </EntityType>
+  <EntityType Name="Quyen">
+    <Key>
+      <PropertyRef Name="MaQuyen" />
+    </Key>
+    <Property Name="MaQuyen" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MoTa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ChucVu" Relationship="QLMamNonModel.Quyen_ChucVu" FromRole="Quyen" ToRole="ChucVu" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="KhoanThuDauNam">
+    <Key>
+      <PropertyRef Name="MaKhoanThu" />
+      <PropertyRef Name="TenKhoanThu" />
+      <PropertyRef Name="ChiPhi" />
+      <PropertyRef Name="Year" />
+    </Key>
+    <Property Name="MaKhoanThu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenKhoanThu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChiPhi" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Year" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_NhanVien_ChucVu">
+    <End Type="QLMamNonModel.ChucVu" Role="ChucVu" Multiplicity="0..1" />
+    <End Type="QLMamNonModel.NhanVien" Role="NhanVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChucVu">
+        <PropertyRef Name="MaChucVu" />
+      </Principal>
+      <Dependent Role="NhanVien">
+        <PropertyRef Name="MaChucVu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CT_DichVu_HocSinh_DichVuNgoai">
+    <End Type="QLMamNonModel.DichVuNgoai" Role="DichVuNgoai" Multiplicity="1" />
+    <End Type="QLMamNonModel.CT_DichVu_HocSinh" Role="CT_DichVu_HocSinh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DichVuNgoai">
+        <PropertyRef Name="MaDichVu" />
+      </Principal>
+      <Dependent Role="CT_DichVu_HocSinh">
+        <PropertyRef Name="MaDV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CT_DichVu_HocSinh_HocSinh">
+    <End Type="QLMamNonModel.HocSinh" Role="HocSinh" Multiplicity="1" />
+    <End Type="QLMamNonModel.CT_DichVu_HocSinh" Role="CT_DichVu_HocSinh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HocSinh">
+        <PropertyRef Name="MaHocSinh" />
+      </Principal>
+      <Dependent Role="CT_DichVu_HocSinh">
+        <PropertyRef Name="MaHocSinh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HoaDon_NhanVien">
+    <End Type="QLMamNonModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+    <End Type="QLMamNonModel.HoaDon" Role="HoaDon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="HoaDon">
+        <PropertyRef Name="MaNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HocSinh_Lop1">
+    <End Type="QLMamNonModel.Lop" Role="Lop" Multiplicity="0..1" />
+    <End Type="QLMamNonModel.HocSinh" Role="HocSinh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lop">
+        <PropertyRef Name="MaLop" />
+      </Principal>
+      <Dependent Role="HocSinh">
+        <PropertyRef Name="MaLop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lop_LoaiLop">
+    <End Type="QLMamNonModel.LoaiLop" Role="LoaiLop" Multiplicity="0..1" />
+    <End Type="QLMamNonModel.Lop" Role="Lop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiLop">
+        <PropertyRef Name="MaLoaiLop" />
+      </Principal>
+      <Dependent Role="Lop">
+        <PropertyRef Name="MaLoaiLop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NhanVien_Lop">
+    <End Type="QLMamNonModel.Lop" Role="Lop" Multiplicity="0..1" />
+    <End Type="QLMamNonModel.NhanVien" Role="NhanVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lop">
+        <PropertyRef Name="MaLop" />
+      </Principal>
+      <Dependent Role="NhanVien">
+        <PropertyRef Name="MaLop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Quyen_ChucVu">
+    <End Type="QLMamNonModel.ChucVu" Role="ChucVu" Multiplicity="*" />
+    <End Type="QLMamNonModel.Quyen" Role="Quyen" Multiplicity="*" />
+  </Association>
+  <Association Name="FK_CT_DichVu_HocSinh_DichVuNgoai1">
+    <End Type="QLMamNonModel.DichVuNgoai" Role="DichVuNgoai" Multiplicity="1" />
+    <End Type="QLMamNonModel.CT_DichVu_HocSinh" Role="CT_DichVu_HocSinh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DichVuNgoai">
+        <PropertyRef Name="MaDichVu" />
+      </Principal>
+      <Dependent Role="CT_DichVu_HocSinh">
+        <PropertyRef Name="MaDichVu" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

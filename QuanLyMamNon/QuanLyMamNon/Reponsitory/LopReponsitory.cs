@@ -14,5 +14,11 @@ namespace QuanLyMamNon.Reponsitory
     {
         private IDbConnection _db = new SqlConnection
            (ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString);
+        public List<Lop> getAllLop()
+        {
+            List<Lop> list = this._db.Query<Lop>("SELECT * FROM Lop").ToList();
+            return list;
+        }
+
     }
 }

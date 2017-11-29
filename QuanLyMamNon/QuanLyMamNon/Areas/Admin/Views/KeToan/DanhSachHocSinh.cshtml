@@ -1,0 +1,227 @@
+﻿@using QuanLyMamNon.Models
+@model QuanLyMamNon.Models.Dao.ViewModelDanhSachHS
+
+@{
+    ViewBag.Title = "DanhSachHocSinh";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">26</div>
+                            <div>Danh Sách Học Sinh</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Action("DanhSachHocSinh","KeToan")">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">12</div>
+                            <div>Thống kê theo lớp</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="@Url.Action("DanhSachLop","KeToan")">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-shopping-cart fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">124</div>
+                            <div>New Orders!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-support fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">13</div>
+                            <div>Support Tickets!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="fa fa-th-list fa-2x">  Danh sách học sinh</i>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        @using (Html.BeginForm("DanhSachHocSinh", "KeToan", FormMethod.Get, new { @class = "col-xs-7 col-sm-7 header-search-box", @style = "text-align:right" }))
+                        {
+                            <p>
+                            </p><div class="form-inline">
+                                <div class="input-group">
+                                    <select class="form-control" id="idd" name="groupLop">
+                                        <option value="0">Tất cả</option>
+                                        @foreach (var i in Model.listLop)
+                                        {
+                                            <option value="@i.MaLop">@i.TenLop</option>
+                                        }
+                                    </select>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">Hiển thị</button>
+                                    </span>
+                                </div><!-- /input-group -->
+
+                            </div>
+                            <p></p>
+                        }
+
+                    </div>
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Học Và Tên
+                                </th>
+                                <th>
+                                    Ngày Sinh
+                                </th>
+                                @*@Html.DisplayNameFor(model => model.GioiTinh)*@
+                                <th>
+                                    Địa Chỉ
+                                </th>
+                                @*@Html.DisplayNameFor(model => model.TinhTrang)*@
+                                @*@Html.DisplayNameFor(model => model.ChieuCao)*@
+                                @*@Html.DisplayNameFor(model => model.CanNang)*@
+                                <th>
+                                    Phụ Huynh
+                                </th>
+                                @*@Html.DisplayNameFor(model => model.SoCmt)*@
+                                <th>
+                                    Tel
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Ngày Sinh
+                                </th>
+                                @*@Html.DisplayNameFor(model => model.GhiChu)*@
+                                @*@Html.DisplayNameFor(model => model.MaLop)*@
+                                @*@Html.DisplayNameFor(model => model.TrangThai)*@
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listHocSinh)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.MaHocSinh
+                                    </td>
+                                    <td>
+                                        @item.Ten
+                                    </td>
+                                    <td>
+                                        @item.NgaySinh.GetValueOrDefault().ToShortDateString()
+                                    </td>
+                                    @*@Html.DisplayFor(modelItem => item.GioiTinh)*@
+                                    <td>
+                                        @item.DiaChi
+                                    </td>
+                                    @*@Html.DisplayFor(modelItem => item.TinhTrang)*@
+                                    @*@Html.DisplayFor(modelItem => item.ChieuCao)*@
+                                    @*@Html.DisplayFor(modelItem => item.CanNang)*@
+                                    <td>
+                                        @item.TenPhuHuynh
+                                    </td>
+                                    @*@Html.DisplayFor(modelItem => item.SoCmt)*@
+                                    <td>
+                                        @item.Sdt
+                                    </td>
+                                    <td>
+                                        @item.Email
+                                    </td>
+                                    <td>
+                                        @item.NgaySinhPhuHuynh.GetValueOrDefault().ToShortDateString()
+                                    </td>
+                                    @*@Html.DisplayFor(modelItem => item.GhiChu)*@
+                                    @*@Html.DisplayFor(modelItem => item.MaLop)*@
+                                    @*@Html.DisplayFor(modelItem => item.TrangThai)*@
+                                    <td>
+                                        @Html.ActionLink("Chi tiết", "HocPhiHocSinh", new { MaHocSinh=item.MaHocSinh,date = DateTime.Now.ToString("MM/yyyy") })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $('#idd option[value=@ViewBag.select]').attr('selected', 'selected');
+</script>
+

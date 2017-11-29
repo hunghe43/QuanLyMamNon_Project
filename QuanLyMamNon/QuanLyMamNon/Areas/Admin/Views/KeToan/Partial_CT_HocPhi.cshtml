@@ -1,0 +1,178 @@
+﻿@using QuanLyMamNon.Models
+@model QuanLyMamNon.Models.Dao.ViewModelPhieuThu
+<div class="row">
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Chi tiết học phí
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group" id="sandbox-container">
+                            @*@Html.TextBoxFor(x => x.phieuThu.NgayTaoPhieu, new { @class = "form-control datetimeHocPhi", @type = "text", @Value = Model.phieuThu.NgayTaoPhieu })*@
+                            <input value="@Model.phieuThu.NgayTaoPhieu" type="text" name="date" class="form-control datetimeHocPhi" placeholder="Chọn tháng....">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+
+                                <i class="fa fa-comment fa-fw"></i> Thông tin theo dõi quá trình học
+                                <span class="pull-right text-muted small">
+                                </span>
+
+                            </div>
+                            <div class="list-group">
+
+                                <a class="list-group-item">
+                                    <i class="fa fa-twitter fa-fw"></i> Số buổi nghỉ học: @Model.phieuThu.SoNgayVang
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+                                <a class="list-group-item">
+                                    <i class="fa fa-envelope fa-fw"></i> Số ngày ăn sáng: @Model.phieuThu.SoNgayAnSang
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+                                <a class="list-group-item">
+                                    <i class="fa fa-tasks fa-fw"></i> Số ngày ăn trưa: @Model.phieuThu.SoNgayAnTrua
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+                                <a " class="list-group-item">
+                                    <i class="fa fa-upload fa-fw"></i> Tổng:
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+
+                            </div>
+                            <div class="panel-footer">
+                                <i class="fa fa-upload fa-fw"></i> Tổng:
+                                <span class="pull-right text-muted small">
+                                    <em>25.000 vnd</em>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+
+                                <i class="fa fa-comment fa-fw text-center"></i> Học phí
+                                <span class="pull-right text-muted small">
+                                </span>
+
+                            </div>
+                            <div class="list-group">
+                                @foreach (var item in Model.listDichVuNgoai)
+                                {
+                                    <a class="list-group-item">
+                                        <i class="fa fa-twitter fa-fw"></i> Môn Học: @item.TenDV
+                                        <span class="pull-right text-muted small">
+                                            <em>@item.ChiPhi vnđ</em>
+                                        </span>
+                                    </a>
+                                }
+                            </div>
+                            <div class="panel-footer">
+                                <i class="fa fa-upload fa-fw"></i> Tổng:
+                                <span class="pull-right text-muted small">
+                                    <em>25.000 vnd</em>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+
+                                <i class="fa fa-comment fa-fw text-center"></i> Các khoản khác
+                                <span class="pull-right text-muted small">
+                                </span>
+
+                            </div>
+                            <div class="list-group">
+
+                                <a class="list-group-item">
+                                    <i class="fa fa-twitter fa-fw"></i> Tiền xây dựng
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+                                <a class="list-group-item">
+                                    <i class="fa fa-envelope fa-fw"></i> Tiền mua đồ dùng học tập
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+                                <a class="list-group-item">
+                                    <i class="fa fa-tasks fa-fw"></i> Tiền nước
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+                                <a class="list-group-item">
+                                    <i class="fa fa-upload fa-fw"></i> Tiền hỗ trợ điện
+                                    <span class="pull-right text-muted small">
+                                        <em>25.000 vnd</em>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="panel-footer">
+                                <i class="fa fa-upload fa-fw"></i> Tổng:
+                                <span class="pull-right text-muted small">
+                                    <em>25.000 vnd</em>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="alert alert-info">
+                    Tổng học phí:<a class="alert-link">3.000.000 vnđ</a>. <i class="fa fa-upload fa-fw"></i> Export
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+            <!-- /#page-wrapper -->
+
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function() {
+        $('.datetimeHocPhi').datepicker({
+            format: "mm/yyyy",
+            minViewMode: 1,
+            todayBtn: "linked",
+            calendarWeeks: true,
+            autoclose: true,
+            onSelect: function() {
+                $(this).change();
+            }
+        }).on("change", function() {
+            var date = $(this).val();
+            var MaHocSinh=@Model.hocSinh.MaHocSinh;
+
+            if (date && date != '') {
+                $.ajax({
+                    url: '@Url.Action("Partial_CT_HocPhi")',
+                    type: 'GET',
+                    cache: false,
+                    data: {  MaHocSinh:MaHocSinh,date: date },
+                    success: function(data) {
+                        $('#resultHocPhi').html(data);
+                    }
+                });
+            }
+        });
+    });
+</script>

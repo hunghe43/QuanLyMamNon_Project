@@ -46,8 +46,7 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 				--QR013: lấy danh sách theo dõi trong ngày của giáo viên điểm danh
 				select ct.*
 				from PhieuTheoDoi ptd inner join CT_NgayTheoDoi ct on ptd.MaPhieuTheoDoi=ct.MaPhieuTheoDoi
-					where ptd.MaGiaoVien=@MaGiaoVien and ptd.NgayTheoDoi=@NgayTheoDoi
-				--QR
+					where ptd.MaGiaoVien=@MaGiaoVien and ptd.NgayTheoDoi=@NgayTheoDoi				
 				------------------Phân Quyền-------------------------
 
 				--QR008: lấy danh sách quyền của nhân viên
@@ -66,45 +65,16 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 				--QR012: xóa quyền cho chức vụ theo id chức vụ
 				delete from Quyen_ChucVu where MaChucVu=@MaChucVu,MaQuyen=@MaQuyen
 
+				------------------ kế toán-------------------------------
+				--QR014: lấy tất cả học sinh
+				select *
+				from HocSinh
+				--QR015:thống kê theo dõi với mã học sinh và tháng theo dõi(đã sử dụng proc [GetPhieuThuForIdHocSinh] )
+				--QR016: thống kê danh sách dịch vụ ngoài mà học sinh đăng ký, 				
+				select dv.*
+				from DichVuNgoai dv inner join CT_DichVu_HocSinh ct on dv.MaDichVu=ct.MaDichVu
+					inner join HocSinh hs on hs.MaHocSinh=ct.MaHocSinh
+					where hs.MaHocSinh=1 and ct.ThangDangKy='11/2017'
 
+				
 
-
---tìm học sinh có mã là @ID
-select hs.*
-from HocSinh hs inner join Lop lp
-on hs.MaLop=lp.MaLop
-and hs.MaHocSinh='1'
-and hs.TrangThai=1
-
---danh sách giáo viên dạy lớp @('truyenvao')
-select nv.MaNhanVien,nv.TenNhanVien,lp.MaLop,lp.TenLop
-from NhanVien nv inner join Lop lp
-on nv.MaLop=lp.MaLop
-and lp.MaLop='BE'
-
---giáo viên chủ nhiệm dạy học sinh @MaHocSinh
-select nv.MaNhanVien,nv.TenNhanVien
-from HocSinh hs inner join Lop lp
-on hs.MaLop=lp.MaLop
-inner join NhanVien nv
-on lp.MaLop=nv.MaLop
-inner join ChucVu cv
-on nv.MaChucVu=cv.MaChucVu
-and hs.MaHocSinh='7'
-and cv.MaChucVu='GVC'
-
---thông tin đi điểm danh trong tháng
-select hs.Ten,pt.SoNgayVang,pt.SoNgayAnSang,pt.SoNgayAnTrua
-from HocSinh hs inner join PhieuThu pt
-on hs.MaHocSinh=pt.MaHocSinh
-and hs.MaHocSinh='1'
-and pt.Thang='11'
-and pt.Nam='2017'
-
---thông tin dịch vụ ngoài
-select dv.TenDV,dv.ChiPhi
-from HocSinh hs inner join CT_DichVu_HocSinh dvhs
-on hs.MaHocSinh=dvhs.MaHocSinh
-inner join DichVuNgoai dv
-on dvhs.MaDV=dv.MaDichVu
-and hs.MaHocSinh='1'
