@@ -13,6 +13,6 @@ namespace QuanLyMamNon.Models
         public string MaNhanVien { get; set; }
         public Nullable<decimal> ThanhTien { get; set; }
 
-        public virtual NhanVien NhanVien { get; set; }
+        //public virtual NhanVien NhanVien { get; set; }
     }
 }

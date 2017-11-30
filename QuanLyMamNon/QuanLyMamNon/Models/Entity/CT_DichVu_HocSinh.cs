@@ -9,7 +9,7 @@ namespace QuanLyMamNon.Models
     {
 
         public int MaHocSinh { get; set; }
-        public int MaDV { get; set; }
+        public string MaDV { get; set; }
         public string ThangDangKy { get; set; }
 
         //public virtual DichVuNgoai DichVuNgoai { get; set; }

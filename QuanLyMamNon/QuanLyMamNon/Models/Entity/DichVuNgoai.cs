@@ -12,7 +12,7 @@ namespace QuanLyMamNon.Models
         //    this.CT_DichVu_HocSinh = new HashSet<CT_DichVu_HocSinh>();
         //}
 
-        public int MaDichVu { get; set; }
+        public string MaDichVu { get; set; }
         public string TenDV { get; set; }
         public decimal ChiPhi { get; set; }
         public string GhiChu { get; set; }

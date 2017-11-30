@@ -17,12 +17,12 @@ namespace QuanLyMamNon.Models
 
         public int MaHocSinh { get; set; }
         public string Ten { get; set; }
-        public Nullable<System.DateTime> NgaySinh { get; set; }
+        public DateTime NgaySinh { get; set; }
         public string GioiTinh { get; set; }
         public string DiaChi { get; set; }
         public string TinhTrang { get; set; }
-        public Nullable<int> ChieuCao { get; set; }
-        public Nullable<int> CanNang { get; set; }
+        public int ChieuCao { get; set; }
+        public int CanNang { get; set; }
         public string TenPhuHuynh { get; set; }
         public string SoCmt { get; set; }
         public string Sdt { get; set; }
