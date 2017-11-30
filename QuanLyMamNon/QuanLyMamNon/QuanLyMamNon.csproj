@@ -169,6 +169,7 @@
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
     <Compile Include="Models\AuthorizeController.cs" />
     <Compile Include="Models\Dao\ViewModelDanhSachHS.cs" />
+    <Compile Include="Models\Dao\ViewModelDanhSachNhanVien.cs" />
     <Compile Include="Models\Dao\ViewModelDiemDanh.cs" />
     <Compile Include="Models\Dao\ViewModelPhanQuyen.cs" />
     <Compile Include="Models\ReflectionController.cs" />
@@ -202,7 +203,6 @@
     <Compile Include="Reponsitory\QuyenReponsitory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Content\js\main.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap-datepicker.css" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap-datepicker.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap-datepicker.min.css" />
@@ -348,7 +348,6 @@
     <Content Include="Areas\Admin\Views\HomeAdmin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\NhanVien\Login.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Partial_ThongTinLop.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Partial_DiemDanhLop.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Partial_DanhSachHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\NhanVien\NotificationAuthorize.cshtml" />
@@ -357,10 +356,17 @@
     <Content Include="Areas\Admin\Views\KeToan\DanhSachHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\KeToan\HocPhiHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\KeToan\Partial_CT_HocPhi.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\CURDNhanVien_Index.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\Partial_AddNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\AddNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\UpdateNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\DetailNhanVien.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -399,6 +405,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Content\data\" />
     <Folder Include="Areas\Admin\Content\dist\" />
+    <Folder Include="Areas\Admin\Content\js\" />
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>

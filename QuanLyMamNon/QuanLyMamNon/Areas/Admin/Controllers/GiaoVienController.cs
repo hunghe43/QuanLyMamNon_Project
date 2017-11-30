@@ -34,8 +34,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             ViewData["ListHocSinh"] = lstHS;
             return PartialView("Partial_DanhSachHocSinh");
         }
-
-        [ChildActionOnly]
+                
         public ActionResult Partial_DiemDanhLop(string date)
         {
             DateTime ngayTheoDoi;
@@ -85,7 +84,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 listHocSinhModel = listHS,
                 phieuTheoDoiModel= phieuTheoDoi
             };
-            return PartialView(viewmodel);
+            return PartialView("Partial_DiemDanhLop", viewmodel);
         }
        
         [HttpPost]

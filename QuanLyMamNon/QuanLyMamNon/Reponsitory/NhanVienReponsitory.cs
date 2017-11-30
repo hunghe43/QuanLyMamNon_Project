@@ -24,6 +24,81 @@ namespace QuanLyMamNon.Reponsitory
             return listHs;
         }
         /// <summary>
+        /// lấy danh sách nhân vien theo mã chức vụ
+        /// </summary>
+        /// <param name="maChucVu"></param>
+        /// <returns></returns>
+        public List<NhanVien> getNhanVienForIDChucVu(string maChucVu)
+        {
+            var listNV = getAllNhanVien().Where(x => x.MaChucVu == maChucVu).ToList();
+            return listNV;
+        }
+        /// <summary>
+        /// thêm mới nhân viên
+        /// </summary>
+        /// <param name="nhanvien"></param>
+        /// <returns></returns>
+        public void  AddNhanVien(NhanVien nhanvien)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaNhanVien", nhanvien.MaNhanVien);
+            parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
+            parameters.Add("@DiaChi", nhanvien.DiaChi);
+            parameters.Add("@Sdt", nhanvien.Sdt);
+            parameters.Add("@Email", nhanvien.Email);
+            parameters.Add("@MaChucVu", nhanvien.MaChucVu);
+            parameters.Add("@MaLop", nhanvien.MaLop);
+            parameters.Add("@Password", nhanvien.Password);
+            parameters.Add("@Action", "Insert");
+            _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
+           
+        }
+        /// <summary>
+        /// get nhan vien theo ma nhan vien
+        /// </summary>
+        /// <param name="MaNhanVien"></param>
+        /// <returns></returns>
+        public NhanVien getNhanvienForId(string MaNhanVien)
+        {
+            var nhanvien = getAllNhanVien().Find(x => x.MaNhanVien == MaNhanVien);
+            return (nhanvien);
+        }
+        /// <summary>
+        /// update nhan vien
+        /// </summary>
+        /// <param name="nhanvien"></param>
+        /// <returns></returns>
+        public int UpdateNhanVien(NhanVien nhanvien)
+        {
+            int i = 0;
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaNhanVien", nhanvien.MaNhanVien);
+            parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
+            parameters.Add("@DiaChi", nhanvien.DiaChi);
+            parameters.Add("@Sdt", nhanvien.Sdt);
+            parameters.Add("@Email", nhanvien.Email);
+            parameters.Add("@MaChucVu", nhanvien.MaChucVu);
+            parameters.Add("@MaLop", nhanvien.MaLop);
+            parameters.Add("@Password", nhanvien.Password);
+            parameters.Add("@Action", "Update");
+            i = _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
+            return i;
+        }
+        /// <summary>
+        /// delete nhan vien
+        /// </summary>
+        /// <param name="nhanvien"></param>
+        /// <returns></returns>
+        public int deleteNhanVien(string MaNhanVien)
+        {
+            int i = 0;
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaNhanVien", MaNhanVien);
+            i = _db.Execute("DeleteNhanVien", parameters, commandType: CommandType.StoredProcedure);
+            return i;
+        }
+
+        /// <summary>
         /// lấy thông tin đăng nhập của nhân viên
         /// </summary>
         /// <param name="userName">userName</param>

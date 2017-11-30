@@ -74,7 +74,5 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             };
             return PartialView(viewModel);
         }
-
-
     }
 }
