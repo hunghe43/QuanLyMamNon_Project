@@ -1,22 +1,28 @@
 ﻿@using QuanLyMamNon.Models
 @model QuanLyMamNon.Models.Dao.ViewModelDanhSachNhanVien
-<!-- Modal thêm mới -->
-<div class="modal fade" id="myModal_addNhanVien" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal_updateNhanVien" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            @using (Html.BeginForm("AddNhanVien", "HomeAdmin", FormMethod.Post, new { @role = "form" }))
+        <div class="modal-content update-nhanvien-content">
+            @using (Ajax.BeginForm("AddNhanVien", "HomeAdmin", FormMethod.Post,
+                new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    UpdateTargetId = "list-of-people"
+                }, new { @role = "form" }))
             {
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Thêm mới nhân viên</h4>
-                </div>
+                    <h1 class="modal-title" id="myModalLabel">Sửa nhân viên @Model.nhanvien.MaNhanVien</h1>
+                                </div>
                 <div class="modal-body">
 
                     <div class="form-group input-group">
                         <span class="input-group-addon">
                             <i class="fa fa-eur"></i>
                         </span>
-                        <input type="text" class="form-control" name="MaNhanVien" placeholder="Nhập mã...">
+                        @Html.TextBoxFor(x => x.nhanvien.MaNhanVien)
+                        <input type="text" class="form-control" name="MaNhanVien" value="@Model.nhanvien.MaNhanVien">
                     </div>
 
                     <div class="form-group input-group">
@@ -68,10 +74,10 @@
                         <input type="text" class="form-control" name="Password" placeholder="Password...">
                     </div>
                 </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Thêm mới</button>
-                                            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+                </div>
             }
         </div>
         <!-- /.modal-content -->

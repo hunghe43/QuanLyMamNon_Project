@@ -358,9 +358,8 @@
     <Content Include="Areas\Admin\Views\KeToan\Partial_CT_HocPhi.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\CURDNhanVien_Index.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\Partial_AddNhanVien.cshtml" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\AddNhanVien.cshtml" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\UpdateNhanVien.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\DetailNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\Partial_UpdateNhanVien.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
