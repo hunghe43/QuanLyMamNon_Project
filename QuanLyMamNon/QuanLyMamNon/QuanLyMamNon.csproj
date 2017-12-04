@@ -358,7 +358,7 @@
     <Content Include="Areas\Admin\Views\KeToan\Partial_CT_HocPhi.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\CURDNhanVien_Index.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\Partial_AddNhanVien.cshtml" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\DetailNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\Partial_DetailNhanVien.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\Partial_UpdateNhanVien.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -407,6 +407,7 @@
     <Folder Include="Areas\Admin\Content\js\" />
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\utils\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

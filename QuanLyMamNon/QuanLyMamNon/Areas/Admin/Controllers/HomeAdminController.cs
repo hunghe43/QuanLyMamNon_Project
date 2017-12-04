@@ -3,6 +3,7 @@ using QuanLyMamNon.Models.Dao;
 using QuanLyMamNon.Reponsitory;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -73,15 +74,14 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         }
 
         // GET: Home  CURD Nhan vien
-
         public ActionResult CURDNhanVien_Index()
         {
-            string maChucVu = Request["maChucVu"];
+            string maChucVu = Request["listChucVu"];
             var listLop = lopRepon.getAllLop();
             var listChucVu = chucVuRepon.getAllChucVu();
             var listNV = new List<NhanVien>();
             var nhanvien = new NhanVien();
-            if (maChucVu == null || maChucVu == "0")
+            if (string.IsNullOrEmpty(maChucVu) || maChucVu == "0")
             {
                 maChucVu = "0";
                 listNV = nhanVienRepon.getAllNhanVien();
@@ -93,32 +93,51 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             ViewBag.select = maChucVu;
             ViewModelDanhSachNhanVien viewModel = new ViewModelDanhSachNhanVien
             {
-
                 listChucVu = listChucVu,
                 listNhanVien = listNV,
                 listLop = listLop,
-                nhanvien=nhanvien
+                nhanvien = nhanvien
             };
 
             return View(viewModel);
         }
-       
-        [HttpPost]
+        // GET: details Nhan vien
+        public ActionResult DetailNhanVien(string id)
+        {
+            var listLop = lopRepon.getAllLop();
+            var nhanvien = nhanVienRepon.getNhanvienForId(id);
+            var listChucVu = chucVuRepon.getAllChucVu();
+            ViewModelDanhSachNhanVien viewModel = new ViewModelDanhSachNhanVien
+            {
+                listChucVu = listChucVu,
+                nhanvien = nhanvien,
+                listLop = listLop
+            };
+            return PartialView("Partial_DetailNhanVien", viewModel);
+        }
+        // GET: add Nhan vien
         public ActionResult AddNhanVien()
         {
-            var nhanVien = new NhanVien();
-            nhanVien.MaNhanVien = Request["MaNhanVien"];
-            nhanVien.TenNhanVien = Request["TenNhanVien"];
-            nhanVien.DiaChi = Request["DiaChi"];
-            nhanVien.Sdt = Request["Sdt"];
-            nhanVien.Email = Request["Email"];
-            nhanVien.MaChucVu = Request["MaChucVu"];
-            nhanVien.MaLop = Request["MaLop"];
-            nhanVien.Password = Request["Password"];
-            nhanVienRepon.AddNhanVien(nhanVien);
+            var listLop = lopRepon.getAllLop();
+            var listChucVu = chucVuRepon.getAllChucVu();
+            ViewModelDanhSachNhanVien viewModel = new ViewModelDanhSachNhanVien
+            {
+                listChucVu = listChucVu,
+                listLop = listLop
+            };
+            return PartialView("Partial_AddNhanVien", viewModel);
+        }
+        // POST: add Nhan vien
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddNhanVien(NhanVien nhanvien)
+        {
+            string a = nhanVienRepon.getmanv();
+            nhanVienRepon.AddNhanVien(nhanvien);
             return RedirectToAction("CURDNhanVien_Index");
         }
-        public ActionResult Partial_UpdateNhanVien(string id)
+        // GET: edit Nhan vien
+        public ActionResult UpdateNhanVien(string id)
         {
             var listLop = lopRepon.getAllLop();
             var listChucVu = chucVuRepon.getAllChucVu();
@@ -131,20 +150,13 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             };
             return PartialView("Partial_UpdateNhanVien", viewModel);
         }
+        // POST: edit Nhan vien
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateNhanVien(NhanVien nhanvien)
         {
-            if (ModelState.IsValid)
-            {
-                nhanVienRepon.UpdateNhanVien(nhanvien);
-                return RedirectToAction("CURDNhanVien_Index");
-            }
-            return View(nhanvien);
-        }
-        public ActionResult DetailNhanVien(string MaNhanVien)
-        {
-            var nhanvien = nhanVienRepon.getNhanvienForId(MaNhanVien);
-            return View(nhanvien);
+            nhanVienRepon.UpdateNhanVien(nhanvien);
+            return RedirectToAction("CURDNhanVien_Index");
         }
     }
 }

@@ -23,6 +23,12 @@ namespace QuanLyMamNon.Reponsitory
             List<NhanVien> listHs = _db.Query<NhanVien>("SELECT * FROM NhanVien").ToList();
             return listHs;
         }
+        public string getmanv()
+        {
+            string query = "EXEC sp_NhanVien_NewID";
+            string manv= _db.Query<string>("sp_NhanVien_NewID", commandType: CommandType.StoredProcedure).SingleOrDefault();
+            return manv;
+        }
         /// <summary>
         /// lấy danh sách nhân vien theo mã chức vụ
         /// </summary>
@@ -68,9 +74,8 @@ namespace QuanLyMamNon.Reponsitory
         /// </summary>
         /// <param name="nhanvien"></param>
         /// <returns></returns>
-        public int UpdateNhanVien(NhanVien nhanvien)
+        public void UpdateNhanVien(NhanVien nhanvien)
         {
-            int i = 0;
             var parameters = new DynamicParameters();
             parameters.Add("@MaNhanVien", nhanvien.MaNhanVien);
             parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
@@ -81,21 +86,19 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@MaLop", nhanvien.MaLop);
             parameters.Add("@Password", nhanvien.Password);
             parameters.Add("@Action", "Update");
-            i = _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
-            return i;
+            _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
+            
         }
         /// <summary>
         /// delete nhan vien
         /// </summary>
         /// <param name="nhanvien"></param>
         /// <returns></returns>
-        public int deleteNhanVien(string MaNhanVien)
+        public void deleteNhanVien(string MaNhanVien)
         {
-            int i = 0;
             var parameters = new DynamicParameters();
             parameters.Add("@MaNhanVien", MaNhanVien);
-            i = _db.Execute("DeleteNhanVien", parameters, commandType: CommandType.StoredProcedure);
-            return i;
+            _db.Execute("DeleteNhanVien", parameters, commandType: CommandType.StoredProcedure);            
         }
 
         /// <summary>

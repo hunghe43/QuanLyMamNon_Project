@@ -75,6 +75,7 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 				from DichVuNgoai dv inner join CT_DichVu_HocSinh ct on dv.MaDichVu=ct.MaDichVu
 					inner join HocSinh hs on hs.MaHocSinh=ct.MaHocSinh
 					where hs.MaHocSinh=1 and ct.ThangDangKy='11/2017'
-DECLARE @myid uniqueidentifier  
-SET @myid = NEWID()  
-PRINT 'Value of @myid is: '+ CONVERT(varchar(255), @myid)  
+				DECLARE @myid uniqueidentifier  
+				SET @myid = NEWID()  
+				PRINT 'Value of @myid is: '+ CONVERT(varchar(255), @myid)  
+				

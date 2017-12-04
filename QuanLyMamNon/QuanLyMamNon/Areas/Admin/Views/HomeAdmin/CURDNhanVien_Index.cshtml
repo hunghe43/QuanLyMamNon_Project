@@ -16,13 +16,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <!--Start Modal Thêm mới nhân viên -->
-                            @Html.Partial("Partial_AddNhanVien")
-                            <!-- Modal Update nhân viên -->
-                            <!-- Modal sửa  -->
-                            @Html.Partial("Partial_UpdateNhanVien")                                    
-                            <!--End Modal sửa nhân viên -->
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal_addNhanVien">
+                            <button class="btn btn-primary add_NhanVien">
                                 Thêm nhân viên
                             </button>
                         </div>
@@ -32,18 +26,11 @@
                                 <p>
                                 </p><div class="form-inline">
                                     <div class="input-group">
-                                        <select class="form-control" id="idd" name="maChucVu">
-                                            <option value="0">Tất cả</option>
-                                            @foreach (var item in Model.listChucVu)
-                                            {
-                                                <option value="@item.MaChucVu">@item.TenChucVu</option>
-                                            }
-                                        </select>
+                                        @Html.DropDownListFor(x=>x.listChucVu, new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu"),"Tất cả", new { @class = "form-control selectedValue" })                                        
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary" type="submit">Hiển thị</button>
                                         </span>
                                     </div><!-- /input-group -->
-
                                 </div>
                                 <p></p>
                             }
@@ -80,19 +67,28 @@
                                         @Html.DisplayFor(modelItem => item.Email)
                                     </td>
                                     <td>
-                                        <button class="btn btn-primary edit-person" data-toggle="modal" data-target="#myModal_updateNhanVien" data-id="@item.MaNhanVien">
-                                            Sửa nhân viên
-                                        </button>
-                                        @Html.ActionLink("UpdateNhanVien", "HomeAdmin", new { MaNhanVien = item.MaNhanVien }, new { @data_toggle = "modal", @data_target = "#myModal_updateNhanVien" }) |
-                                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                        @*<button class="btn btn-primary"  data-toggle="modal" data-target="#myModal_detailsNhanVien" data-id="@item.MaNhanVien">
+                                                    Details
+                                            </button>*@
+                                        <a href="javascript:void(0);" class="Details_NhanVien" data-id="@item.MaNhanVien">Details</a>
+                                        <a href="javascript:void(0);" class="Update_NhanVien" data-id="@item.MaNhanVien">Edit</a>
+                                        <a href="javascript:void(0);" class="Delete_NhanVien" data-id="@item.MaNhanVien">Delete</a>
+                                        @*<span class="btn btn-xs btn-primary btnEdit" id="edit_@item.MaNhanVien" onclick="createModalEdit('@Url.Action("DetailNhanVien", "HomeAdmin" , new {MaNhanVien=item.MaNhanVien })')">Details</span>*@
                                     </td>
                                 </tr>
-
                             }
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->
+                    <div class="modal fade" id="myModal_detailsNhanVien" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" id="myModalContent">
+                                <!-- Partial view Add,detail,update in here -->    
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
                     <div class="well">
                         <h4>DataTables Usage Information</h4>
                         <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
@@ -106,22 +102,85 @@
         <!-- /.col-lg-12 -->
     </div>
 </div>
-<script>
 
-    $('#idd option[value=@ViewBag.select]').attr('selected', 'selected');
+    <script>
+        //get selected in dropdown list when submit "hiển thị"
+        $('.selectedValue option[value=@ViewBag.select]').attr('selected', 'selected');
 
-    $(document).ready(function () {
-        $('.edit-person').click(function () {
-            var id = $(this).attr('data-id');
-            var url = "/HomeAdmin/UpdateNhanVien/"+id;
-            $.ajax({
-                url: url, // The method name + paramater
-                cache: false,
-                type: "GET",
-                success: function (data) {
-                    $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
-                }
+        $(document).ready(function () {
+            // do get Add nhanvien
+            $(".add_NhanVien").click(function () {
+                //debugger;
+                var add_nhanvien_url = '@Url.Action("AddNhanVien", "HomeAdmin")';
+                var $buttonClicked = $(this);
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: add_nhanvien_url,
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal_detailsNhanVien').modal(options);
+                        $('#myModal_detailsNhanVien').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+
+            // do get details nhanvien
+            $(".Details_NhanVien").click(function () {
+                //debugger;
+                var detaisl_nhanvien_url = '@Url.Action("DetailNhanVien", "HomeAdmin")';
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: detaisl_nhanvien_url,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal_detailsNhanVien').modal(options);
+                        $('#myModal_detailsNhanVien').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+
+            // do get edit nhanvien
+            $(".Update_NhanVien").click(function () {
+                //debugger;
+                var update_nhanvien_url = '@Url.Action("UpdateNhanVien", "HomeAdmin")';
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: update_nhanvien_url,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal_detailsNhanVien').modal(options);
+                        $('#myModal_detailsNhanVien').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>

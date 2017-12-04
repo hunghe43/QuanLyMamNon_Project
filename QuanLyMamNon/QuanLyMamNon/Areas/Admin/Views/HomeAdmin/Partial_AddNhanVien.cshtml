@@ -1,80 +1,74 @@
 ﻿@using QuanLyMamNon.Models
 @model QuanLyMamNon.Models.Dao.ViewModelDanhSachNhanVien
-<!-- Modal thêm mới -->
-<div class="modal fade" id="myModal_addNhanVien" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            @using (Html.BeginForm("AddNhanVien", "HomeAdmin", FormMethod.Post, new { @role = "form" }))
-            {
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Thêm mới nhân viên</h4>
-                </div>
-                <div class="modal-body">
 
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-eur"></i>
-                        </span>
-                        <input type="text" class="form-control" name="MaNhanVien" placeholder="Nhập mã...">
-                    </div>
-
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-eur"></i>
-                        </span>
-                        <input type="text" class="form-control" name="TenNhanVien" placeholder="Họ và tên...">
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-eur"></i>
-                        </span>
-                        <input type="text" class="form-control" name="DiaChi" placeholder="Địa chỉ...">
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-eur"></i>
-                        </span>
-                        <input type="text" class="form-control" name="Sdt" placeholder="Số điện thoại...">
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-eur"></i>
-                        </span>
-                        <input type="text" class="form-control" name="Email" placeholder="Email...">
-                    </div>
-                    <div class="form-group">
-                        <label>Chức vụ</label>
-                        <select class="form-control" id="MaChucVu_Add" name="MaChucVu">
-                            @foreach (ChucVu item in Model.listChucVu)
-                            {
-                                <option value="@item.MaChucVu">@item.TenChucVu</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group" id="MaLop_Add">
-                        <label>Chọn lớp quản lý</label>
-                        <select class="form-control" name="MaLop">
-                            @foreach (Lop item in Model.listLop)
-                            {
-                                <option value="@item.MaLop">@item.TenLop</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-eur"></i>
-                        </span>
-                        <input type="text" class="form-control" name="Password" placeholder="Password...">
-                    </div>
-                </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Thêm mới</button>
-                                            </div>
-            }
+@using (Html.BeginForm("AddNhanVien", "HomeAdmin", FormMethod.Post, new { @role = "form" }))
+{
+    @Html.AntiForgeryToken()
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Thêm mới</h4>
         </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+        <div class="modal-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                <input type="text" class="form-control" name="nhanvien.MaNhanVien" placeholder="Nhập mã...">
+                @Html.ValidationMessageFor(model => model.nhanvien.MaNhanVien, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                <input type="text" class="form-control"  name="nhanvien.TenNhanVien" placeholder="Nhập tên...">
+            </div>
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                <input type="text" class="form-control" name="Add_DiaChi" placeholder="Địa chỉ...">
+            </div>
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                <input type="text" class="form-control" name="Add_Sdt" placeholder="Số điện thoại...">
+            </div>
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                <input type="text" class="form-control" name="Add_Email" placeholder="Email...">
+            </div>
+            <div class="form-group input-group">
+                <label>Chức vụ</label>
+                <select class="form-control" name="Add_MaChucVu">
+                    @foreach (ChucVu item in Model.listChucVu)
+                    {
+                        <option value="@item.MaChucVu">@item.TenChucVu</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group input-group" name="Add_MaLop">
+                <label>Chọn lớp quản lý</label>
+                <select class="form-control" name="MaLop">
+                    @foreach (Lop item in Model.listLop)
+                    {
+                        <option value="@item.MaLop">@item.TenLop</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                <input type="text" class="form-control" name="Add_Password" placeholder="Password...">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary">Thêm mới</button>
+        </div>
+    }
