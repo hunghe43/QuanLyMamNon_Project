@@ -8,7 +8,7 @@ namespace QuanLyMamNon.Models
     public class CT_DichVu_HocSinh
     {
 
-        public int MaHocSinh { get; set; }
+        public string MaHocSinh { get; set; }
         public string MaDV { get; set; }
         public string ThangDangKy { get; set; }
 

@@ -1,0 +1,221 @@
+﻿@using QuanLyMamNon.Models
+@model QuanLyMamNon.Models.Dao.ViewModelDanhSachHS
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="fa fa-th-list fa-2x">  Danh sách học sinh</i>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button class="btn btn-primary add_HocSinh">
+                                Thêm học sinh
+                            </button>
+                        </div>
+                        <div class="col-lg-6">
+                            @using (Html.BeginForm("Index", "HocSinh", FormMethod.Get, new { @class = "col-xs-7 col-sm-7 header-search-box", @style = "text-align:right" }))
+                            {
+                                <p>
+                                </p><div class="form-inline">
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(x => x.listLop, new SelectList(Model.listLop, "MaLop", "TenLop"), "Tất cả", new { @class = "form-control selectedValue" })
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit">Hiển thị</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+
+                                </div>
+                                <p></p>
+                            }
+                        </div>
+                    </div>
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mã
+                                </th>
+                                <th>
+                                    Họ Tên
+                                </th>
+                                <th>
+                                    Ngày Sinh
+                                </th>
+                                <th>
+                                    Địa Chỉ
+                                </th>
+                                <th>
+                                    Chiều cao
+                                </th>
+                                <th>
+                                    Cân nặng
+                                </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listHocSinh)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.MaHocSinh
+                                    </td>
+                                    <td>
+                                        @item.Ten
+                                    </td>
+                                    <td>
+                                        @item.NgaySinh.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        @item.DiaChi
+                                    </td>
+                                    <td>
+                                        @item.ChieuCao
+                                    </td>
+                                    <td>
+                                        @item.CanNang
+                                    </td>                                    
+                                    @*@item.NgaySinhPhuHuynh.GetValueOrDefault().ToShortDateString()*@
+                                    <td>
+                                        <a href="javascript:void(0);" class="Details_HocSinh" data-id="@item.MaHocSinh">Details</a>
+                                        <a href="javascript:void(0);" class="Update_HocSinh" data-id="@item.MaHocSinh">Edit</a>
+                                        <a href="" onclick="return ConfirmDelete();" class="Delete_HocSinh" data-id="@item.MaHocSinh">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="myModal_detailsHocSinh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="width: 800px;">
+                            <div class="modal-content" id="myModalContent">
+                                <!-- Partial view Add,detail,update in here -->
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+
+<script>
+    //get selected in dropdown list when submit "hiển thị"
+    $('.selectedValue option[value=@ViewBag.select]').attr('selected', 'selected');
+
+    $(document).ready(function () {
+        // do get Add HocSinh
+        $(".add_HocSinh").click(function () {
+            //debugger;
+            var add_HocSinh_url = '@Url.Action("Add", "HocSinh")';
+            var $buttonClicked = $(this);
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: add_HocSinh_url,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    //debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_detailsHocSinh').modal(options);
+                    $('#myModal_detailsHocSinh').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+
+        // do get details HocSinh
+        $(".Details_HocSinh").click(function () {
+            //debugger;
+            var detaisl_HocSinh_url = '@Url.Action("Detail", "HocSinh")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: detaisl_HocSinh_url,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    //debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_detailsHocSinh').modal(options);
+                    $('#myModal_detailsHocSinh').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+
+
+        // do get edit HocSinh
+        $(".Update_HocSinh").click(function () {
+            //debugger;
+            var update_HocSinh_url = '@Url.Action("Update", "HocSinh")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: update_HocSinh_url,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    //debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_detailsHocSinh').modal(options);
+                    $('#myModal_detailsHocSinh').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+        // do post delete HocSinh
+        $(".Delete_HocSinh").click(function () {
+            //debugger;
+            var delete_HocSinh_url = '@Url.Action("Delete", "HocSinh")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            if (confirm("Do you want delete item?")) {
+                $.ajax({
+                    url: delete_HocSinh_url,
+                    data: { Id: id },
+                    type: 'POST',
+                    dataType: 'json',
+                    traditional: true,
+                    success: function (data) {
+                        alert("Delete success!");
+                        location.reload();
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            } else
+                return false;
+        });
+    });
+</script>

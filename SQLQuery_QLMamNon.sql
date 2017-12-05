@@ -1,13 +1,13 @@
 ﻿-------------phục vụ cho chức năng người dùng khách hàng-------------------
 --QR001: lấy thông tin học sinh dựa vào mã: tên gVCN, lớp, tên học sinh
 select hs.MaHocSinh,hs.Ten as TenHocSinh,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.NgaySinhPhuHuynh,hs.Sdt as SdtPhuHuynh,hs.Email as EmailPhuHuynh,hs.GhiChu,lp.MaLop,lp.TenLop,nv.TenNhanVien as TenGiaoVien,nv.Sdt as SdtGiaoVien,nv.Email as EmailGiaoVien 
-                                from HocSinh hs inner join Lop lp on hs.MaLop = lp.MaLop 
-                                inner join NhanVien nv on lp.MaLop = nv.MaLop 
-                                inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu
-                                and cv.MaChucVu = 'GVC' and hs.TrangThai = '1'
+          from HocSinh hs inner join Lop lp on hs.MaLop = lp.MaLop 
+          inner join NhanVien nv on lp.MaLop = nv.MaLop 
+          inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu
+          and cv.MaChucVu = 'GVC' and hs.TrangThai = '1'
 --QR002: insert thông tin học sinh mới vào database
-INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[TenPhuHuynh],[SoCmt] ,[Sdt] ,[Email] ,[NgaySinhPhuHuynh]) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh)
-            SELECT CAST(SCOPE_IDENTITY() as int)
+INSERT INTO dbo . HocSinh  ( Ten , NgaySinh , GioiTinh , DiaChi , TinhTrang , TenPhuHuynh , SoCmt  , Sdt  , Email  , NgaySinhPhuHuynh ) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh)
+ SELECT CAST(SCOPE_IDENTITY() as int)
 
 -----------Phục vụ cho người đăng nhập hệ thống---------------------------------		
 		
@@ -69,7 +69,7 @@ INSERT INTO[dbo].[HocSinh] ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[Te
 				--QR014: lấy tất cả học sinh
 				select *
 				from HocSinh
-				--QR015:thống kê theo dõi với mã học sinh và tháng theo dõi(đã sử dụng proc [GetPhieuThuForIdHocSinh] )
+				--QR015:thống kê theo dõi với mã học sinh và tháng theo dõi(đã sử dụng proc  GetPhieuThuForIdHocSinh  )
 				--QR016: thống kê danh sách dịch vụ ngoài mà học sinh đăng ký, 				
 				select dv.*
 				from DichVuNgoai dv inner join CT_DichVu_HocSinh ct on dv.MaDichVu=ct.MaDichVu

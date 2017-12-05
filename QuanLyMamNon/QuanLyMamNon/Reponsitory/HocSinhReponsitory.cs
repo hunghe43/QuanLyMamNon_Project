@@ -22,7 +22,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns>Danh sách học sinh: List<HocSinh></returns>
         public List<HocSinh> GetAllHocSinh()
         {
-            List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh").ToList();
+            List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh where TrangThai=1").ToList();
             return listHs;
         }
         /// <summary>
@@ -56,9 +56,9 @@ namespace QuanLyMamNon.Reponsitory
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public HocSinh GetHocSinhForId(int id)
+        public HocSinh GetHocSinhForId(string id)
         {
-            HocSinh hs = GetAllHocSinh().Find(x => x.MaHocSinh==id);
+            HocSinh hs = GetAllHocSinh().Find(x => x.MaHocSinh.Equals(id));
             return hs;
         }
         /// <summary>
@@ -66,7 +66,7 @@ namespace QuanLyMamNon.Reponsitory
         /// </summary>
         /// <param name="id"> Mã học sinh truyền vào</param>
         /// <returns> Infor_HocSinh</returns>
-        public Infor_HocSinh FindHocSinhInfor(int? id)
+        public Infor_HocSinh FindHocSinhInfor(string id)
         {
             //QR001 
             string query = "select hs.MaHocSinh,hs.Ten as TenHocSinh,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.NgaySinhPhuHuynh,hs.Sdt as SdtPhuHuynh,hs.Email as EmailPhuHuynh,hs.GhiChu,lp.MaLop,lp.TenLop,nv.TenNhanVien as TenGiaoVien,nv.Sdt as SdtGiaoVien,nv.Email as EmailGiaoVien " +
@@ -79,33 +79,96 @@ namespace QuanLyMamNon.Reponsitory
             return hocsinh;
         }
 
+        ///// <summary>
+        ///// đăng ký một học sinh mới
+        ///// </summary>
+        ///// <param name="hs"> đối tượng học sinh</param>
+        ///// <returns> đối tượng hocsinh</returns>
+        //public HocSinh Add(HocSinh hs)
+        //{
+        //    //QR002
+        //    string sqlQuery = "INSERT INTO HocSinh ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[TenPhuHuynh],[SoCmt] ,[Sdt] ,[Email] ,[NgaySinhPhuHuynh]) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh) " +
+        //    "SELECT CAST(SCOPE_IDENTITY() as int)";
+        //    var userId = _db.Query<int>(sqlQuery, hs).Single();
+        //    hs.MaHocSinh = userId;
+        //    return hs;
+        //}
+
         /// <summary>
-        /// đăng ký một học sinh mới
+        /// thêm mới Hoc sinh
         /// </summary>
-        /// <param name="hs"> đối tượng học sinh</param>
-        /// <returns> đối tượng hocsinh</returns>
-        public HocSinh Add(HocSinh hs)
+        /// <param name="hoc sinh"></param>
+        /// <returns></returns>
+        public void AddHocSinh(HocSinh hocsinh)
         {
-            //QR002
-            string sqlQuery = "INSERT INTO HocSinh ([Ten],[NgaySinh],[GioiTinh],[DiaChi],[TinhTrang],[TenPhuHuynh],[SoCmt] ,[Sdt] ,[Email] ,[NgaySinhPhuHuynh]) VALUES(@Ten , @NgaySinh , @GioiTinh , @DiaChi , @TinhTrang , @TenPhuHuynh , @SoCmt , @Sdt , @Email , @NgaySinhPhuHuynh) " +
-            "SELECT CAST(SCOPE_IDENTITY() as int)";
-            var userId = _db.Query<int>(sqlQuery, hs).Single();
-            hs.MaHocSinh = userId;
-            return hs;
+            hocsinh.MaHocSinh = getAutoIdHocSinh();
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaHocSinh", hocsinh.MaHocSinh);
+            parameters.Add("@Ten", hocsinh.Ten);
+            parameters.Add("@NgaySinh", hocsinh.NgaySinh);
+            parameters.Add("@GioiTinh", hocsinh.GioiTinh);
+            parameters.Add("@DiaChi", hocsinh.DiaChi);
+            parameters.Add("@TinhTrang", hocsinh.TinhTrang);
+            parameters.Add("@ChieuCao", hocsinh.ChieuCao);
+            parameters.Add("@CanNang", hocsinh.CanNang);
+            parameters.Add("@TenPhuHuynh", hocsinh.TenPhuHuynh);
+            parameters.Add("@SoCmt", hocsinh.SoCmt);
+            parameters.Add("@Sdt", hocsinh.Sdt);
+            parameters.Add("@Email", hocsinh.Email);
+            parameters.Add("@NgaySinhPhuHuynh", hocsinh.NgaySinhPhuHuynh);
+            parameters.Add("@GhiChu", hocsinh.GhiChu);
+            parameters.Add("@MaLop", hocsinh.MaLop);
+            parameters.Add("@TrangThai", hocsinh.TrangThai);
+            parameters.Add("@Action", "Insert");
+            _db.Execute("InsertUpdateHocSinh", parameters, commandType: CommandType.StoredProcedure);
         }
-
-        public HocSinh Update(HocSinh hs)
+        /// <summary>
+        /// update hoc sinh
+        /// </summary>
+        /// <param name="hocsinh"></param>
+        /// <returns></returns>
+        public void UpdateHocSinh(HocSinh hocsinh)
         {
-            var sqlQuery = "";
-            this._db.Execute(sqlQuery, hs);
-            return hs;
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaHocSinh", hocsinh.MaHocSinh);
+            parameters.Add("@Ten", hocsinh.Ten);
+            parameters.Add("@NgaySinh", hocsinh.NgaySinh);
+            parameters.Add("@GioiTinh", hocsinh.GioiTinh);
+            parameters.Add("@DiaChi", hocsinh.DiaChi);
+            parameters.Add("@TinhTrang", hocsinh.TinhTrang);
+            parameters.Add("@ChieuCao", hocsinh.ChieuCao);
+            parameters.Add("@CanNang", hocsinh.CanNang);
+            parameters.Add("@TenPhuHuynh", hocsinh.TenPhuHuynh);
+            parameters.Add("@SoCmt", hocsinh.SoCmt);
+            parameters.Add("@Sdt", hocsinh.Sdt);
+            parameters.Add("@Email", hocsinh.Email);
+            parameters.Add("@NgaySinhPhuHuynh", hocsinh.NgaySinhPhuHuynh);
+            parameters.Add("@GhiChu", hocsinh.GhiChu);
+            parameters.Add("@MaLop", hocsinh.MaLop);
+            parameters.Add("@TrangThai", hocsinh.TrangThai);
+            parameters.Add("@Action", "Update");
+            _db.Execute("InsertUpdateHocSinh", parameters, commandType: CommandType.StoredProcedure);
 
         }
-
-        public void Remove(int id)
+        /// <summary>
+        /// delete hocsinh
+        /// </summary>
+        /// <param name="hocsinh"></param>
+        /// <returns></returns>
+        public void deleteHocSinh(string MaHocSinh)
         {
-            var sqlQuery = ("Delete From HosSinh Where MaHocSinh = @id");
-            this._db.Execute(sqlQuery, new { @id = id });
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaHocSinh", MaHocSinh);
+            _db.Execute("DeleteHocSinh", parameters, commandType: CommandType.StoredProcedure);
+        }
+        /// <summary>
+        /// sinh mã tự động cho học sinh
+        /// </summary>
+        /// <returns></returns>
+        public string getAutoIdHocSinh()
+        {
+            string manv = _db.Query<string>("sp_HocSinh_NewID", commandType: CommandType.StoredProcedure).Single();
+            return manv;
         }
     }
 }

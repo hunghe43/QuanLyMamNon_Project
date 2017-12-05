@@ -41,14 +41,14 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             return View(viewModel);
         }
       
-        public ActionResult HocPhiHocSinh(int MaHocSinh)
+        public ActionResult HocPhiHocSinh(string MaHocSinh)
         {
             PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
             HocSinhReponsitory hsRepon = new HocSinhReponsitory();
             HocSinh hocSinh = hsRepon.GetHocSinhForId(MaHocSinh);
             return View(hocSinh);
         }
-        public ActionResult Partial_CT_HocPhi(int MaHocSinh, string date)
+        public ActionResult Partial_CT_HocPhi(string MaHocSinh, string date)
         {
             PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
             HocSinhReponsitory hsRepon = new HocSinhReponsitory();

@@ -8,7 +8,7 @@ namespace QuanLyMamNon.Models
     public class PhieuThu
     {
         public string NgayTaoPhieu { get; set; }
-        public int MaHocSinh { get; set; }
+        public string MaHocSinh { get; set; }
         public string MaNhanVien { get; set; }
         public int SoNgayVang { get; set; }
         public int SoNgayAnSang { get; set; }

@@ -31,7 +31,7 @@ namespace QuanLyMamNon.Controllers
         }
 
         [HttpPost]
-        public ActionResult Infomation(int? id)
+        public ActionResult Infomation(string id)
         {
             if (id != null)
             {
@@ -53,7 +53,8 @@ namespace QuanLyMamNon.Controllers
         [HttpPost]
         public ActionResult Register(HocSinh objHS)
         {            
-            rep.Add(objHS);
+
+            rep.AddHocSinh(objHS);
             return View();
         }
 

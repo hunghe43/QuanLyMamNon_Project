@@ -20,13 +20,16 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns> list<nhanvien></returns>
         public List<NhanVien> getAllNhanVien()
         {
-            List<NhanVien> listHs = _db.Query<NhanVien>("SELECT * FROM NhanVien").ToList();
+            List<NhanVien> listHs = _db.Query<NhanVien>("SELECT * FROM NhanVien where MaNhanVien!='Admin'").ToList();
             return listHs;
         }
-        public string getmanv()
+        /// <summary>
+        /// sinh mã tự động cho nhân viên
+        /// </summary>
+        /// <returns></returns>
+        public string getAutoIdNhanVien()
         {
-            string query = "EXEC sp_NhanVien_NewID";
-            string manv= _db.Query<string>("sp_NhanVien_NewID", commandType: CommandType.StoredProcedure).SingleOrDefault();
+            string manv= _db.Query<string>("sp_NhanVien_NewID", commandType: CommandType.StoredProcedure).Single();
             return manv;
         }
         /// <summary>
@@ -46,6 +49,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public void  AddNhanVien(NhanVien nhanvien)
         {
+            nhanvien.MaNhanVien = getAutoIdNhanVien();
             var parameters = new DynamicParameters();
             parameters.Add("@MaNhanVien", nhanvien.MaNhanVien);
             parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
@@ -155,12 +159,10 @@ namespace QuanLyMamNon.Reponsitory
         /// <param name="id">id nhanvien</param>
         /// <returns>list String</returns>
         public List<string> GetQuyenNhanVien(string id)
-        {            
-            string query = "select q.MaQuyen from NhanVien nv inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu "+
-                "inner join Quyen_ChucVu qc on cv.MaChucVu = qc.MaChucVu "+
-                "inner join Quyen q on qc.MaQuyen = q.MaQuyen "+
-                "and nv.MaNhanVien = @id";
-            List<string> lst = _db.Query<string>(query, new { @id = id }).ToList();
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
+            var lst = _db.Query<string>("sp_GetQuyenNhanVien", parameters, commandType: CommandType.StoredProcedure).ToList();
             return lst;
         }
     }

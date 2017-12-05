@@ -2,7 +2,7 @@
 @model QuanLyMamNon.Models.Dao.ViewModelDanhSachNhanVien
 
 @{
-    ViewBag.Title = "CURDNhanVien_Index";
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div id="page-wrapper">
@@ -21,7 +21,7 @@
                             </button>
                         </div>
                         <div class="col-lg-6">
-                            @using (Html.BeginForm("CURDNhanVien_Index", "HomeAdmin", FormMethod.Get, new { @class = "header-search-box", @style = "text-align:right" }))
+                            @using (Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @class = "header-search-box", @style = "text-align:right" }))
                             {
                                 <p>
                                 </p><div class="form-inline">
@@ -111,7 +111,7 @@
             // do get Add nhanvien
             $(".add_NhanVien").click(function () {
                 //debugger;
-                var add_nhanvien_url = '@Url.Action("AddNhanVien", "HomeAdmin")';
+                var add_nhanvien_url = '@Url.Action("Add", "NhanVien")';
                 var $buttonClicked = $(this);
                 var options = { "backdrop": "static", keyboard: true };
                 $.ajax({
@@ -131,11 +131,10 @@
                 });
             });
 
-
             // do get details nhanvien
             $(".Details_NhanVien").click(function () {
                 //debugger;
-                var detaisl_nhanvien_url = '@Url.Action("DetailNhanVien", "HomeAdmin")';
+                var detaisl_nhanvien_url = '@Url.Action("Detail", "NhanVien")';
                 var $buttonClicked = $(this);
                 var id = $buttonClicked.attr('data-id');
                 var options = { "backdrop": "static", keyboard: true };
@@ -161,7 +160,7 @@
             // do get edit nhanvien
             $(".Update_NhanVien").click(function () {
                 //debugger;
-                var update_nhanvien_url = '@Url.Action("UpdateNhanVien", "HomeAdmin")';
+                var update_nhanvien_url = '@Url.Action("Update", "NhanVien")';
                 var $buttonClicked = $(this);
                 var id = $buttonClicked.attr('data-id');
                 var options = { "backdrop": "static", keyboard: true };
@@ -179,6 +178,30 @@
                     },
                     error: function () {
                         alert("Dynamic content load failed.");
+                    }
+                });
+            });
+            $(".Delete_NhanVien").click(function () {
+                debugger;
+                var delete_nhanvien_url = '@Url.Action("Delete", "NhanVien")';
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                $.ajax({                    
+                    url: delete_nhanvien_url,
+                    dataType: "json",
+                    type: "Post",
+                    contentType: 'application/json; charset=utf-8',
+                    data: { "Id": id },
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        debugger;
+                        alert("Delete success!");
+                        window.location.replace("@Url.Action("Index", "NhanVien")");
+                    },
+                    error: function (xhr) {
+                        alert('error');
                     }
                 });
             });

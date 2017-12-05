@@ -1,0 +1,210 @@
+﻿@using QuanLyMamNon.Models
+@model QuanLyMamNon.Models.Dao.ViewModelDanhSachNhanVien
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    DataTables Advanced Tables
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button class="btn btn-primary add_NhanVien">
+                                Thêm nhân viên
+                            </button>
+                        </div>
+                        <div class="col-lg-6">
+                            @using (Html.BeginForm("Index", "NhanVien", FormMethod.Get, new { @class = "header-search-box", @style = "text-align:right" }))
+                            {
+                                <p>
+                                </p><div class="form-inline">
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(x=>x.listChucVu, new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu"),"Tất cả", new { @class = "form-control selectedValue" })                                        
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit">Hiển thị</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <p></p>
+                            }
+                        </div>
+                    </div>
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Mã Nhân Viên</th>
+                                <th>Tên</th>
+                                <th>Địa chỉ</th>
+                                <th>Tel</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listNhanVien)
+                            {
+                                <tr class="even gradeC">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaNhanVien)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenNhanVien)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DiaChi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sdt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @*<button class="btn btn-primary"  data-toggle="modal" data-target="#myModal_detailsNhanVien" data-id="@item.MaNhanVien">
+                                                    Details
+                                            </button>*@
+                                        <a href="javascript:void(0);" class="Details_NhanVien" data-id="@item.MaNhanVien">Details</a>
+                                        <a href="javascript:void(0);" class="Update_NhanVien" data-id="@item.MaNhanVien">Edit</a>
+                                        
+                                        <a href="" onclick="return ConfirmDelete();" class="Delete_NhanVien" data-id="@item.MaNhanVien">Delete</a>
+                                        @*<span class="btn btn-xs btn-primary btnEdit" id="edit_@item.MaNhanVien" onclick="createModalEdit('@Url.Action("DetailNhanVien", "HomeAdmin" , new {MaNhanVien=item.MaNhanVien })')">Details</span>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                    <div class="modal fade" id="myModal_detailsNhanVien" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" id="myModalContent">
+                                <!-- Partial view Add,detail,update in here -->    
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <div class="well">
+                        <h4>DataTables Usage Information</h4>
+                        <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
+                        <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+
+    <script>
+        //get selected in dropdown list when submit "hiển thị"
+        $('.selectedValue option[value=@ViewBag.select]').attr('selected', 'selected');
+
+        $(document).ready(function () {
+            // do get Add nhanvien
+            $(".add_NhanVien").click(function () {
+                //debugger;
+                var add_nhanvien_url = '@Url.Action("Add", "NhanVien")';
+                var $buttonClicked = $(this);
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: add_nhanvien_url,
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal_detailsNhanVien').modal(options);
+                        $('#myModal_detailsNhanVien').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            // do get details nhanvien
+            $(".Details_NhanVien").click(function () {
+                //debugger;
+                var detaisl_nhanvien_url = '@Url.Action("Detail", "NhanVien")';
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: detaisl_nhanvien_url,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal_detailsNhanVien').modal(options);
+                        $('#myModal_detailsNhanVien').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+
+            // do get edit nhanvien
+            $(".Update_NhanVien").click(function () {
+                //debugger;
+                var update_nhanvien_url = '@Url.Action("Update", "NhanVien")';
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: update_nhanvien_url,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#myModalContent').html(data);
+                        $('#myModal_detailsNhanVien').modal(options);
+                        $('#myModal_detailsNhanVien').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+            // do post delete nhanvien
+            $(".Delete_NhanVien").click(function () {
+                //debugger;
+                var delete_nhanvien_url = '@Url.Action("Delete", "NhanVien")';
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                if (confirm("Do you want delete item?")) {
+                    $.ajax({
+                        url: delete_nhanvien_url,
+                        data: { Id: id },
+                        type: 'POST',
+                        dataType: 'json',
+                        traditional: true,
+                        success: function (data) {
+                            alert("Delete success!");
+                            location.reload();
+                        },
+                        error: function (xhr) {
+                            alert('error');
+                        }
+                    });
+                } else
+                    return false;
+            });
+        });
+    </script>

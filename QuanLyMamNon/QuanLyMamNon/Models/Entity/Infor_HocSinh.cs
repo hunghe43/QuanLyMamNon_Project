@@ -7,7 +7,7 @@ namespace QuanLyMamNon.Models
 {
     public class Infor_HocSinh
     {
-        public int MaHocSinh { get; set; }         
+        public string MaHocSinh { get; set; }         
         public string TenHocSinh { get; set; }         
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string GioiTinh { get; set; }

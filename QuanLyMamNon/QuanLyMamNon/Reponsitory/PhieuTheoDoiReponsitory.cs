@@ -64,7 +64,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <param name="ddVang"></param>
         /// <param name="ddAnSang"></param>
         /// <param name="ddAnTrua"></param>
-        public void diemdanh(string MaGiaoVien,DateTime NgayDD,int MaHocSinh,bool ddVang,bool ddAnSang,bool ddAnTrua)
+        public void diemdanh(string MaGiaoVien,DateTime NgayDD,string MaHocSinh,bool ddVang,bool ddAnSang,bool ddAnTrua)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@MaGiaoVien", MaGiaoVien);

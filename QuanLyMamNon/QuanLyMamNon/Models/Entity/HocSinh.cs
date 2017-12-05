@@ -15,7 +15,7 @@ namespace QuanLyMamNon.Models
             //this.PhieuThu = new HashSet<PhieuThu>();
         //}
 
-        public int MaHocSinh { get; set; }
+        public string MaHocSinh { get; set; }
         public string Ten { get; set; }
         public DateTime NgaySinh { get; set; }
         public string GioiTinh { get; set; }
@@ -30,7 +30,7 @@ namespace QuanLyMamNon.Models
         public Nullable<System.DateTime> NgaySinhPhuHuynh { get; set; }
         public string GhiChu { get; set; }
         public string MaLop { get; set; }
-        public Nullable<int> TrangThai { get; set; }
+        public bool TrangThai { get; set; }
 
         //public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }
         //public virtual ICollection<CT_NgayTheoDoi> CT_NgayTheoDoi { get; set; }

@@ -5,54 +5,115 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyMamNon.Reponsitory;
 using QuanLyMamNon.Models;
+using QuanLyMamNon.Models.Dao;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
-{    
+{
     public class NhanVienController : Controller
     {
-        // GET: Admin/Login
-        [HttpGet]
-        public ActionResult Login()
+        ChucVuReponsitory chucVuRepon = new ChucVuReponsitory();
+        NhanVienReponsitory nhanVienRepon = new NhanVienReponsitory();
+        LopReponsitory lopRepon = new LopReponsitory();        
+        // GET: Home  CURD Nhan vien
+        public ActionResult Index()
         {
-            var nhanvien = Session["NhanVien"];
-            return View();
-        }
-     
-        public ActionResult Login(string email, string password)
-        {
-            NhanVienReponsitory nvRespon = new NhanVienReponsitory();
+            string maChucVu = Request["listChucVu"];
+            var listLop = lopRepon.getAllLop();
+            var listChucVu = chucVuRepon.getAllChucVu();
+            var listNV = new List<NhanVien>();
             var nhanvien = new NhanVien();
-
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(maChucVu) || maChucVu == "0")
             {
-                ViewBag.messErr = "Bạn chưa nhập đầy đủ thông tin đăng nhập!";
-                return View("Login");
+                maChucVu = "0";
+                listNV = nhanVienRepon.getAllNhanVien();
             }
             else
             {
-                nhanvien = nvRespon.getNhanVienLogin(email, password);
-                if (nhanvien == null)
-                {
-                    ViewBag.messErr = "Đăng nhập thất bại!";
-                    return View("Login");
-                }
-                else
-                {
-                    Session["NhanVien"] = nhanvien;
-                    return RedirectToAction("Index","HomeAdmin");
-                }
-
+                listNV = nhanVienRepon.getNhanVienForIDChucVu(maChucVu);
             }
+            ViewBag.select = maChucVu;
+            ViewModelDanhSachNhanVien viewModel = new ViewModelDanhSachNhanVien
+            {
+                listChucVu = listChucVu,
+                listNhanVien = listNV,
+                listLop = listLop,
+                nhanvien = nhanvien
+            };
+
+            return View(viewModel);
         }
-        public ActionResult Logout()
+        // GET: details Nhan vien
+        public ActionResult Detail(string id)
         {
-            Session.Clear();
-            Session.Abandon();
-            return View("Login");
+            var listLop = lopRepon.getAllLop();
+            var nhanvien = nhanVienRepon.getNhanvienForId(id);
+            var listChucVu = chucVuRepon.getAllChucVu();
+            if (nhanvien.MaLop == null)
+            {
+                ViewData["TenLop"] = "None";
+            }
+            else
+            {
+                ViewData["TenLop"] = listLop.SingleOrDefault(x => x.MaLop == nhanvien.MaLop).TenLop.ToString();
+            }
+            ViewModelDanhSachNhanVien viewModel = new ViewModelDanhSachNhanVien
+            {
+                listChucVu = listChucVu,
+                nhanvien = nhanvien,
+                listLop = listLop
+            };
+            return PartialView("Partial_DetailNhanVien", viewModel);
         }
-        public ActionResult NotificationAuthorize()
+        // GET: add Nhan vien
+        public ActionResult Add()
         {
-            return View();
+            var listLop = lopRepon.getAllLop();
+            var listChucVu = chucVuRepon.getAllChucVu();
+            ViewModelDanhSachNhanVien viewModel = new ViewModelDanhSachNhanVien
+            {
+                listChucVu = listChucVu,
+                listLop = listLop
+            };
+            return PartialView("Partial_AddNhanVien", viewModel);
         }
+        // POST: add Nhan vien
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(NhanVien nhanvien)
+        {
+            nhanVienRepon.AddNhanVien(nhanvien);
+            return RedirectToAction("Index");
+        }
+        // GET: edit Nhan vien
+        public ActionResult Update(string id)
+        {
+            var listLop = lopRepon.getAllLop();
+            var listChucVu = chucVuRepon.getAllChucVu();
+            var nhanvien = nhanVienRepon.getNhanvienForId(id);
+            ViewModelDanhSachNhanVien viewModel = new ViewModelDanhSachNhanVien
+            {
+                listChucVu = listChucVu,
+                nhanvien = nhanvien,
+                listLop = listLop
+            };
+            return PartialView("Partial_UpdateNhanVien", viewModel);
+        }
+        // POST: edit Nhan vien
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(NhanVien nhanvien)
+        {
+            nhanVienRepon.UpdateNhanVien(nhanvien);
+            return RedirectToAction("Index");
+        }
+        
+        // POST: delete Nhan vien
+        [HttpPost]
+        public JsonResult Delete(string id)
+        {
+            nhanVienRepon.deleteNhanVien(id);
+            return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

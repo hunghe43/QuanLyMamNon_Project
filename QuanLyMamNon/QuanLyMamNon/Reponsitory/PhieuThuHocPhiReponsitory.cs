@@ -21,7 +21,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <param name="MaHocSinh"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public PhieuThu getPhieuThuForIdHocSinh(int MaHocSinh,string date)
+        public PhieuThu getPhieuThuForIdHocSinh(string MaHocSinh,string date)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@MaHocSinh", MaHocSinh);
@@ -30,7 +30,7 @@ namespace QuanLyMamNon.Reponsitory
             return pt;
         }
 
-        public List<DichVuNgoai> getAllDichVuNgoai(int MaHocSinh, string date)
+        public List<DichVuNgoai> getAllDichVuNgoai(string MaHocSinh, string date)
         {
             //QR016
             string query = "select dv.* from DichVuNgoai dv inner join CT_DichVu_HocSinh ct on dv.MaDichVu = ct.MaDichVu " +

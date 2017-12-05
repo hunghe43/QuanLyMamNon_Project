@@ -1,6 +1,6 @@
 ﻿@using QuanLyMamNon.Models
 @model QuanLyMamNon.Models.Dao.ViewModelDanhSachNhanVien
-@using (Html.BeginForm("UpdateNhanVien", "HomeAdmin", FormMethod.Post, new { @role = "form" }))
+@using (Html.BeginForm("Update", "NhanVien", FormMethod.Post, new { @role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal-header">
