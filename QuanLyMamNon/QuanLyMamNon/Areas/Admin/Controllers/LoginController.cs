@@ -17,7 +17,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             var nhanvien = Session["NhanVien"];
             return View();
         }
-
+        [HttpPost]
         public ActionResult Login(string email, string password)
         {
             NhanVienReponsitory nvRespon = new NhanVienReponsitory();

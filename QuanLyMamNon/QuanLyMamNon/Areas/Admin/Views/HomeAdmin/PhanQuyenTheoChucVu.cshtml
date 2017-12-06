@@ -20,9 +20,9 @@
             <p>
                 <div class="form-inline">
                     <div class="input-group">
-                        @Html.DropDownList("SL", new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu", ViewBag.hienthi), new { @class = "form-control", @id = "ddl" })
+                        @Html.DropDownList("SL", new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu", ViewBag.hienthi),"--Chọn chức vụ--", new { @class = "form-control", @id = "ddl", @required = "required" })
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit">Hiển thị</button>
+                            <button class="btn btn-primary" onclick="return show();" type="submit">Hiển thị</button>
                         </span>
                     </div><!-- /input-group -->
 
@@ -30,12 +30,13 @@
             </p>
         </form>
     </div>
-    <div class="row">
-        <div style="margin-top:80px;" class="alert alert-success" id="successMessage"><h4 style="text-align:center">Cấp quyền thành công</h4></div>
-        @foreach (var item in Model.listQuyen.Where(n => n.ParentId == null))
-        {
-            var child = Model.listQuyen.Where(n => n.ParentId == item.MaQuyen);
-            
+    <div class="row content">
+        <div class="col-lg-12">
+            <div class="alert alert-success" id="successMessage"><p style="text-align:center">Cấp quyền thành công</p></div>
+            @foreach (var item in Model.listQuyen.Where(n => n.ParentId == null))
+            {
+                var child = Model.listQuyen.Where(n => n.ParentId == item.MaQuyen);
+
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -52,15 +53,11 @@
                                             <li>
                                                 <label>
                                                     <input class="test" value="@i.MaQuyen" type="checkbox"
-                                                    @foreach (var role in Model.listQuyenForChucVu)
-                                                    {
-                                                        if (i.MaQuyen == role.MaQuyen)
-                                                        { @: checked
-}
-                                                    } />@i.MoTa
-                                                </label>
-                                            </li>
-                                        }
+                                                           @foreach (var role in Model.listQuyenForChucVu) { if (i.MaQuyen == role.MaQuyen) { @: checked
+                                                           } } />@i.MoTa
+                                                    </label>
+                                                </li>
+    }
                                     </ul>
 
 
@@ -73,9 +70,10 @@
                     <!-- /.panel -->
                 </div>
 }
-    </div>
-    <div class="row">
-        <button id="btnLuu" onclick="return check();" class="btn btn-primary">Lưu</button>
+        </div>
+        <div class="col-lg-12">
+            <button id="btnLuu" onclick="return check();" class="btn btn-primary">Lưu</button>
+        </div>
     </div>
     </div>
     
@@ -83,6 +81,16 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
     $("#successMessage").hide();
+   
+        debugger;
+        var value = $("#ddl").val();
+        if (value == null || value=="") {
+            $(".content").hide();
+        }
+        else {
+            $(".content").show();
+        }
+    
     function check() {
         var usergroupid = $("#ddl").val();
         var role_id = [];

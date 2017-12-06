@@ -91,6 +91,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -170,6 +171,7 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
+    <Compile Include="Areas\Admin\utils\Validate.cs" />
     <Compile Include="Models\AuthorizeController.cs" />
     <Compile Include="Models\Dao\ViewModelDanhSachHS.cs" />
     <Compile Include="Models\Dao\ViewModelDanhSachNhanVien.cs" />
@@ -210,6 +212,8 @@
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap-datepicker.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\css\bootstrap-datepicker.min.css" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap-datepicker.min.js" />
+    <Content Include="Areas\Admin\Content\vendor\Validator\validator.js" />
+    <Content Include="Areas\Admin\Content\vendor\Validator\validator.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\KidSchool\jquery.bxslider.css" />
@@ -418,7 +422,6 @@
     <Folder Include="Areas\Admin\Content\js\" />
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\utils\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

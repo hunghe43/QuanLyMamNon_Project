@@ -23,14 +23,14 @@ namespace QuanLyMamNon.Models
                         filterContext.ActionDescriptor.ActionName;
                     if (!ls.Contains(actionname))
                     {
-                        filterContext.Result = new RedirectResult("~/Admin/NhanVien/NotificationAuthorize");
+                        filterContext.Result = new RedirectResult("~/Admin/Login/NotificationAuthorize");
                     }
                 }
                 
             }
             else
             {
-                filterContext.Result = new RedirectResult("~/Admin/NhanVien/Login");
+                filterContext.Result = new RedirectResult("~/Admin/Login/Login");
             }
             
             

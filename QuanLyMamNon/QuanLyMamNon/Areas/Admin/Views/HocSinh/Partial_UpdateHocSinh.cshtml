@@ -1,6 +1,6 @@
 ﻿@using QuanLyMamNon.Models
-@model QuanLyMamNon.Models.Dao.ViewModelDanhSachNhanVien
-@using (Html.BeginForm("Update", "NhanVien", FormMethod.Post, new { @role = "form" }))
+@model QuanLyMamNon.Models.Dao.ViewModelDanhSachHS
+@using (Html.BeginForm("Update", "HocSinh", FormMethod.Post, new { @role = "form", @data_toggle = "validator" }))
 {
     @Html.AntiForgeryToken()
     <div class="modal-header modal-header-primary">
@@ -8,50 +8,127 @@
         <h4 class="modal-title" id="myModalLabel">Update</h4>
     </div>
     <div class="modal-body">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(x=>x.nhanvien.MaNhanVien)
-        <label>Họ tên</label>
-        <div class="form-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-user"></i>
-            </span>
-            @Html.TextBoxFor(x => x.nhanvien.TenNhanVien, new { @class = "form-control", @placeholder = "Họ và tên..." })            
+        @Html.HiddenFor(x=>x.hocsinh.MaHocSinh)
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Thông tin học sinh
+                    </div>
+                    <div class="panel-body">
+                        <label>Họ và tên</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-child"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.Ten, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
+                        </div>
+                        <label>Ngày sinh</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.NgaySinh, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @placeholder = "Ngày sinh...", @required = "required" })
+                        </div>
+                        <label>Giới tính</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-leaf"></i>
+                            </span>
+                            @Html.DropDownListFor(x => x.hocsinh.GioiTinh, new SelectList(new List<string> { "Nam", "Nữ" }, Model.hocsinh.GioiTinh.ToString()), "--Chọn giới tính--", new { @class = "form-control", @required = "required" })
+                        </div>
+                        <label>Địa chỉ</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-home"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.DiaChi, new { @class = "form-control", @placeholder = "Địa chỉ...", @required = "required" })
+                        </div>
+                        <label>Chiều cao, cân nặng</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-arrows-v"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.ChieuCao, new { @class = "form-control", @placeholder = "Chiều cao..." })
+                            <span class="input-group-addon">.cm</span>
+                            <span class="input-group-addon">
+                                <i class="fa fa-arrows-h"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.CanNang, new { @class = "form-control", @placeholder = "Cân nặng..." })
+                            <span class="input-group-addon">.kg</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Thông tin phụ huynh
+                    </div>
+                    <div class="panel-body">
+                        <label>Họ và tên</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.TenPhuHuynh, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
+                        </div>
+                        <label>Ngày sinh</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.NgaySinhPhuHuynh, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @placeholder = "Ngày sinh...", @required = "required" })
+                        </div>
+                        <label>Số chứng minh thư</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-credit-card"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.SoCmt, new { @class = "form-control", @placeholder = "Số chứng minh thư..." })
+                        </div>
+                        <label>Số điện thoại</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.Sdt, new { @class = "form-control", @type = "tel", @pattern = "([0-9+ _-]{9,15})", @required = "required", @placeholder = "Số điện thoại... (ký tự số từ 0-9, độ dài 9-15 ký tự(ví dụ '01676983088')" })
+                        </div>
+                        <label>Email</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.Email, new { @class = "form-control", @type = "email", @data_error = "Bruh, that email address is invalid", @required = "required", @placeholder = "john@doe.com" })
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <label>Địa chỉ</label>
-        <div class="form-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-home"></i>
-            </span>
-            @Html.TextBoxFor(x => x.nhanvien.DiaChi, new { @class = "form-control", @placeholder = "Địa chỉ..." })            
-        </div>
-        <label>Số điện thoại</label>
-        <div class="form-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-phone"></i>
-            </span>
-            @Html.TextBoxFor(x => x.nhanvien.Sdt, new { @class = "form-control", @placeholder = "Số điện thoại..." })            
-        </div>
-        <label>Email</label>
-        <div class="form-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-envelope"></i>
-            </span>
-            @Html.TextBoxFor(x=>x.nhanvien.Email,new { @class = "form-control", @placeholder = "Email..." })                      
-        </div>
-        <div class="form-group">
-            <label>Chức vụ</label>
-            @Html.DropDownListFor(x => x.nhanvien.MaChucVu, new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu"), new { @class = "form-control" })
-        </div>
-        <div class="form-group" id="MaLop_Add">
-            <label>Chọn lớp quản lý</label>
-            @Html.DropDownListFor(x => x.nhanvien.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop",0), "None", new { @class = "form-control" })
-            @*@Html.DropDownList("MaLop", new SelectList(Model.listLop, "MaLop", "TenLop", Model.nhanvien.MaLop), new { @class = "form-control" })*@
-        </div>
-        <div class="form-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-lock"></i>
-            </span>
-            @Html.TextBoxFor(x => x.nhanvien.Password, new { @class = "form-control", @placeholder = "Password..." })
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group input-group">
+                    <label>Chọn lớp học</label>
+                    @Html.DropDownListFor(x => x.hocsinh.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop", 0), "None", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group input-group">
+                    <label>Tình trạng hoạt động </label>
+                    @Html.CheckBoxFor(x => x.hocsinh.TrangThai)
+
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <label>Ghi chú</label>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-comments"></i>
+                    </span>
+                    @Html.TextBoxFor(x => x.hocsinh.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..." })
+                </div>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

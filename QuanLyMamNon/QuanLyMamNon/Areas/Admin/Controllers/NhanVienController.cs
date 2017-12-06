@@ -81,8 +81,15 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(NhanVien nhanvien)
         {
-            nhanVienRepon.AddNhanVien(nhanvien);
-            return RedirectToAction("Index");
+            if (nhanVienRepon.checkExistEmail(nhanvien.Email)) // đã tồn tại email
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                nhanVienRepon.AddNhanVien(nhanvien);
+                return RedirectToAction("Index");
+            }            
         }
         // GET: edit Nhan vien
         public ActionResult Update(string id)

@@ -55,10 +55,10 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
             parameters.Add("@DiaChi", nhanvien.DiaChi);
             parameters.Add("@Sdt", nhanvien.Sdt);
-            parameters.Add("@Email", nhanvien.Email);
+            parameters.Add("@Email", nhanvien.Email.Trim());
             parameters.Add("@MaChucVu", nhanvien.MaChucVu);
             parameters.Add("@MaLop", nhanvien.MaLop);
-            parameters.Add("@Password", nhanvien.Password);
+            parameters.Add("@Password", nhanvien.Password.Trim());
             parameters.Add("@Action", "Insert");
             _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
            
@@ -85,10 +85,10 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
             parameters.Add("@DiaChi", nhanvien.DiaChi);
             parameters.Add("@Sdt", nhanvien.Sdt);
-            parameters.Add("@Email", nhanvien.Email);
+            parameters.Add("@Email", nhanvien.Email.Trim());
             parameters.Add("@MaChucVu", nhanvien.MaChucVu);
             parameters.Add("@MaLop", nhanvien.MaLop);
-            parameters.Add("@Password", nhanvien.Password);
+            parameters.Add("@Password", nhanvien.Password.Trim());
             parameters.Add("@Action", "Update");
             _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
             
@@ -113,8 +113,8 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns>đối tượng nhân viên</returns>
         public NhanVien getNhanVienLogin(string email,string password)
         {
-            var lstNhanVien = getAllNhanVien().ToList();
-            var nhanvien = lstNhanVien.Find(x => x.Email==email && x.Password.Equals(password));            
+            List<NhanVien> lstNhanVien = getAllNhanVien().ToList();
+            var nhanvien = lstNhanVien.Where(x => x.Email==email && x.Password==password).SingleOrDefault();
             return nhanvien;
         }
 
@@ -164,6 +164,22 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@id", id);
             var lst = _db.Query<string>("sp_GetQuyenNhanVien", parameters, commandType: CommandType.StoredProcedure).ToList();
             return lst;
+        }
+        /// <summary>
+        /// kiểm tra xem email đã tồn tại chưa
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>true: đã tồn tại
+        /// false: chưa tồn tại</returns>
+        public bool checkExistEmail(string email)
+        {
+            var nhanvien = getAllNhanVien().Where(x => x.Email.Equals(email)).SingleOrDefault();
+            if (nhanvien != null)
+            {
+                return true;
+            }
+            return false;
+            
         }
     }
 }

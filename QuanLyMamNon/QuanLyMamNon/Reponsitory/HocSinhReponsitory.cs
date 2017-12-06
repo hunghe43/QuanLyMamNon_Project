@@ -114,7 +114,7 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@TenPhuHuynh", hocsinh.TenPhuHuynh);
             parameters.Add("@SoCmt", hocsinh.SoCmt);
             parameters.Add("@Sdt", hocsinh.Sdt);
-            parameters.Add("@Email", hocsinh.Email);
+            parameters.Add("@Email", hocsinh.Email.Trim());
             parameters.Add("@NgaySinhPhuHuynh", hocsinh.NgaySinhPhuHuynh);
             parameters.Add("@GhiChu", hocsinh.GhiChu);
             parameters.Add("@MaLop", hocsinh.MaLop);

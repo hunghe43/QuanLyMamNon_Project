@@ -24,21 +24,21 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             ChucVuReponsitory chucVuRepon = new ChucVuReponsitory();
             QuyenReponsitory quyenRepon = new QuyenReponsitory();
-            string maChucVu;
-            if (f["SL"] == null)
-            {
-                maChucVu = "ADMIN";
-            }
-            else
+
+            string maChucVu =f["SL"];
+            var listQuyenForChucVu = new List<Quyen_ChucVu>();
+            if (!string.IsNullOrEmpty(maChucVu))
             {
                 maChucVu = f["SL"].ToString();
+                listQuyenForChucVu = quyenRepon.getAllQuyenChucVu().Where(x => x.MaChucVu == maChucVu).ToList();
                 ViewBag.hienthi = maChucVu;
+
             }
             var viewModel = new ViewModelPhanQuyen
             {
                 listChucVu = chucVuRepon.getAllChucVu(),
                 listQuyen = quyenRepon.GetAllQuyen(),
-                listQuyenForChucVu = quyenRepon.getAllQuyenChucVu().Where(x => x.MaChucVu == maChucVu).ToList(),
+                listQuyenForChucVu = listQuyenForChucVu
             };
 
             return View(viewModel);
