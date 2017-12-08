@@ -9,6 +9,7 @@ using QuanLyMamNon.Models.Dao;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
+    [AuthorizeController]
     public class NhanVienController : Controller
     {
         ChucVuReponsitory chucVuRepon = new ChucVuReponsitory();
@@ -83,6 +84,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             if (nhanVienRepon.checkExistEmail(nhanvien.Email)) // đã tồn tại email
             {
+                TempData["MessErr"] = "Email đã tồn tại";
                 return RedirectToAction("Index");
             }
             else

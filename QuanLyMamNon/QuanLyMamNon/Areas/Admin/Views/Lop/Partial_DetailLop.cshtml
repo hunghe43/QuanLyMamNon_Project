@@ -1,0 +1,41 @@
+﻿@model QuanLyMamNon.Models.Lop
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thông tin chi tiết</h4>
+</div>
+<div class="modal-body">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+
+            <i class="fa fa-comment fa-fw text-center"></i> Thông tin lớp
+            <span class="pull-right text-muted small">
+            </span>
+        </div>
+        <div class="list-group">
+            <a class="list-group-item">
+                <i class="fa fa-key fa-fw"></i> Mã lớp: @Model.MaLop
+                <span class="pull-right text-muted small">
+                </span>
+            </a>
+            <a class="list-group-item">
+                <i class="fa fa-user fa-fw"></i> Tên lớp: @Model.TenLop
+                <span class="pull-right text-muted small">
+                </span>
+            </a>
+
+            <a class="list-group-item">
+                <i class="fa fa-home fa-fw"></i> Sỉ số: @Model.SiSo
+                <span class="pull-right text-muted small">
+                </span>
+            </a>
+            <a class="list-group-item">
+                <i class="fa fa-phone fa-fw"></i> Ghi chú: @Model.GhiChu
+                <span class="pull-right text-muted small">
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+</div>

@@ -17,5 +17,10 @@ namespace QuanLyMamNon.Models
         public string DiaChi { get; set; }
         public string Sdt { get; set; }
         public string Email { get; set; }
+
+        Infor_GiaoVien()
+        {
+
+        }
     }
 }

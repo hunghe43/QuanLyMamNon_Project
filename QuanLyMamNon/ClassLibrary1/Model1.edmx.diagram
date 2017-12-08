@@ -5,34 +5,33 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="faadd80fc8364b2081ff674ab64955d6" Name="Diagram1">
-        <EntityTypeShape EntityType="QLMamNonModel.CT_NgayTheoDoi" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLMamNonModel.HocSinh" Width="1.5" PointX="0.75" PointY="9.25" />
-        <EntityTypeShape EntityType="QLMamNonModel.NhanVien" Width="1.5" PointX="0.75" PointY="18.375" />
-        <EntityTypeShape EntityType="QLMamNonModel.PhieuTheoDoi" Width="1.5" PointX="0.75" PointY="14.625" />
-        <AssociationConnector Association="QLMamNonModel.FK_CT_NgayTheoDoi_HocSinh" />
-        <AssociationConnector Association="QLMamNonModel.FK_CT_NgayTheoDoi_PhieuTheoDoi" />
-        <AssociationConnector Association="QLMamNonModel.FK_PhieuTheoDoi_NhanVien" />
-        <EntityTypeShape EntityType="QLMamNonModel.PhieuThu" Width="1.5" PointX="3" PointY="13.875" />
-        <AssociationConnector Association="QLMamNonModel.FK_PhieuThu_HocSinh" />
-        <AssociationConnector Association="QLMamNonModel.FK_PhieuThu_NhanVien" />
-        <EntityTypeShape EntityType="QLMamNonModel.ChucVu" Width="1.5" PointX="0.75" PointY="19.25" />
-        <EntityTypeShape EntityType="QLMamNonModel.CT_DichVu_HocSinh" Width="1.5" PointX="5.25" PointY="10.75" />
-        <EntityTypeShape EntityType="QLMamNonModel.DichVuNgoai" Width="1.5" PointX="3" PointY="23.75" />
-        <EntityTypeShape EntityType="QLMamNonModel.HoaDon" Width="1.5" PointX="5.25" PointY="19" />
-        <EntityTypeShape EntityType="QLMamNonModel.LoaiLop" Width="1.5" PointX="1.5" PointY="6.75" />
-        <EntityTypeShape EntityType="QLMamNonModel.Lop" Width="1.5" PointX="0.75" PointY="14.375" />
-        <EntityTypeShape EntityType="QLMamNonModel.Quyen" Width="1.5" PointX="3" PointY="27.25" />
-        <EntityTypeShape EntityType="QLMamNonModel.sysdiagrams" Width="1.5" PointX="5.625" PointY="0.75" />
-        <EntityTypeShape EntityType="QLMamNonModel.KhoanThuDauNam" Width="1.5" PointX="5.625" PointY="3.75" />
+        <EntityTypeShape EntityType="QLMamNonModel.ChucVu" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="QLMamNonModel.CT_DichVu_HocSinh" Width="1.5" PointX="10.5" PointY="2.25" />
+        <EntityTypeShape EntityType="QLMamNonModel.CT_NgayTheoDoi" Width="1.5" PointX="10.5" PointY="6.75" />
+        <EntityTypeShape EntityType="QLMamNonModel.DichVuNgoai" Width="1.5" PointX="8.25" PointY="13.75" />
+        <EntityTypeShape EntityType="QLMamNonModel.HoaDon" Width="1.5" PointX="8.25" PointY="10" />
+        <EntityTypeShape EntityType="QLMamNonModel.HocPhi" Width="1.5" PointX="3" PointY="13.25" />
+        <EntityTypeShape EntityType="QLMamNonModel.HocSinh" Width="1.5" PointX="8.25" PointY="0.75" />
+        <EntityTypeShape EntityType="QLMamNonModel.LoaiHocPhi" Width="1.5" PointX="0.75" PointY="13.5" />
+        <EntityTypeShape EntityType="QLMamNonModel.Lop" Width="1.5" PointX="3.75" PointY="5.5" />
+        <EntityTypeShape EntityType="QLMamNonModel.NhanVien" Width="1.5" PointX="6" PointY="7.875" />
+        <EntityTypeShape EntityType="QLMamNonModel.PhieuTheoDoi" Width="1.5" PointX="8.25" PointY="7.125" />
+        <EntityTypeShape EntityType="QLMamNonModel.PhieuThu" Width="1.5" PointX="11.25" PointY="11.25" />
+        <EntityTypeShape EntityType="QLMamNonModel.Quyen" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="QLMamNonModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="3.125" />
         <AssociationConnector Association="QLMamNonModel.FK_NhanVien_ChucVu" />
         <AssociationConnector Association="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai" />
         <AssociationConnector Association="QLMamNonModel.FK_CT_DichVu_HocSinh_HocSinh" />
+        <AssociationConnector Association="QLMamNonModel.FK_CT_NgayTheoDoi_HocSinh" />
+        <AssociationConnector Association="QLMamNonModel.FK_CT_NgayTheoDoi_PhieuTheoDoi" />
         <AssociationConnector Association="QLMamNonModel.FK_HoaDon_NhanVien" />
+        <AssociationConnector Association="QLMamNonModel.FK_HocPhi_LoaiHocPhi" />
         <AssociationConnector Association="QLMamNonModel.FK_HocSinh_Lop1" />
-        <AssociationConnector Association="QLMamNonModel.FK_Lop_LoaiLop" />
+        <AssociationConnector Association="QLMamNonModel.FK_PhieuThu_HocSinh" />
         <AssociationConnector Association="QLMamNonModel.FK_NhanVien_Lop" />
+        <AssociationConnector Association="QLMamNonModel.FK_PhieuTheoDoi_NhanVien" />
+        <AssociationConnector Association="QLMamNonModel.FK_PhieuThu_NhanVien" />
         <AssociationConnector Association="QLMamNonModel.Quyen_ChucVu" />
-        <AssociationConnector Association="QLMamNonModel.FK_CT_DichVu_HocSinh_DichVuNgoai1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

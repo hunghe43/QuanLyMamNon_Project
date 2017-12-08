@@ -17,12 +17,17 @@ namespace QuanLyMamNon.Reponsitory
         (ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString);
 
         /// <summary>
-        /// lấy ra tất cả học sinh
+        /// lấy ra tất cả học sinh đang hoạt động
         /// </summary>
-        /// <returns>Danh sách học sinh: List<HocSinh></returns>
+        /// <returns>Danh sách học sinh: List<HocSinh></returns> 
         public List<HocSinh> GetAllHocSinh()
         {
             List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh where TrangThai=1").ToList();
+            return listHs;
+        }
+        public List<HocSinh> GetAllHocSinhDis()
+        {
+            List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh where TrangThai=0").ToList();
             return listHs;
         }
         /// <summary>
@@ -58,7 +63,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public HocSinh GetHocSinhForId(string id)
         {
-            HocSinh hs = GetAllHocSinh().Find(x => x.MaHocSinh.Equals(id));
+            HocSinh hs = this._db.Query<HocSinh>("SELECT * FROM HocSinh where MaHocSinh=@id",new { @id=id}).SingleOrDefault();
             return hs;
         }
         /// <summary>

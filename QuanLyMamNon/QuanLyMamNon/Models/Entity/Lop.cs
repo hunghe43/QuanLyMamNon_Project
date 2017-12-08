@@ -15,7 +15,7 @@ namespace QuanLyMamNon.Models
 
         public string MaLop { get; set; }
         public string TenLop { get; set; }
-        public string MaLoaiLop { get; set; }
+        public string GhiChu { get; set; }
         public Nullable<int> SiSo { get; set; }
         
         //public virtual ICollection<HocSinh> HocSinh { get; set; }

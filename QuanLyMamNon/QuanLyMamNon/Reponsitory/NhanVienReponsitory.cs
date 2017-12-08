@@ -113,11 +113,25 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns>đối tượng nhân viên</returns>
         public NhanVien getNhanVienLogin(string email,string password)
         {
-            List<NhanVien> lstNhanVien = getAllNhanVien().ToList();
-            var nhanvien = lstNhanVien.Where(x => x.Email==email && x.Password==password).SingleOrDefault();
+             NhanVien nhanvien = _db.Query<NhanVien>("SELECT * FROM NhanVien where Email=@email and Password=@password",new {@email=email,@password=password }).SingleOrDefault();
             return nhanvien;
         }
-
+        /// <summary>
+        /// kiểm tra xem login có phải giáo viên hay không
+        /// </summary>
+        /// <returns> true: là gv
+        /// false: không phải gv</returns>
+        public bool checkExitstGiaoVien(string id)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@Id", id);
+            NhanVien obj = _db.Query<NhanVien>("sp_CheckExitsGiaoVien", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            if (obj != null)
+            {
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// lấy thông tin giáo viên chủ nhiệm với mã truyền vào
         /// </summary>
@@ -125,13 +139,8 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns> đối tượng infor_GiaoVien</returns>
         public Infor_GiaoVien GetGiaoVienChuNhiem(string id)
         {
-            //QR003
-            string query = "select nv.MaNhanVien as MaGiaoVien,nv.TenNhanVien as TenGiaoVien,cv.MaChucVu,cv.TenChucVu,lp.MaLop,lp.TenLop,lp.SiSo,nv.DiaChi,nv.Sdt,nv.Email "+
-                                "from NhanVien nv inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu "+
-                                "inner join Lop lp on nv.MaLop = lp.MaLop "+
-                                "and cv.MaChucVu = 'GVC'; ";
-            var listGiaoVienCN = _db.Query<Infor_GiaoVien>(query).ToList();
-            var inforGiaoVien = listGiaoVienCN.Find(x => x.MaGiaoVien.Equals(id));
+            var parameters = new DynamicParameters();
+            Infor_GiaoVien inforGiaoVien = _db.Query<Infor_GiaoVien>("sp_GetInfoGiaoVienChuNhiem", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();         
             return inforGiaoVien;
         }
         /// <summary>
@@ -141,15 +150,9 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns> danh sách giáo viên infor</returns>
         public List<Infor_GiaoVien> GetGiaoVienPhuForIdGiaoVien(string id)
         {
-            //QR004
-            string query = "select nv.MaNhanVien as MaGiaoVien,nv.TenNhanVien as TenGiaoVien,cv.MaChucVu,cv.TenChucVu,lopNew.MaLop,lopNew.TenLop,lopNew.SiSo,nv.DiaChi,nv.Sdt,nv.Email "+
-                "from (select lp.MaLop, lp.TenLop, lp.SiSo, lp.MaLoaiLop "+
-                        "from Lop lp inner join NhanVien nv on lp.MaLop = nv.MaLop "+
-                        "inner join ChucVu cv on nv.MaChucVu = nv.MaChucVu "+
-                        "and cv.MaChucVu = 'GVC' and nv.MaNhanVien = @id) as lopNew inner join NhanVien nv on nv.MaLop = lopNew.MaLop "+
-                        "inner join ChucVu cv on cv.MaChucVu = nv.MaChucVu "+
-                        "and cv.MaChucVu = 'GVP'";
-            List<Infor_GiaoVien> lst = _db.Query<Infor_GiaoVien>(query,new { @id=id}).ToList();
+            var parameters = new DynamicParameters();
+            parameters.Add("@Id", id);
+            List<Infor_GiaoVien> lst = _db.Query<Infor_GiaoVien>("sp_GetListGVForIdLogin", parameters, commandType: CommandType.StoredProcedure).ToList();
             return lst;
         }
        

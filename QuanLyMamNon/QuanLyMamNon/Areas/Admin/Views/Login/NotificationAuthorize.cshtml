@@ -3,12 +3,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Error</title>
+    <link href="~/Areas/Admin/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <hgroup>
-        <h1>Không thể truy cập</h1>
-        <h2>Liên hệ nhà quản trị để được cấp quyền!</h2>
-    </hgroup>
-    <input type="button" value="Go Back From Whence You Came!" onclick="history.back(-1)" />
+    <div class="container" style="margin-top:20px" role="main">
+        <div class="jumbotron">
+            <h1>Không thể truy cập</h1>
+            <p>Liên hệ nhà quản trị để được cấp quyền!</p>
+            <input type="button" class="btn btn-warning" value="Go Back From Where You Came!" onclick="history.back(-1)" />
+        </div>
+
+    </div>
 </body>
 </html>

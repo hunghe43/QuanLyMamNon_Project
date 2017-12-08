@@ -109,7 +109,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="row">
-                        @using (Html.BeginForm("DanhSachHocSinh", "KeToan", FormMethod.Get, new { @class = "col-xs-7 col-sm-7 header-search-box", @style = "text-align:right" }))
+                        @using (Html.BeginForm("DanhSachHocSinh", "KeToan", FormMethod.Get, new { @class = "header-search-box", @style = "text-align:right" }))
                         {
                             <p>
                             </p><div class="form-inline">
@@ -200,7 +200,7 @@
                                         @item.Email
                                     </td>
                                     <td>
-                                        @item.NgaySinhPhuHuynh.GetValueOrDefault().ToShortDateString()
+                                        @item.NgaySinhPhuHuynh.ToShortDateString()
                                     </td>
                                     @*@Html.DisplayFor(modelItem => item.GhiChu)*@
                                     @*@Html.DisplayFor(modelItem => item.MaLop)*@

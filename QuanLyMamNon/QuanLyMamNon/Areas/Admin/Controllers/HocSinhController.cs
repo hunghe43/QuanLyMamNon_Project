@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
+    [AuthorizeController]
     public class HocSinhController : Controller
     {
         HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
@@ -18,6 +19,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             HocSinhReponsitory HsRepon = new HocSinhReponsitory();
             LopReponsitory lopRepon = new LopReponsitory();
+            //danh sách học sinh chưa được phê duyệt
+            var listHocSinhDis = hocSinhRepon.GetAllHocSinhDis();
+            //danh sách học sinh đang hoạt động
             string MaLop = Request["listLop"];
             var listLop = lopRepon.getAllLop();
             var lstHS = new List<HocSinh>();
@@ -34,7 +38,8 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             var viewModel = new ViewModelDanhSachHS
             {
                 listLop = lopRepon.getAllLop(),
-                listHocSinh = lstHS
+                listHocSinh = lstHS,
+                listHocSinhDis=listHocSinhDis
             };
             return View(viewModel);
         }

@@ -14,13 +14,11 @@ namespace ClassLibrary1
     
     public partial class CT_DichVu_HocSinh
     {
-        public int MaHocSinh { get; set; }
-        public int MaDV { get; set; }
+        public string MaHocSinh { get; set; }
+        public string MaDichVu { get; set; }
         public string ThangDangKy { get; set; }
-        public int MaDichVu { get; set; }
     
         public virtual DichVuNgoai DichVuNgoai { get; set; }
         public virtual HocSinh HocSinh { get; set; }
-        public virtual DichVuNgoai DichVuNgoai1 { get; set; }
     }
 }

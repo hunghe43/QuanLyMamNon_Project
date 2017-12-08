@@ -1,4 +1,5 @@
 ﻿@using QuanLyMamNon.Models
+@{ NhanVien user = (NhanVien)HttpContext.Current.Session["NhanVien"]; }
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="@Url.Action("Index","HomeAdmin")">SB Admin v2.0</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -251,10 +252,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> @user.TenNhanVien</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -292,6 +290,9 @@
                                 </li>
                                 <li>
                                     <a href="@Url.Action("Index", "Lop")">Quản lý lớp</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "HocPhi")">Quản lý học phí</a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")">Phân quyền</a>
@@ -379,7 +380,12 @@
     <script>
         $(document).ready(function () {
             $('#dataTables-example').DataTable({
-                responsive: true
+                responsive: true,
+                "lengthMenu": [[5,10, 25, -1], [5,10, 25, "All"]]
+            });
+            $('#dataTables-example2').DataTable({
+                responsive: true,
+                "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]]
             });
         });
     </script>

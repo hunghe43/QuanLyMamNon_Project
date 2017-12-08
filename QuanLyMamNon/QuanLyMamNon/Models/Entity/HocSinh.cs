@@ -27,7 +27,7 @@ namespace QuanLyMamNon.Models
         public string SoCmt { get; set; }
         public string Sdt { get; set; }
         public string Email { get; set; }
-        public Nullable<System.DateTime> NgaySinhPhuHuynh { get; set; }
+        public DateTime NgaySinhPhuHuynh { get; set; }
         public string GhiChu { get; set; }
         public string MaLop { get; set; }
         public bool TrangThai { get; set; }

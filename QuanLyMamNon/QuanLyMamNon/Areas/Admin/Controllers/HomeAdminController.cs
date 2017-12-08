@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
-    //[AuthorizeController]
+    [AuthorizeController]
     public class HomeAdminController : Controller
     {
         ChucVuReponsitory chucVuRepon = new ChucVuReponsitory();
@@ -20,6 +20,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             return View();
         }
+        
         public ActionResult PhanQuyenTheoChucVu(FormCollection f)
         {
             ChucVuReponsitory chucVuRepon = new ChucVuReponsitory();

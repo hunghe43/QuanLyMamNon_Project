@@ -8,7 +8,7 @@
         <h4 class="modal-title" id="myModalLabel">Update</h4>
     </div>
     <div class="modal-body">
-        @Html.HiddenFor(x=>x.hocsinh.MaHocSinh)
+        @Html.HiddenFor(x => x.hocsinh.MaHocSinh)
         <div class="row">
             <div class="col-lg-6">
                 <div class="panel panel-default">
@@ -108,16 +108,16 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <div class="form-group input-group">
+                <div class="form-group input-group DropListLop">
                     <label>Chọn lớp học</label>
-                    @Html.DropDownListFor(x => x.hocsinh.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop", 0), "None", new { @class = "form-control" })
+                    @Html.DropDownListFor(x => x.hocsinh.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop", 0), "None", new { @class = "form-control ", @required = "required" })
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group input-group">
                     <label>Tình trạng hoạt động </label>
-                    @Html.CheckBoxFor(x => x.hocsinh.TrangThai)
-
+                    @Html.CheckBoxFor(x => x.hocsinh.TrangThai, new { @class="checkTrangThai"})
+                    
                 </div>
             </div>
             <div class="col-lg-12">

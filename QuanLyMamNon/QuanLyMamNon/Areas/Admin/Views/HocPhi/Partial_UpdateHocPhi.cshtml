@@ -1,0 +1,40 @@
+﻿@model QuanLyMamNon.Models.Dao.ViewModelHocPhi
+@using (Html.BeginForm("UpdateHocPhi", "HocPhi", FormMethod.Post, new { @role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h1 class="modal-title" id="myModalLabel">Update</h1>
+    </div>
+    <div class="modal-body">
+        @Html.HiddenFor(x=>x.hocphi.MaHocPhi)
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-eur"></i>
+            </span>
+            @Html.TextBoxFor(x => x.hocphi.TenHocPhi, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-eur"></i>
+            </span>
+            @Html.TextBoxFor(x => x.hocphi.ChiPhi, new { @type = "number", @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Chi phí...", @required = "required" })
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-eur"></i>
+            </span>
+            @Html.TextAreaFor(x => x.hocphi.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..." })
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-eur"></i>
+            </span>
+            @Html.DropDownListFor(x => x.hocphi.LoaiHocPhi, new SelectList(Model.listLoaiHocPhi, "MaLoai", "TenLoai", 0), "None", new { @class = "form-control", @required = "required" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+    </div>
+}

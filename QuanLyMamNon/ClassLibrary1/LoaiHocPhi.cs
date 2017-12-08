@@ -12,18 +12,19 @@ namespace ClassLibrary1
     using System;
     using System.Collections.Generic;
     
-    public partial class LoaiLop
+    public partial class LoaiHocPhi
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LoaiLop()
+        public LoaiHocPhi()
         {
-            this.Lop = new HashSet<Lop>();
+            this.HocPhi = new HashSet<HocPhi>();
         }
     
-        public string MaLoaiLop { get; set; }
-        public string TenLoaiLop { get; set; }
+        public int MaLoai { get; set; }
+        public string TenLoai { get; set; }
+        public string GhiChu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lop> Lop { get; set; }
+        public virtual ICollection<HocPhi> HocPhi { get; set; }
     }
 }

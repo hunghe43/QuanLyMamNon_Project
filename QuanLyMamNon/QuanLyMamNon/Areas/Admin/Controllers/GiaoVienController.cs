@@ -18,12 +18,19 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             var nhanvien = (NhanVien)Session["NhanVien"];
             NhanVienReponsitory nvRepon = new NhanVienReponsitory();
-            //thông tin gv chính
-            var giaoVienChuNhiem = nvRepon.GetGiaoVienChuNhiem(nhanvien.MaNhanVien);
-            //list gv phụ
-            var gvPhu = nvRepon.GetGiaoVienPhuForIdGiaoVien(nhanvien.MaNhanVien);
-            ViewData["List GVP"] = gvPhu;
-            return View(giaoVienChuNhiem);
+            if (nvRepon.checkExitstGiaoVien(nhanvien.MaNhanVien))
+            {
+                //thông tin gv chính
+                var giaoVienChuNhiem = nvRepon.GetGiaoVienChuNhiem(nhanvien.MaNhanVien);
+                //list gv phụ
+                var gvPhu = nvRepon.GetGiaoVienPhuForIdGiaoVien(nhanvien.MaNhanVien);
+                ViewData["List GVP"] = gvPhu;
+                return View(giaoVienChuNhiem);
+            }
+            else
+            {                
+                return RedirectToAction("NotificationAuthorize", "Login");
+            }
         }
 
         public PartialViewResult Partial_DanhSachHocSinh()

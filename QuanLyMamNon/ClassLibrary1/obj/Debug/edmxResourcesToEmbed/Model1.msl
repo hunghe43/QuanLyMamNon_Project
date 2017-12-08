@@ -1,16 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="QLMamNonModelStoreContainer" CdmEntityContainer="QLMamNonEntities">
+    <EntitySetMapping Name="ChucVu">
+      <EntityTypeMapping TypeName="QLMamNonModel.ChucVu">
+        <MappingFragment StoreEntitySet="ChucVu">
+          <ScalarProperty Name="TenChucVu" ColumnName="TenChucVu" />
+          <ScalarProperty Name="MaChucVu" ColumnName="MaChucVu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CT_DichVu_HocSinh">
+      <EntityTypeMapping TypeName="QLMamNonModel.CT_DichVu_HocSinh">
+        <MappingFragment StoreEntitySet="CT_DichVu_HocSinh">
+          <ScalarProperty Name="ThangDangKy" ColumnName="ThangDangKy" />
+          <ScalarProperty Name="MaDichVu" ColumnName="MaDichVu" />
+          <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="CT_NgayTheoDoi">
       <EntityTypeMapping TypeName="QLMamNonModel.CT_NgayTheoDoi">
         <MappingFragment StoreEntitySet="CT_NgayTheoDoi">
-          <ScalarProperty Name="MaPhieuTheoDoi" ColumnName="MaPhieuTheoDoi" />
-          <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
-          <ScalarProperty Name="DDVang" ColumnName="DDVang" />
-          <ScalarProperty Name="DDAnSang" ColumnName="DDAnSang" />
+          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
           <ScalarProperty Name="DDAnTrua" ColumnName="DDAnTrua" />
+          <ScalarProperty Name="DDAnSang" ColumnName="DDAnSang" />
+          <ScalarProperty Name="DDVang" ColumnName="DDVang" />
+          <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
+          <ScalarProperty Name="MaPhieuTheoDoi" ColumnName="MaPhieuTheoDoi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DichVuNgoai">
+      <EntityTypeMapping TypeName="QLMamNonModel.DichVuNgoai">
+        <MappingFragment StoreEntitySet="DichVuNgoai">
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="TenDV" ColumnName="TenDV" />
+          <ScalarProperty Name="MaDichVu" ColumnName="MaDichVu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HoaDon">
+      <EntityTypeMapping TypeName="QLMamNonModel.HoaDon">
+        <MappingFragment StoreEntitySet="HoaDon">
+          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+          <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+          <ScalarProperty Name="NgayGiaoDich" ColumnName="NgayGiaoDich" />
+          <ScalarProperty Name="TenHoaDon" ColumnName="TenHoaDon" />
+          <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HocPhi">
+      <EntityTypeMapping TypeName="QLMamNonModel.HocPhi">
+        <MappingFragment StoreEntitySet="HocPhi">
+          <ScalarProperty Name="LoaiHocphi" ColumnName="LoaiHocphi" />
           <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
           <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+          <ScalarProperty Name="TenHocPhi" ColumnName="TenHocPhi" />
+          <ScalarProperty Name="MaHocPhi" ColumnName="MaHocPhi" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -33,6 +81,25 @@
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
           <ScalarProperty Name="Ten" ColumnName="Ten" />
           <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoaiHocPhi">
+      <EntityTypeMapping TypeName="QLMamNonModel.LoaiHocPhi">
+        <MappingFragment StoreEntitySet="LoaiHocPhi">
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+          <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lop">
+      <EntityTypeMapping TypeName="QLMamNonModel.Lop">
+        <MappingFragment StoreEntitySet="Lop">
+          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="TenLop" ColumnName="TenLop" />
+          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -73,62 +140,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ChucVu">
-      <EntityTypeMapping TypeName="QLMamNonModel.ChucVu">
-        <MappingFragment StoreEntitySet="ChucVu">
-          <ScalarProperty Name="TenChucVu" ColumnName="TenChucVu" />
-          <ScalarProperty Name="MaChucVu" ColumnName="MaChucVu" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CT_DichVu_HocSinh">
-      <EntityTypeMapping TypeName="QLMamNonModel.CT_DichVu_HocSinh">
-        <MappingFragment StoreEntitySet="CT_DichVu_HocSinh">
-          <ScalarProperty Name="MaDichVu" ColumnName="MaDichVu" />
-          <ScalarProperty Name="ThangDangKy" ColumnName="ThangDangKy" />
-          <ScalarProperty Name="MaHocSinh" ColumnName="MaHocSinh" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="DichVuNgoai">
-      <EntityTypeMapping TypeName="QLMamNonModel.DichVuNgoai">
-        <MappingFragment StoreEntitySet="DichVuNgoai">
-          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
-          <ScalarProperty Name="TenDV" ColumnName="TenDV" />
-          <ScalarProperty Name="MaDichVu" ColumnName="MaDichVu" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="HoaDon">
-      <EntityTypeMapping TypeName="QLMamNonModel.HoaDon">
-        <MappingFragment StoreEntitySet="HoaDon">
-          <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
-          <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
-          <ScalarProperty Name="NgayGiaoDich" ColumnName="NgayGiaoDich" />
-          <ScalarProperty Name="TenHoaDon" ColumnName="TenHoaDon" />
-          <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="LoaiLop">
-      <EntityTypeMapping TypeName="QLMamNonModel.LoaiLop">
-        <MappingFragment StoreEntitySet="LoaiLop">
-          <ScalarProperty Name="TenLoaiLop" ColumnName="TenLoaiLop" />
-          <ScalarProperty Name="MaLoaiLop" ColumnName="MaLoaiLop" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Lop">
-      <EntityTypeMapping TypeName="QLMamNonModel.Lop">
-        <MappingFragment StoreEntitySet="Lop">
-          <ScalarProperty Name="SiSo" ColumnName="SiSo" />
-          <ScalarProperty Name="MaLoaiLop" ColumnName="MaLoaiLop" />
-          <ScalarProperty Name="TenLop" ColumnName="TenLop" />
-          <ScalarProperty Name="MaLop" ColumnName="MaLop" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Quyen">
       <EntityTypeMapping TypeName="QLMamNonModel.Quyen">
         <MappingFragment StoreEntitySet="Quyen">
@@ -146,16 +157,6 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
           <ScalarProperty Name="name" ColumnName="name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="KhoanThuDauNam">
-      <EntityTypeMapping TypeName="QLMamNonModel.KhoanThuDauNam">
-        <MappingFragment StoreEntitySet="KhoanThuDauNam">
-          <ScalarProperty Name="Year" ColumnName="Year" />
-          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
-          <ScalarProperty Name="TenKhoanThu" ColumnName="TenKhoanThu" />
-          <ScalarProperty Name="MaKhoanThu" ColumnName="MaKhoanThu" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

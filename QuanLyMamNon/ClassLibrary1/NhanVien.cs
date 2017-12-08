@@ -17,9 +17,9 @@ namespace ClassLibrary1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhanVien()
         {
+            this.HoaDon = new HashSet<HoaDon>();
             this.PhieuTheoDoi = new HashSet<PhieuTheoDoi>();
             this.PhieuThu = new HashSet<PhieuThu>();
-            this.HoaDon = new HashSet<HoaDon>();
         }
     
         public string MaNhanVien { get; set; }
@@ -31,13 +31,13 @@ namespace ClassLibrary1
         public string MaLop { get; set; }
         public string Password { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuTheoDoi> PhieuTheoDoi { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuThu> PhieuThu { get; set; }
         public virtual ChucVu ChucVu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDon { get; set; }
         public virtual Lop Lop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuTheoDoi> PhieuTheoDoi { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuThu> PhieuThu { get; set; }
     }
 }

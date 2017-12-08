@@ -49,6 +49,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             Session.Clear();
             Session.Abandon();
             return View("Login");
+
         }
         public ActionResult NotificationAuthorize()
         {

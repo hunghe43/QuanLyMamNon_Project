@@ -18,17 +18,13 @@ namespace ClassLibrary1
         public DichVuNgoai()
         {
             this.CT_DichVu_HocSinh = new HashSet<CT_DichVu_HocSinh>();
-            this.CT_DichVu_HocSinh1 = new HashSet<CT_DichVu_HocSinh>();
         }
     
-        public int MaDichVu { get; set; }
+        public string MaDichVu { get; set; }
         public string TenDV { get; set; }
-        public decimal ChiPhi { get; set; }
         public string GhiChu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh1 { get; set; }
     }
 }

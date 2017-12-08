@@ -1,0 +1,30 @@
+﻿@model QuanLyMamNon.Models.LoaiHocPhi
+
+@using (Html.BeginForm("AddLoaiHocPhi", "HocPhi", FormMethod.Post, new { @role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Thêm mới</h4>
+    </div>
+        <div class="modal-body">
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                @Html.TextBoxFor(x => x.TenLoai, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
+            </div>
+            <div class="form-group input-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                
+                @Html.TextAreaFor(x => x.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..."  })
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary">Thêm mới</button>
+        </div>
+}

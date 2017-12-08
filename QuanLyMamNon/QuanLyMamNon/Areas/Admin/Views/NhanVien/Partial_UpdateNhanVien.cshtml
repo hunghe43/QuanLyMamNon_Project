@@ -37,14 +37,19 @@
             </span>
             @Html.TextBoxFor(x => x.nhanvien.Email, new { @class = "form-control", @type = "email", @data_error = "Bruh, that email address is invalid", @required = "required", @placeholder = "john@doe.com" })
         </div>
-        <div class="form-group">
-            <label>Chức vụ</label>
-            @Html.DropDownListFor(x => x.nhanvien.MaChucVu, new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu"), new { @class = "form-control" })
-        </div>
-        <div class="form-group" id="MaLop_Add">
-            <label>Chọn lớp quản lý</label>
-            @Html.DropDownListFor(x => x.nhanvien.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop",0), "None", new { @class = "form-control" })
-            @*@Html.DropDownList("MaLop", new SelectList(Model.listLop, "MaLop", "TenLop", Model.nhanvien.MaLop), new { @class = "form-control" })*@
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group input-group">
+                    <label>Chức vụ</label>
+                    @Html.DropDownListFor(x => x.nhanvien.MaChucVu, new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu"), new { @class = "form-control dropdownChucVu", @required = "required" })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group input-group showHide">
+                    <label>Chọn lớp quản lý</label>                    
+                    @Html.DropDownListFor(x => x.nhanvien.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop", 0), "None", new { @class = "form-control dropdownLop" , @required = "required" })
+                </div>
+            </div>
         </div>
         <div class="form-group input-group">
             <span class="input-group-addon">
@@ -58,3 +63,20 @@
         <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
     </div>
 }
+<script>
+    $(".showHide").hide();
+    $(document).ready(function () {
+        $(".dropdownChucVu").on("change", function () {
+            debugger;
+            var optClass = $("option:selected", this).val();
+            var showthis = $(".showHide");
+            if (optClass == 'GVC' || optClass == 'GVP') {
+                showthis.show();
+            } else {
+                $(".dropdownLop").val(null);
+                $(".dropdownLop").removeAttr("required");
+                showthis.hide();
+            }
+        });
+    })
+</script>

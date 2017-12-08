@@ -49,12 +49,12 @@
                             <span class="input-group-addon">
                                 <i class="fa fa-arrows-v"></i>
                             </span>
-                            @Html.TextBoxFor(x => x.hocsinh.ChieuCao, new { @class = "form-control", @placeholder = "Chiều cao..." })
+                            @Html.TextBoxFor(x => x.hocsinh.ChieuCao, new {@type="number", @class = "form-control", @placeholder = "Chiều cao..." })
                             <span class="input-group-addon">.cm</span>
                             <span class="input-group-addon">
                                 <i class="fa fa-arrows-h"></i>
                             </span>
-                            @Html.TextBoxFor(x => x.hocsinh.CanNang, new { @class = "form-control", @placeholder = "Cân nặng..." })
+                            @Html.TextBoxFor(x => x.hocsinh.CanNang, new { @type = "number", @class = "form-control", @placeholder = "Cân nặng..." })
                             <span class="input-group-addon">.kg</span>
                         </div>
 
@@ -111,13 +111,6 @@
                 <div class="form-group input-group">
                     <label>Chọn lớp học</label>
                     @Html.DropDownListFor(x => x.hocsinh.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop", 0), "None", new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group input-group">
-                    <label>Tình trạng hoạt động </label>
-                    @Html.CheckBoxFor(x => x.hocsinh.TrangThai)                        
-                                 
                 </div>
             </div>
             <div class="col-lg-12">

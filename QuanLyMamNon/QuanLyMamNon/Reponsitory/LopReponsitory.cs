@@ -28,19 +28,24 @@ namespace QuanLyMamNon.Reponsitory
         /// </summary>
         /// <param name="nhanvien"></param>
         /// <returns></returns>
-        public void AddLop(NhanVien nhanvien)
+        public void AddLop(Lop lop)
         {
+            lop.MaLop = getAutoIdLop();
+            //thêm mới loại học phí
+            HocPhiReponsitory hocphiRepon = new HocPhiReponsitory();
+            var hocphi = new HocPhi();
+            hocphi.MaHocPhi = lop.MaLop;
+            hocphi.TenHocPhi = lop.TenLop;
+            hocphi.GhiChu = lop.GhiChu;
+            hocphiRepon.AddHocPhi(hocphi);
+
             var parameters = new DynamicParameters();
-            parameters.Add("@MaNhanVien", nhanvien.MaNhanVien);
-            parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
-            parameters.Add("@DiaChi", nhanvien.DiaChi);
-            parameters.Add("@Sdt", nhanvien.Sdt);
-            parameters.Add("@Email", nhanvien.Email);
-            parameters.Add("@MaChucVu", nhanvien.MaChucVu);
-            parameters.Add("@MaLop", nhanvien.MaLop);
-            parameters.Add("@Password", nhanvien.Password);
+            parameters.Add("@MaLop", lop.MaLop);
+            parameters.Add("@TenLop", lop.TenLop);
+            parameters.Add("@GhiChu", lop.GhiChu);
+            parameters.Add("@SiSo", lop.SiSo);
             parameters.Add("@Action", "Insert");
-            _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
+            _db.Execute("InsertUpdateLop", parameters, commandType: CommandType.StoredProcedure);
 
         }
         /// <summary>
@@ -48,41 +53,45 @@ namespace QuanLyMamNon.Reponsitory
         /// </summary>
         /// <param name="MaNhanVien"></param>
         /// <returns></returns>
-        //public NhanVien getNhanvienForId(string MaNhanVien)
-        //{
-        //    var nhanvien = getAllNhanVien().Find(x => x.MaNhanVien == MaNhanVien);
-        //    return (nhanvien);
-        //}
+        public Lop getLopForId(string MaLop)
+        {
+            var lop = getAllLop().Find(x => x.MaLop == MaLop);
+            return (lop);
+        }
         /// <summary>
         /// update
         /// </summary>
         /// <param name="nhanvien"></param>
         /// <returns></returns>
-        public void UpdateNhanVien(NhanVien nhanvien)
+        public void UpdateLop(Lop lop)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@MaNhanVien", nhanvien.MaNhanVien);
-            parameters.Add("@TenNhanVien", nhanvien.TenNhanVien);
-            parameters.Add("@DiaChi", nhanvien.DiaChi);
-            parameters.Add("@Sdt", nhanvien.Sdt);
-            parameters.Add("@Email", nhanvien.Email);
-            parameters.Add("@MaChucVu", nhanvien.MaChucVu);
-            parameters.Add("@MaLop", nhanvien.MaLop);
-            parameters.Add("@Password", nhanvien.Password);
+            parameters.Add("@MaLop", lop.MaLop);
+            parameters.Add("@TenLop", lop.TenLop);
+            parameters.Add("@GhiChu", lop.GhiChu);
+            parameters.Add("@SiSo", lop.SiSo);
             parameters.Add("@Action", "Update");
-            _db.Execute("InsertUpdateNhanVien", parameters, commandType: CommandType.StoredProcedure);
-
+            _db.Execute("InsertUpdateLop", parameters, commandType: CommandType.StoredProcedure);
         }
         /// <summary>
         /// delete 
         /// </summary>
         /// <param name="nhanvien"></param>
         /// <returns></returns>
-        public void deleteNhanVien(string MaNhanVien)
+        public void deleteLop(string MaLop)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@MaNhanVien", MaNhanVien);
-            _db.Execute("DeleteNhanVien", parameters, commandType: CommandType.StoredProcedure);
+            parameters.Add("@MaLop", MaLop);
+            _db.Execute("DeleteLop", parameters, commandType: CommandType.StoredProcedure);
+        }
+        /// <summary>
+        /// sinh mã tự động cho Lớp
+        /// </summary>
+        /// <returns></returns>
+        public string getAutoIdLop()
+        {
+            string malop = _db.Query<string>("sp_Lop_NewID", commandType: CommandType.StoredProcedure).Single();
+            return malop;
         }
 
     }

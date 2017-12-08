@@ -1,0 +1,306 @@
+﻿@model QuanLyMamNon.Models.Dao.ViewModelHocPhi
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Quản lý học phí</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12" style="margin-top:20px">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="fa fa-th-list fa-2x">  Danh sách loại học phí</i>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button class="btn btn-primary add_LoaiHocPhi">
+                                Thêm loại học phí
+                            </button>
+                            <p></p>
+                        </div>
+                    </div>
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Mã loại</th>
+                                <th>Tên loại</th>
+                                <th>Ghi chú</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listLoaiHocPhi)
+                            {
+                                <tr class="even gradeC">
+                                    <td>
+                                        @item.MaLoai
+                                    </td>
+                                    <td>
+                                        @item.TenLoai
+                                    </td>
+                                    <td>
+                                        @item.GhiChu
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="Update_LoaiHocPhi" data-id="@item.MaLoai">Edit</a>
+                                        <a href="javascript:void(0);" class="Delete_LoaiHocPhi" data-id="@item.MaLoai">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                    <div class="modal fade" id="myModal_hocphi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" id="myModalContent">
+                                <!-- Partial view Add,detail,update in here -->
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+        <div class="col-lg-12" style="margin-top:20px">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="fa fa-th-list fa-2x">  Danh sách học phí</i>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <button class="btn btn-primary add_HocPhi">
+                                Thêm học phí
+                            </button>
+                            <p></p>
+                        </div>
+                        <div class="col-lg-8">
+                            @using (Html.BeginForm("Index", "HocPhi", FormMethod.Get, new { @class = "header-search-box", @style = "text-align:right" }))
+                            {
+                                <p>
+                                </p>
+                                <div class="form-inline">
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(x => x.listLoaiHocPhi, new SelectList(Model.listLoaiHocPhi, "MaLoai", "TenLoai"), "Tất cả", new { @class = "form-control selectedValue" })
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit">Hiển thị</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+
+                                </div>
+                                <p></p>
+                            }
+                        </div>
+                    </div>
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                        <thead>
+                            <tr>
+                                <th>Mã học phí</th>
+                                <th>Tên học phí</th>
+                                <th>Chi phí</th>
+                                <th>Loại học phí</th>
+                                <th>Ghi chú</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listHocPhi)
+                            {
+                                <tr class="even gradeC">
+                                    <td>
+                                        @item.MaHocPhi
+                                    </td>
+                                    <td>
+                                        @item.TenHocPhi
+                                    </td>
+                                    <td>
+                                        @item.ChiPhi
+                                    </td>
+                                    <td>
+                                        @item.LoaiHocPhi
+                                    </td>
+                                    <td>
+                                        @item.GhiChu
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="Update_HocPhi" data-id="@item.MaHocPhi">Edit</a>
+                                        <a href="javascript:void(0);" class="Delete_HocPhi" data-id="@item.MaHocPhi">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+</div>
+
+<script>
+    //get selected in dropdown list when submit "hiển thị"
+    $('.selectedValue option[value=@ViewBag.select]').attr('selected', 'selected');
+    $(document).ready(function () {
+        // do get Add LoaiHocPhi
+        $(".add_LoaiHocPhi").click(function () {
+            //debugger;
+            var add_LoaiHocPhi_url = '@Url.Action("AddLoaiHocPhi", "HocPhi")';
+            var $buttonClicked = $(this);
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: add_LoaiHocPhi_url,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    //debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_hocphi').modal(options);
+                    $('#myModal_hocphi').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+        // do get edit LoaiHocPhi
+        $(".Update_LoaiHocPhi").click(function () {
+            //debugger;
+            var update_LoaiHocPhi_url = '@Url.Action("UpdateLoaiHocPhi", "HocPhi")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: update_LoaiHocPhi_url,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    //debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_hocphi').modal(options);
+                    $('#myModal_hocphi').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+        $(".Delete_LoaiHocPhi").click(function () {
+            //debugger;
+            var delete_LoaiHocPhi_url = '@Url.Action("DeleteLoaiHocPhi", "HocPhi")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            if (confirm("Do you want delete item?")) {
+                $.ajax({
+                    url: delete_LoaiHocPhi_url,
+                    data: { Id: id },
+                    type: 'POST',
+                    dataType: 'json',
+                    traditional: true,
+                    success: function (data) {
+                        alert("Delete success!");
+                        location.reload();
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            } else
+                return false;
+        });
+        //hoc phi
+        $(".add_HocPhi").click(function () {
+            debugger;
+            var add_HocPhi_url = '@Url.Action("AddHocPhi", "HocPhi")';
+            var $buttonClicked = $(this);
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: add_HocPhi_url,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_hocphi').modal(options);
+                    $('#myModal_hocphi').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+        // do get edit HocPhi
+        $(".Update_HocPhi").click(function () {
+            //debugger;
+            var update_HocPhi_url = '@Url.Action("UpdateHocPhi", "HocPhi")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: update_HocPhi_url,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    //debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_hocphi').modal(options);
+                    $('#myModal_hocphi').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+        $(".Delete_HocPhi").click(function () {
+            //debugger;
+            var delete_HocPhi_url = '@Url.Action("DeleteHocPhi", "HocPhi")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            if (confirm("Do you want delete item?")) {
+                $.ajax({
+                    url: delete_HocPhi_url,
+                    data: { Id: id },
+                    type: 'POST',
+                    dataType: 'json',
+                    traditional: true,
+                    success: function (data) {
+                        alert("Delete success!");
+                        location.reload();
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            } else
+                return false;
+        });
+    });
+</script>

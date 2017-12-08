@@ -12,11 +12,14 @@ namespace ClassLibrary1
     using System;
     using System.Collections.Generic;
     
-    public partial class KhoanThuDauNam
+    public partial class HocPhi
     {
-        public int MaKhoanThu { get; set; }
-        public string TenKhoanThu { get; set; }
+        public string MaHocPhi { get; set; }
+        public string TenHocPhi { get; set; }
         public decimal ChiPhi { get; set; }
-        public string Year { get; set; }
+        public string GhiChu { get; set; }
+        public Nullable<int> LoaiHocphi { get; set; }
+    
+        public virtual LoaiHocPhi LoaiHocPhi1 { get; set; }
     }
 }

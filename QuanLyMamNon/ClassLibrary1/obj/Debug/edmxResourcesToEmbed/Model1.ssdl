@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="MaChucVu" />
     </Key>
-    <Property Name="MaChucVu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaChucVu" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="TenChucVu" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CT_DichVu_HocSinh">
@@ -12,8 +12,8 @@
       <PropertyRef Name="MaHocSinh" />
       <PropertyRef Name="MaDichVu" />
     </Key>
-    <Property Name="MaHocSinh" Type="int" Nullable="false" />
-    <Property Name="MaDichVu" Type="int" Nullable="false" />
+    <Property Name="MaHocSinh" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaDichVu" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="ThangDangKy" Type="varchar" MaxLength="7" />
   </EntityType>
   <EntityType Name="CT_NgayTheoDoi">
@@ -22,7 +22,7 @@
       <PropertyRef Name="MaHocSinh" />
     </Key>
     <Property Name="MaPhieuTheoDoi" Type="int" Nullable="false" />
-    <Property Name="MaHocSinh" Type="int" Nullable="false" />
+    <Property Name="MaHocSinh" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="DDVang" Type="bit" Nullable="false" />
     <Property Name="DDAnSang" Type="bit" Nullable="false" />
     <Property Name="DDAnTrua" Type="bit" Nullable="false" />
@@ -33,9 +33,8 @@
     <Key>
       <PropertyRef Name="MaDichVu" />
     </Key>
-    <Property Name="MaDichVu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDichVu" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="TenDV" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="ChiPhi" Type="money" Nullable="false" />
     <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="HoaDon">
@@ -45,18 +44,28 @@
     <Property Name="MaHoaDon" Type="int" Nullable="false" />
     <Property Name="TenHoaDon" Type="nvarchar" MaxLength="50" />
     <Property Name="NgayGiaoDich" Type="date" />
-    <Property Name="MaNhanVien" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaNhanVien" Type="varchar" MaxLength="10" />
     <Property Name="ThanhTien" Type="money" />
+  </EntityType>
+  <EntityType Name="HocPhi">
+    <Key>
+      <PropertyRef Name="MaHocPhi" />
+    </Key>
+    <Property Name="MaHocPhi" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TenHocPhi" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ChiPhi" Type="money" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
+    <Property Name="LoaiHocphi" Type="int" />
   </EntityType>
   <EntityType Name="HocSinh">
     <Key>
       <PropertyRef Name="MaHocSinh" />
     </Key>
-    <Property Name="MaHocSinh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaHocSinh" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Ten" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="NgaySinh" Type="date" />
+    <Property Name="NgaySinh" Type="date" Nullable="false" />
     <Property Name="GioiTinh" Type="nvarchar" MaxLength="5" />
-    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" />
     <Property Name="ChieuCao" Type="int" />
     <Property Name="CanNang" Type="int" />
@@ -66,50 +75,37 @@
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
     <Property Name="NgaySinhPhuHuynh" Type="date" />
     <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
-    <Property Name="MaLop" Type="nvarchar" MaxLength="50" />
-    <Property Name="TrangThai" Type="int" />
+    <Property Name="MaLop" Type="varchar" MaxLength="20" />
+    <Property Name="TrangThai" Type="bit" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="KhoanThuDauNam">
+  <EntityType Name="LoaiHocPhi">
     <Key>
-      <PropertyRef Name="MaKhoanThu" />
-      <PropertyRef Name="TenKhoanThu" />
-      <PropertyRef Name="ChiPhi" />
-      <PropertyRef Name="Year" />
+      <PropertyRef Name="MaLoai" />
     </Key>
-    <Property Name="MaKhoanThu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TenKhoanThu" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="ChiPhi" Type="money" Nullable="false" />
-    <Property Name="Year" Type="varchar" MaxLength="4" Nullable="false" />
-  </EntityType>
-  <EntityType Name="LoaiLop">
-    <Key>
-      <PropertyRef Name="MaLoaiLop" />
-    </Key>
-    <Property Name="MaLoaiLop" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="TenLoaiLop" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaLoai" Type="int" Nullable="false" />
+    <Property Name="TenLoai" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Lop">
     <Key>
       <PropertyRef Name="MaLop" />
     </Key>
-    <Property Name="MaLop" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="TenLop" Type="nvarchar" MaxLength="50" />
-    <Property Name="MaLoaiLop" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaLop" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="TenLop" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
     <Property Name="SiSo" Type="int" />
   </EntityType>
   <EntityType Name="NhanVien">
     <Key>
       <PropertyRef Name="MaNhanVien" />
     </Key>
-    <Property Name="MaNhanVien" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaNhanVien" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="TenNhanVien" Type="nvarchar" MaxLength="50" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
     <Property Name="Sdt" Type="nvarchar" MaxLength="50" />
     <Property Name="Email" Type="nvarchar" MaxLength="50" />
-    <Property Name="MaChucVu" Type="nvarchar" MaxLength="50" />
-    <Property Name="MaLop" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaChucVu" Type="varchar" MaxLength="20" />
+    <Property Name="MaLop" Type="varchar" MaxLength="20" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="PhieuTheoDoi">
@@ -117,7 +113,7 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
       <PropertyRef Name="MaPhieuTheoDoi" />
     </Key>
     <Property Name="MaPhieuTheoDoi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MaGiaoVien" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaGiaoVien" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="NgayTheoDoi" Type="date" Nullable="false" />
     <Property Name="ChiPhiDuTinh" Type="money" />
   </EntityType>
@@ -127,8 +123,8 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
       <PropertyRef Name="MaNhanVien" />
     </Key>
     <Property Name="NgayTaoPhieu" Type="varchar" MaxLength="7" />
-    <Property Name="MaHocSinh" Type="int" Nullable="false" />
-    <Property Name="MaNhanVien" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaHocSinh" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaNhanVien" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="SoNgayVang" Type="int" Nullable="false" />
     <Property Name="SoNgayAnSang" Type="int" Nullable="false" />
     <Property Name="SoNgayAnTrua" Type="int" Nullable="false" />
@@ -138,7 +134,7 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
     <Key>
       <PropertyRef Name="MaQuyen" />
     </Key>
-    <Property Name="MaQuyen" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaQuyen" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="MoTa" Type="nvarchar" MaxLength="50" />
     <Property Name="ParentId" Type="nvarchar" MaxLength="50" />
   </EntityType>
@@ -147,8 +143,8 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
       <PropertyRef Name="MaChucVu" />
       <PropertyRef Name="MaQuyen" />
     </Key>
-    <Property Name="MaChucVu" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MaQuyen" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MaChucVu" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="MaQuyen" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -220,6 +216,18 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_HocPhi_LoaiHocPhi">
+    <End Role="LoaiHocPhi" Type="Self.LoaiHocPhi" Multiplicity="0..1" />
+    <End Role="HocPhi" Type="Self.HocPhi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiHocPhi">
+        <PropertyRef Name="MaLoai" />
+      </Principal>
+      <Dependent Role="HocPhi">
+        <PropertyRef Name="LoaiHocphi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_HocSinh_Lop1">
     <End Role="Lop" Type="Self.Lop" Multiplicity="0..1" />
     <End Role="HocSinh" Type="Self.HocSinh" Multiplicity="*" />
@@ -229,18 +237,6 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
       </Principal>
       <Dependent Role="HocSinh">
         <PropertyRef Name="MaLop" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Lop_LoaiLop">
-    <End Role="LoaiLop" Type="Self.LoaiLop" Multiplicity="0..1" />
-    <End Role="Lop" Type="Self.Lop" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="LoaiLop">
-        <PropertyRef Name="MaLoaiLop" />
-      </Principal>
-      <Dependent Role="Lop">
-        <PropertyRef Name="MaLoaiLop" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -334,8 +330,9 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
     <EntitySet Name="CT_NgayTheoDoi" EntityType="Self.CT_NgayTheoDoi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DichVuNgoai" EntityType="Self.DichVuNgoai" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HocPhi" EntityType="Self.HocPhi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HocSinh" EntityType="Self.HocSinh" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="LoaiLop" EntityType="Self.LoaiLop" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiHocPhi" EntityType="Self.LoaiHocPhi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lop" EntityType="Self.Lop" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhieuTheoDoi" EntityType="Self.PhieuTheoDoi" Schema="dbo" store:Type="Tables" />
@@ -343,14 +340,6 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
     <EntitySet Name="Quyen" EntityType="Self.Quyen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Quyen_ChucVu" EntityType="Self.Quyen_ChucVu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="KhoanThuDauNam" EntityType="Self.KhoanThuDauNam" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [KhoanThuDauNam].[MaKhoanThu] AS [MaKhoanThu], 
-    [KhoanThuDauNam].[TenKhoanThu] AS [TenKhoanThu], 
-    [KhoanThuDauNam].[ChiPhi] AS [ChiPhi], 
-    [KhoanThuDauNam].[Year] AS [Year]
-    FROM [dbo].[KhoanThuDauNam] AS [KhoanThuDauNam]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_CT_DichVu_HocSinh_DichVuNgoai" Association="Self.FK_CT_DichVu_HocSinh_DichVuNgoai">
       <End Role="DichVuNgoai" EntitySet="DichVuNgoai" />
       <End Role="CT_DichVu_HocSinh" EntitySet="CT_DichVu_HocSinh" />
@@ -371,13 +360,13 @@ warning 6002: The table/view 'QLMamNon.dbo.KhoanThuDauNam' does not have a prima
       <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="HoaDon" EntitySet="HoaDon" />
     </AssociationSet>
+    <AssociationSet Name="FK_HocPhi_LoaiHocPhi" Association="Self.FK_HocPhi_LoaiHocPhi">
+      <End Role="LoaiHocPhi" EntitySet="LoaiHocPhi" />
+      <End Role="HocPhi" EntitySet="HocPhi" />
+    </AssociationSet>
     <AssociationSet Name="FK_HocSinh_Lop1" Association="Self.FK_HocSinh_Lop1">
       <End Role="Lop" EntitySet="Lop" />
       <End Role="HocSinh" EntitySet="HocSinh" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Lop_LoaiLop" Association="Self.FK_Lop_LoaiLop">
-      <End Role="LoaiLop" EntitySet="LoaiLop" />
-      <End Role="Lop" EntitySet="Lop" />
     </AssociationSet>
     <AssociationSet Name="FK_NhanVien_ChucVu" Association="Self.FK_NhanVien_ChucVu">
       <End Role="ChucVu" EntitySet="ChucVu" />

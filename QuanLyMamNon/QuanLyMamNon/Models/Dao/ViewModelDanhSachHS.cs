@@ -10,5 +10,6 @@ namespace QuanLyMamNon.Models.Dao
         public HocSinh hocsinh;
         public List<Lop> listLop;
         public List<HocSinh> listHocSinh;
+        public List<HocSinh> listHocSinhDis;
     }
 }

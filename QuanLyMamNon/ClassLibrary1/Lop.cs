@@ -23,12 +23,11 @@ namespace ClassLibrary1
     
         public string MaLop { get; set; }
         public string TenLop { get; set; }
-        public string MaLoaiLop { get; set; }
+        public string GhiChu { get; set; }
         public Nullable<int> SiSo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HocSinh> HocSinh { get; set; }
-        public virtual LoaiLop LoaiLop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NhanVien> NhanVien { get; set; }
     }
