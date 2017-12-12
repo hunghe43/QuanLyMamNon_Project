@@ -22,6 +22,7 @@ namespace QuanLyMamNon.Models
         public string DiaChi { get; set; }
         public string TinhTrang { get; set; }
         public int ChieuCao { get; set; }
+
         public int CanNang { get; set; }
         public string TenPhuHuynh { get; set; }
         public string SoCmt { get; set; }

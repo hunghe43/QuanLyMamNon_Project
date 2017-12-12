@@ -23,7 +23,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 //thông tin gv chính
                 var giaoVienChuNhiem = nvRepon.GetGiaoVienChuNhiem(nhanvien.MaNhanVien);
                 //list gv phụ
-                var gvPhu = nvRepon.GetGiaoVienPhuForIdGiaoVien(nhanvien.MaNhanVien);
+                var gvPhu = nvRepon.GetListGVForIdLogin(nhanvien.MaNhanVien);
                 ViewData["List GVP"] = gvPhu;
                 return View(giaoVienChuNhiem);
             }

@@ -3,6 +3,10 @@ using QuanLyMamNon.Models.Dao;
 using QuanLyMamNon.Reponsitory;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -108,6 +112,39 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             hocSinhRepon.deleteHocSinh(id);
             return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ImportFileHocSinh(HttpPostedFileBase postedFile)
+        {
+            string filePath = string.Empty;
+            if (postedFile != null)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                filePath = path + Path.GetFileName(postedFile.FileName);
+                string extension = Path.GetExtension(postedFile.FileName);
+                postedFile.SaveAs(filePath);
+
+                string conString = string.Empty;
+                switch (extension)
+                {
+                    case ".xls": //Excel 97-03.
+                        conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                        break;
+                    case ".xlsx": //Excel 07 and above.
+                        conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+                        break;
+                }
+                hocSinhRepon.ImportFileHocSinh(conString, filePath);
+
+                
+            }
+            return RedirectToAction("Index");
         }
     }
 }

@@ -20,7 +20,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns> list<nhanvien></returns>
         public List<NhanVien> getAllNhanVien()
         {
-            List<NhanVien> listHs = _db.Query<NhanVien>("SELECT * FROM NhanVien where MaNhanVien!='Admin'").ToList();
+            List<NhanVien> listHs = _db.Query<NhanVien>("GetAllNhanVien", commandType: CommandType.StoredProcedure).ToList();
             return listHs;
         }
         /// <summary>
@@ -113,7 +113,10 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns>đối tượng nhân viên</returns>
         public NhanVien getNhanVienLogin(string email,string password)
         {
-             NhanVien nhanvien = _db.Query<NhanVien>("SELECT * FROM NhanVien where Email=@email and Password=@password",new {@email=email,@password=password }).SingleOrDefault();
+            var parameters = new DynamicParameters();
+            parameters.Add("@email", email);
+            parameters.Add("@password", password);
+            NhanVien nhanvien = _db.Query<NhanVien>("getNhanVienLogin", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
             return nhanvien;
         }
         /// <summary>
@@ -140,6 +143,7 @@ namespace QuanLyMamNon.Reponsitory
         public Infor_GiaoVien GetGiaoVienChuNhiem(string id)
         {
             var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
             Infor_GiaoVien inforGiaoVien = _db.Query<Infor_GiaoVien>("sp_GetInfoGiaoVienChuNhiem", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();         
             return inforGiaoVien;
         }
@@ -148,7 +152,7 @@ namespace QuanLyMamNon.Reponsitory
         /// </summary>
         /// <param name="id"> id giáo viên chính</param>
         /// <returns> danh sách giáo viên infor</returns>
-        public List<Infor_GiaoVien> GetGiaoVienPhuForIdGiaoVien(string id)
+        public List<Infor_GiaoVien> GetListGVForIdLogin(string id)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@Id", id);

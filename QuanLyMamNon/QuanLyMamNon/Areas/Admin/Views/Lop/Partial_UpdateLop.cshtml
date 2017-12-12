@@ -10,24 +10,25 @@
         @Html.HiddenFor(x => x.MaLop)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
-                <i class="fa fa-eur"></i>
+                <i class="fa fa-linux"></i>
             </span>
             @Html.TextBoxFor(x => x.TenLop, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
         </div>
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
-                <i class="fa fa-eur"></i>
+                <i class="fa fa-sort-numeric-asc"></i>
+            </span>
+            @Html.TextBoxFor(x => x.SiSo, new { @type = "number", @class = "form-control", @placeholder = "Sĩ số..." })
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-comments"></i>
             </span>
 
             @Html.TextAreaFor(x => x.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..." })
 
         </div>
-        <div class="form-group input-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-eur"></i>
-            </span>
-            @Html.TextBoxFor(x => x.SiSo, new { @type = "number", @class = "form-control", @placeholder = "Sĩ số..." })
-        </div>
+        
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

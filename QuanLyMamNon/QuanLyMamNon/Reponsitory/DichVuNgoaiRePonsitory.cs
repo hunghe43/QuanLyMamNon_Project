@@ -21,7 +21,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public List<DichVuNgoai> getAllDichVuNgoai()
         {
-            List<DichVuNgoai> list = this._db.Query<DichVuNgoai>("SELECT * FROM DichVuNgoai").ToList();
+            List<DichVuNgoai> list = this._db.Query<DichVuNgoai>("getAllDichVuNgoai", commandType: CommandType.StoredProcedure).ToList();
             return list;
         }
         /// <summary>

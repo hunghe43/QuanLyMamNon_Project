@@ -26,30 +26,12 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="col-lg-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Giáo viên chủ nhiệm: @Model.TenGiaoVien
-                            </div>
-                            <div class="panel-body">
-                                <address>
-                                    <p>Địa chỉ: @Model.DiaChi</p>
-                                    <abbr title="Phone">Phone:</abbr>@Model.Sdt
-                                </address>
-                                <address>
-                                    <strong>Email:</strong>
-                                    <a href="mailto:#">@Model.Email</a>
-                                </address>
-                            </div>
-
-                        </div>
-                    </div>
                     @foreach (var gvp in (List<Infor_GiaoVien>)ViewData["List GVP"])
                     {
                         <div class="col-lg-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Giáo viên phụ: @gvp.TenGiaoVien
+                                    Giáo viên: @gvp.TenGiaoVien
                                 </div>
                                 <div class="panel-body">
                                     <address>

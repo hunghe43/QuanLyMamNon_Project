@@ -436,6 +436,7 @@
     <Folder Include="Areas\Admin\Content\dist\" />
     <Folder Include="Areas\Admin\Content\js\" />
     <Folder Include="Areas\Admin\Content\less\" />
+    <Folder Include="Areas\Admin\Content\vendor\AdminJs_Css\" />
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>

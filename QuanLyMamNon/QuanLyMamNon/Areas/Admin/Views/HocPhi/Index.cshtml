@@ -53,8 +53,8 @@
                                         @item.GhiChu
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0);" class="Update_LoaiHocPhi" data-id="@item.MaLoai">Edit</a>
-                                        <a href="javascript:void(0);" class="Delete_LoaiHocPhi" data-id="@item.MaLoai">Delete</a>
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-github Update_LoaiHocPhi" data-id="@item.MaLoai"><i class="fa fa-edit"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-pinterest Delete_LoaiHocPhi" data-id="@item.MaLoai"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                             }
@@ -137,14 +137,14 @@
                                         @item.ChiPhi
                                     </td>
                                     <td>
-                                        @item.LoaiHocPhi
+                                        @Model.listLoaiHocPhi.Where(x=>x.MaLoai==item.LoaiHocPhi).FirstOrDefault().TenLoai
                                     </td>
                                     <td>
                                         @item.GhiChu
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0);" class="Update_HocPhi" data-id="@item.MaHocPhi">Edit</a>
-                                        <a href="javascript:void(0);" class="Delete_HocPhi" data-id="@item.MaHocPhi">Delete</a>
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-github Update_HocPhi" data-id="@item.MaHocPhi"><i class="fa fa-edit"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-pinterest Delete_HocPhi" data-id="@item.MaHocPhi"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                             }

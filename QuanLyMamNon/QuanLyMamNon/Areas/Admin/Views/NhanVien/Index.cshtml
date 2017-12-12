@@ -80,10 +80,9 @@
                                         @*<button class="btn btn-primary"  data-toggle="modal" data-target="#myModal_detailsNhanVien" data-id="@item.MaNhanVien">
                                                     Details
                                             </button>*@
-                                        <a href="javascript:void(0);" class="Details_NhanVien" data-id="@item.MaNhanVien">Details</a>
-                                        <a href="javascript:void(0);" class="Update_NhanVien" data-id="@item.MaNhanVien">Edit</a>
-                                        
-                                        <a href="" onclick="return ConfirmDelete();" class="Delete_NhanVien" data-id="@item.MaNhanVien">Delete</a>
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_NhanVien" data-id="@item.MaNhanVien"><i class="fa fa-info"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-github Update_NhanVien" data-id="@item.MaNhanVien"><i class="fa fa-edit"></i></a>                                        
+                                        <a href="" onclick="return ConfirmDelete();" class="btn btn-social-icon btn-pinterest Delete_NhanVien" data-id="@item.MaNhanVien"><i class="fa fa-trash-o"></i></a>
                                         @*<span class="btn btn-xs btn-primary btnEdit" id="edit_@item.MaNhanVien" onclick="createModalEdit('@Url.Action("DetailNhanVien", "HomeAdmin" , new {MaNhanVien=item.MaNhanVien })')">Details</span>*@
                                     </td>
                                 </tr>

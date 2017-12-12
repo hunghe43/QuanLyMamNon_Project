@@ -21,7 +21,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public List<HocPhi> getAllhocPhi()
         {
-            List<HocPhi> listHP = this._db.Query<HocPhi>("SELECT * FROM HocPhi").ToList();
+            List<HocPhi> listHP = this._db.Query<HocPhi>("getAllhocPhi", commandType: CommandType.StoredProcedure).ToList();
             return listHP;
         }
         /// <summary>
@@ -62,7 +62,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public List<LoaiHocPhi> getAllloaiHocPhi()
         {
-            List<LoaiHocPhi> listLoaiHP = this._db.Query<LoaiHocPhi>("SELECT * FROM LoaiHocPhi").ToList();
+            List<LoaiHocPhi> listLoaiHP = this._db.Query<LoaiHocPhi>("getAllloaiHocPhi", commandType: CommandType.StoredProcedure).ToList();
             return listLoaiHP;
         }
         /// <summary>

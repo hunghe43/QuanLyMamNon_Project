@@ -22,7 +22,7 @@
 
     <!-- Custom CSS -->
     <link href="~/Areas/Admin/Content/dist/css/sb-admin-2.css" rel="stylesheet">
-
+    <link href="~/Areas/Admin/Content/vendor/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
     <!-- Morris Charts CSS -->
     <link href="~/Areas/Admin/Content/vendor/morrisjs/morris.css" rel="stylesheet">
 
@@ -56,7 +56,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+                @*<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
@@ -244,7 +244,7 @@
                         </li>
                     </ul>
                     <!-- /.dropdown-alerts -->
-                </li>
+                </li>*@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -293,6 +293,9 @@
                                 </li>
                                 <li>
                                     <a href="@Url.Action("Index", "HocPhi")">Quản lý học phí</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "DichVuNgoai")">Quản lý dịch vụ ngoài</a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")">Phân quyền</a>
@@ -376,6 +379,8 @@
     <script src="~/Areas/Admin/Content/data/morris-data.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="~/Areas/Admin/Content/dist/js/sb-admin-2.js"></script>
+    <script src="~/Areas/Admin/Content/vendor/AdminJs_Css/All.js"></script>
+
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
         $(document).ready(function () {

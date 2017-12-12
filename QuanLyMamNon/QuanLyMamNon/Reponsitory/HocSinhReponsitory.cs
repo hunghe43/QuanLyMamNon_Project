@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -22,28 +23,24 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns>Danh sách học sinh: List<HocSinh></returns> 
         public List<HocSinh> GetAllHocSinh()
         {
-            List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh where TrangThai=1").ToList();
+            List<HocSinh> listHs = this._db.Query<HocSinh>("GetAllHocSinh", commandType: CommandType.StoredProcedure).ToList();
             return listHs;
         }
         public List<HocSinh> GetAllHocSinhDis()
         {
-            List<HocSinh> listHs = this._db.Query<HocSinh>("SELECT * FROM HocSinh where TrangThai=0").ToList();
+            List<HocSinh> listHs = this._db.Query<HocSinh>("GetAllHocSinhDis", commandType: CommandType.StoredProcedure).ToList();
             return listHs;
         }
         /// <summary>
-        /// lấy danh sách học sinh do giáo viên chủ nhiệm dạy theo id giáo viên
+        /// lấy danh sách học sinh do giáo viên dạy theo id giáo viên
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public List<HocSinh> GetAllHocSinhForIdGiaoVien(string id)
         {
-            //QR005
-            string query = "select hs.MaHocSinh,hs.Ten,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.SoCmt,hs.Sdt,hs.Email,hs.NgaySinhPhuHuynh,hs.GhiChu,hs.MaLop "+
-                                "from(select lp.* "+
-                                    "from NhanVien nv inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu "+
-                                    "inner join Lop lp on nv.MaLop = lp.MaLop "+
-                                    "and cv.MaChucVu = 'GVC' and nv.MaNhanVien = @id) as lopNew inner join HocSinh hs on hs.MaLop = lopNew.MaLop";
-            List<HocSinh> lst = _db.Query<HocSinh>(query, new { @id = id }).ToList();
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
+            List<HocSinh> lst = _db.Query<HocSinh>("GetAllHocSinhForIdGiaoVien",parameters, commandType: CommandType.StoredProcedure).ToList();
             return lst;
         }
         /// <summary>
@@ -63,7 +60,9 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public HocSinh GetHocSinhForId(string id)
         {
-            HocSinh hs = this._db.Query<HocSinh>("SELECT * FROM HocSinh where MaHocSinh=@id",new { @id=id}).SingleOrDefault();
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
+            HocSinh hs = this._db.Query<HocSinh>("GetHocSinhForId", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
             return hs;
         }
         /// <summary>
@@ -73,14 +72,9 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns> Infor_HocSinh</returns>
         public Infor_HocSinh FindHocSinhInfor(string id)
         {
-            //QR001 
-            string query = "select hs.MaHocSinh,hs.Ten as TenHocSinh,hs.NgaySinh,hs.GioiTinh,hs.DiaChi,hs.TinhTrang,hs.ChieuCao,hs.CanNang,hs.TenPhuHuynh,hs.NgaySinhPhuHuynh,hs.Sdt as SdtPhuHuynh,hs.Email as EmailPhuHuynh,hs.GhiChu,lp.MaLop,lp.TenLop,nv.TenNhanVien as TenGiaoVien,nv.Sdt as SdtGiaoVien,nv.Email as EmailGiaoVien " +
-                                "from HocSinh hs inner join Lop lp on hs.MaLop = lp.MaLop " +
-                                "inner join NhanVien nv on lp.MaLop = nv.MaLop " +
-                                "inner join ChucVu cv on nv.MaChucVu = cv.MaChucVu " +
-                                "and cv.MaChucVu = 'GVC' and hs.TrangThai = '1'";
-            var hocsinhinfor = _db.Query<Infor_HocSinh>(query).ToList();
-            var hocsinh = hocsinhinfor.Where(x => x.MaHocSinh.Equals(id)).Single();
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
+            var hocsinh = _db.Query<Infor_HocSinh>("FindHocSinhInfor", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return hocsinh;
         }
 
@@ -174,6 +168,69 @@ namespace QuanLyMamNon.Reponsitory
         {
             string manv = _db.Query<string>("sp_HocSinh_NewID", commandType: CommandType.StoredProcedure).Single();
             return manv;
+        }
+
+        public void ImportFileHocSinh(string conString,string filePath)
+        {
+            DataTable dt = new DataTable();
+            conString = string.Format(conString, filePath);
+
+            using (OleDbConnection connExcel = new OleDbConnection(conString))
+            {
+                using (OleDbCommand cmdExcel = new OleDbCommand())
+                {
+                    using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
+                    {
+                        cmdExcel.Connection = connExcel;
+
+                        //Get the name of First Sheet.
+                        connExcel.Open();
+                        DataTable dtExcelSchema;
+                        dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                        string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                        connExcel.Close();
+
+                        //Read Data from First Sheet.
+                        connExcel.Open();
+                        cmdExcel.CommandText = "SELECT * From [" + sheetName + "]";
+                        odaExcel.SelectCommand = cmdExcel;
+                        odaExcel.Fill(dt);
+                        connExcel.Close();
+                    }
+                }
+            }
+
+            conString = ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                {
+                    //Set the database table name.
+                    sqlBulkCopy.DestinationTableName = "HocSinh";
+
+                    //[OPTIONAL]: Map the Excel columns with that of the database table
+                    sqlBulkCopy.ColumnMappings.Add("MaHocSinh", "MaHocSinh");
+                    sqlBulkCopy.ColumnMappings.Add("Ten", "Ten");
+                    sqlBulkCopy.ColumnMappings.Add("NgaySinh", "NgaySinh");
+                    sqlBulkCopy.ColumnMappings.Add("GioiTinh", "GioiTinh");
+                    sqlBulkCopy.ColumnMappings.Add("DiaChi", "DiaChi");
+                    sqlBulkCopy.ColumnMappings.Add("TinhTrang", "TinhTrang");
+                    sqlBulkCopy.ColumnMappings.Add("ChieuCao", "ChieuCao");
+                    sqlBulkCopy.ColumnMappings.Add("CanNang", "CanNang");
+                    sqlBulkCopy.ColumnMappings.Add("TenPhuHuynh", "TenPhuHuynh");
+                    sqlBulkCopy.ColumnMappings.Add("SoCmt", "SoCmt");
+                    sqlBulkCopy.ColumnMappings.Add("Sdt", "Sdt");
+                    sqlBulkCopy.ColumnMappings.Add("Email", "Email");
+                    sqlBulkCopy.ColumnMappings.Add("NgaySinhPhuHuynh", "NgaySinhPhuHuynh");
+                    sqlBulkCopy.ColumnMappings.Add("GhiChu", "GhiChu");
+                    sqlBulkCopy.ColumnMappings.Add("MaLop", "MaLop");
+                    sqlBulkCopy.ColumnMappings.Add("TrangThai", "TrangThai");
+
+                    con.Open();
+                    sqlBulkCopy.WriteToServer(dt);
+                    con.Close();
+                }
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public List<Lop> getAllLop()
         {
-            List<Lop> list = this._db.Query<Lop>("SELECT * FROM Lop").ToList();
+            List<Lop> list = this._db.Query<Lop>("getAllLop", commandType: CommandType.StoredProcedure).ToList();
             return list;
         }
         /// <summary>

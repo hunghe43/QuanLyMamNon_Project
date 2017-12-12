@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
+    [AuthorizeController]
     public class DichVuNgoaiController : Controller
     {
         DichVuNgoaiRePonsitory hocphiRepon = new DichVuNgoaiRePonsitory();
