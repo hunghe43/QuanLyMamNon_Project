@@ -26,30 +26,20 @@
 
                             </div>
                             <div class="list-group">
-
-                                <a class="list-group-item">
-                                    <i class="fa fa-twitter fa-fw"></i> Học phí(tính theo loại lớp)
-                                    <span class="pull-right text-muted small">
-                                        <em>25.000 vnd</em>
-                                    </span>
-                                </a>
-                                <a class="list-group-item">
-                                    <i class="fa fa-twitter fa-fw"></i> Tiền ăn
-                                    <span class="pull-right text-muted small">
-                                        <em>25.000 vnd</em>
-                                    </span>
-                                </a>
-                                <a class="list-group-item">
-                                    <i class="fa fa-envelope fa-fw"></i> Bán trú
-                                    <span class="pull-right text-muted small">
-                                        <em>25.000 vnd</em>
-                                    </span>
-                                </a>
+                                @foreach (var item in Model.listHocPhiThang)
+                                {
+                                    <a class="list-group-item">
+                                        <i class="fa fa-twitter fa-fw"></i> @item.TenHocPhi
+                                        <span class="pull-right text-muted small">
+                                            <em>@item.ChiPhi vnd</em>
+                                        </span>
+                                    </a>
+                                }
                             </div>
                             <div class="panel-footer">
                                 <i class="fa fa-upload fa-fw"></i> (1)Tổng:
                                 <span class="pull-right text-muted small">
-                                    <em>25.000 vnd</em>
+                                    <em>vnd</em>
                                 </span>
                             </div>
                         </div>
@@ -87,7 +77,7 @@
                             <div class="panel-footer">
                                 <i class="fa fa-upload fa-fw"></i> (2)Tổng:
                                 <span class="pull-right text-muted small">
-                                    <em>25.000 vnd</em>
+                                    <em>vnd</em>
                                 </span>
                             </div>
                         </div>
@@ -96,7 +86,7 @@
                         <div class="panel panel-success">
                             <div class="panel-heading">
 
-                                <i class="fa fa-comment fa-fw text-center"></i> Học phí
+                                <i class="fa fa-comment fa-fw text-center"></i> Dịch vụ ngoài
                                 <span class="pull-right text-muted small">
                                 </span>
 
@@ -107,7 +97,7 @@
                                     <a class="list-group-item">
                                         <i class="fa fa-twitter fa-fw"></i> Môn Học: @item.TenDV
                                         <span class="pull-right text-muted small">
-                                            <em>vnđ</em>
+                                            <em>@item.ChiPhi vnđ</em>
                                         </span>
                                     </a>
                                 }
@@ -115,12 +105,12 @@
                             <div class="panel-footer">
                                 <i class="fa fa-upload fa-fw"></i> (3)Tổng:
                                 <span class="pull-right text-muted small">
-                                    <em>25.000 vnd</em>
+                                    <em> vnd</em>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    @*<div class="col-lg-3">
                         <div class="panel panel-success">
                             <div class="panel-heading">
 
@@ -163,7 +153,7 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
                 </div>
                 <div class="alert alert-info">
@@ -190,16 +180,19 @@
                 $(this).change();
             }
         }).on("change", function() {
+            debugger;
             var date = $(this).val();
             var MaHocSinh=@Model.hocSinh.MaHocSinh;
 
             if (date && date != '') {
+                debugger;
                 $.ajax({
                     url: '@Url.Action("Partial_CT_HocPhi")',
                     type: 'GET',
                     cache: false,
                     data: {  MaHocSinh:MaHocSinh,date: date },
                     success: function(data) {
+                        debugger;
                         $('#resultHocPhi').html(data);
                     }
                 });

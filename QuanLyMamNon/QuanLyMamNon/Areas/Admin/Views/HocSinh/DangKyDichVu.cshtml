@@ -1,0 +1,71 @@
+﻿
+@using QuanLyMamNon.Models
+@model QuanLyMamNon.Models.Dao.ViewModelDanhSachHS
+
+@using (Html.BeginForm("Add", "HocSinh", FormMethod.Post, new { @role = "form", @data_toggle = "validator" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Thêm mới</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Thông tin học sinh
+                    </div>
+                    <div class="panel-body">
+                        <label>Họ và tên</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-child"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.Ten, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
+                        </div>
+                        <label>Ngày sinh</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.NgaySinh, new { @type = "date", @class = "form-control", @placeholder = "Ngày sinh...", @required = "required" })
+                        </div>
+                        <label>Giới tính</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-leaf"></i>
+                            </span>
+                            @Html.DropDownListFor(x => x.hocsinh.GioiTinh, new SelectList(new List<string> { "Nam", "Nữ" }, 0), "--Chọn giới tính--", new { @class = "form-control", @placeholder = "Giới tính...", @required = "required" })
+                        </div>
+                        <label>Địa chỉ</label>(<i class="fa fa-star" style="color:red"></i>)
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-home"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.DiaChi, new { @class = "form-control", @placeholder = "Địa chỉ...", @required = "required" })
+                        </div>
+                        <label>Chiều cao, cân nặng</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-arrows-v"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.ChieuCao, new { @class = "form-control", @pattern = "([0-9]{1,3})", @type = "number", @placeholder = "Chiều cao..." })
+                            <span class="input-group-addon">.cm</span>
+                            <span class="input-group-addon">
+                                <i class="fa fa-arrows-h"></i>
+                            </span>
+                            @Html.TextBoxFor(x => x.hocsinh.CanNang, new { @type = "number", @class = "form-control", @placeholder = "Cân nặng..." })
+                            <span class="input-group-addon">.kg</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">Đăng ký</button>
+    </div>
+}

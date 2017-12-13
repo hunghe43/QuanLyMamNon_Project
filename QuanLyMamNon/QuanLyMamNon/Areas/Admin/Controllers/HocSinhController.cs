@@ -114,6 +114,11 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// import thông tin học sinh từ file excel
+        /// </summary>
+        /// <param name="postedFile"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ImportFileHocSinh(HttpPostedFileBase postedFile)
         {
@@ -140,11 +145,34 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                         conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
                         break;
                 }
-                hocSinhRepon.ImportFileHocSinh(conString, filePath);
-
-                
+                hocSinhRepon.ImportFileHocSinh(conString, filePath);                
             }
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// đăng ký dịch vụ ngoài cho học sinh
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DangKyDichVu(string id,string ngayDK)
+        {
+            PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
+            DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
+            var listDV_HS = ptRepon.getListDichVuNgoai_HocSinh(id,ngayDK);
+            //kiểm tra đã đăng ký dịch vụ tháng này chưa
+            bool checkExist = false;
+            if (listDV_HS.Count() != 0)
+            {
+                checkExist = true;
+            }
+            ViewData["checkExist"] = checkExist;            
+            var listDV = dvRepon.getAllDichVuNgoai();
+            var viewModel = new ViewModelDangKyDV_HS
+            {
+                listDV = listDV,
+                listDV_HS=listDV_HS
+            };
+            return View(viewModel);
         }
     }
 }

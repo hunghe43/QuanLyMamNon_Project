@@ -116,7 +116,7 @@
                                     </label>
                                     <input type="text" class="form-control" readonly="">
                                     <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary"> <!-- /change to submit... -->
                                             <i class="fa fa-download"></i>
                                         </button>
                                     </span>
@@ -194,6 +194,7 @@
                                 </td>
                                 @*@item.NgaySinhPhuHuynh.GetValueOrDefault().ToShortDateString()*@
                                 <td>
+                                    @*<a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket DangKyDV_HocSinh" data-id="@item.MaHocSinh"><i class="fa  fa-plus-circle"></i></a>*@
                                     <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-info"></i></a>
                                     <a href="javascript:void(0);" class="btn btn-social-icon btn-github Update_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-edit"></i></a>
                                     <a href="javascript:void(0);" class="btn btn-social-icon btn-pinterest Delete_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-trash-o"></i></a>
@@ -323,5 +324,33 @@
             } else
                 return false;
         });
+
+        @*// do get dang ky dich vu HocSinh
+        $(".DangKyDV_HocSinh").click(function () {
+            debugger;
+            var DangKyDV_HocSinh_url = '@Url.Action("DangKyDichVu", "HocSinh")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            var dateObj = new Date();
+            var month = dateObj.getUTCMonth() + 1; //months from 1-12
+            var day = dateObj.getUTCDate();
+            var year = dateObj.getUTCFullYear();
+            newdate = day + "/" + year;
+            alert(newdate);
+            $.ajax({
+                type: "GET",
+                url: DangKyDV_HocSinh_url,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id,"date":newdate },
+                datatype: "json",
+                success: function () {
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });*@
     });
+
 </script>

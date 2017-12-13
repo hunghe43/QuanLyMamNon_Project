@@ -175,6 +175,7 @@
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
     <Compile Include="Areas\Admin\utils\Validate.cs" />
     <Compile Include="Models\AuthorizeController.cs" />
+    <Compile Include="Models\Dao\ViewModelDangKyDV_HS.cs" />
     <Compile Include="Models\Dao\ViewModelDanhSachGiaoVien.cs" />
     <Compile Include="Models\Dao\ViewModelDanhSachHS.cs" />
     <Compile Include="Models\Dao\ViewModelDanhSachNhanVien.cs" />
@@ -390,6 +391,7 @@
     <Content Include="Areas\Admin\Views\DichVuNgoai\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DichVuNgoai\Partial_AddDichVuNgoai.cshtml" />
     <Content Include="Areas\Admin\Views\DichVuNgoai\Partial_UpdateDichVuNgoai.cshtml" />
+    <Content Include="Areas\Admin\Views\HocSinh\DangKyDichVu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

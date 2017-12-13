@@ -52,6 +52,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
             HocSinhReponsitory hsRepon = new HocSinhReponsitory();
+            var nhanvien = (NhanVien)Session["NhanVien"];
 
             DateTime ngaytaophieu;
             if (date != null)
@@ -63,14 +64,15 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 ngaytaophieu = DateTime.Now;
                 date = ngaytaophieu.ToString("MM/yyyy");
             }
-            
-            PhieuThu pt = ptRepon.getPhieuThuForIdHocSinh(MaHocSinh, date);
+            var listHocPhiThang = ptRepon.getHocPhiThang();
+            PhieuThu pt = ptRepon.getPhieuThuForIdHocSinh(MaHocSinh,nhanvien.MaNhanVien, date);
 
             ViewModelPhieuThu viewModel = new ViewModelPhieuThu
             {
                 phieuThu = pt,
+                listHocPhiThang=listHocPhiThang,
                 hocSinh = hsRepon.GetHocSinhForId(MaHocSinh),
-                listDichVuNgoai = ptRepon.getAllDichVuNgoai(MaHocSinh, date)
+                listDichVuNgoai = ptRepon.getListDichVuNgoai_HocSinh(MaHocSinh, date)
             };
             return PartialView(viewModel);
         }
