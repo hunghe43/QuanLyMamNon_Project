@@ -1,63 +1,46 @@
 ﻿@using QuanLyMamNon.Models
-@model QuanLyMamNon.Models.Infor_GiaoVien
+@model QuanLyMamNon.Models.Dao.ViewModelDiemDanh
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div id="page-wrapper">
-  
-    <!-- /.row -->   
-    <div class="row">
+    <div class="row" >
         <div class="col-lg-12">
-            <h1 class="page-header">Xin Chào @Model.TenGiaoVien !</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" style="margin-top:20px">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-8 text-left">
-                            <div><i class="fa fa-info fa-2x"> Lớp @Model.TenLop</i></div>
-                            <div><i class="fa fa-slack"> Sỉ số @Model.Siso</i></div>
+                            <div><i class="fa fa-info fa-2x"> Lớp @Model.lop.TenLop</i></div>
+                            <div><i class="fa fa-slack"> Sỉ số @Model.lop.SiSo</i></div>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    @foreach (var gvp in (List<Infor_GiaoVien>)ViewData["List GVP"])
+                    @foreach (var gv in Model.listGV)
                     {
                         <div class="col-lg-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Giáo viên: @gvp.TenGiaoVien
+                                    @gv.TenChucVu: @gv.TenGiaoVien
                                 </div>
                                 <div class="panel-body">
                                     <address>
-                                        <p>Địa chỉ: @gvp.DiaChi</p>
-                                        <abbr title="Phone">Phone:</abbr>@gvp.Sdt
+                                        <p>Địa chỉ: @gv.DiaChi</p>
+                                        <abbr title="Phone">Phone:</abbr>@gv.Sdt
                                     </address>
                                     <address>
                                         <strong>Email:</strong>
-                                        <a href="mailto:#">@gvp.Email</a>
+                                        <a href="mailto:#">@gv.Email</a>
                                     </address>
                                 </div>
-
                             </div>
                         </div>
                     }
-
                     <div class="col-lg-4">
                     </div>
                 </div>
-                <a href="#">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
         </div>
     </div>
@@ -65,6 +48,116 @@
         <!-- /.row -->
         @Html.Action("Partial_DiemDanhLop", "GiaoVien","")
     </div>
-        @Html.Action("Partial_DanhSachHocSinh", "GiaoVien",Model)
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="fa fa-th-list fa-2x">  Danh sách học sinh</i>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mã
+                                </th>
+                                <th>
+                                    Họ Tên
+                                </th>
+                                <th>
+                                    Ngày Sinh
+                                </th>
+                                <th>
+                                    Địa Chỉ
+                                </th>
+                                <th>
+                                    Chiều cao
+                                </th>
+                                <th>
+                                    Cân nặng
+                                </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listHocSinhModel)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.MaHocSinh
+                                    </td>
+                                    <td>
+                                        @item.Ten
+                                    </td>
+                                    <td>
+                                        @item.NgaySinh.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        @item.DiaChi
+                                    </td>
+                                    <td>
+                                        @item.ChieuCao
+                                    </td>
+                                    <td>
+                                        @item.CanNang
+                                    </td>                                    
+                                    <td>                                        
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-info"></i></a>                                        
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="myModal_detailsHocSinh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="width: 800px;">
+                            <div class="modal-content" id="myModalContent">
+                                <!-- Partial view Add,detail,update in here -->
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
 </div>
 <!-- /#page-wrapper -->
+
+<script>   
+    $(document).ready(function () {
+        // do get details HocSinh
+        $(".Details_HocSinh").click(function () {
+            debugger;
+            var detaisl_HocSinh_url = '@Url.Action("Detail", "HocSinh")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: detaisl_HocSinh_url,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_detailsHocSinh').modal(options);
+                    $('#myModal_detailsHocSinh').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+    });
+
+</script>
+

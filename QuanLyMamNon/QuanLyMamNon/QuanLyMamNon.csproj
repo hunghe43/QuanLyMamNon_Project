@@ -173,7 +173,6 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
-    <Compile Include="Areas\Admin\utils\Validate.cs" />
     <Compile Include="Models\AuthorizeController.cs" />
     <Compile Include="Models\Dao\ViewModelDangKyDV_HS.cs" />
     <Compile Include="Models\Dao\ViewModelDanhSachGiaoVien.cs" />
@@ -182,7 +181,9 @@
     <Compile Include="Models\Dao\ViewModelDiemDanh.cs" />
     <Compile Include="Models\Dao\ViewModelHocPhi.cs" />
     <Compile Include="Models\Dao\ViewModelPhanQuyen.cs" />
+    <Compile Include="Models\Entity\CT_PhieuThu_HocSinh.cs" />
     <Compile Include="Models\Entity\HocPhi.cs" />
+    <Compile Include="Models\Entity\Infor_PhieuThu.cs" />
     <Compile Include="Models\Entity\LoaiHocPhi.cs" />
     <Compile Include="Models\ReflectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -364,7 +365,6 @@
     <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GiaoVien\Partial_DiemDanhLop.cshtml" />
-    <Content Include="Areas\Admin\Views\GiaoVien\Partial_DanhSachHocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\Login\NotificationAuthorize.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\PhanQuyenTheoChucVu.cshtml" />
     <Content Include="Areas\Admin\Views\KeToan\Index.cshtml" />

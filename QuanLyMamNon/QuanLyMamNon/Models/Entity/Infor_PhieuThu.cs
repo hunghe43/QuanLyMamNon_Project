@@ -5,15 +5,14 @@ using System.Web;
 
 namespace QuanLyMamNon.Models
 {
-    public class PhieuThu
+    public class Infor_PhieuThu
     {
-        public string MaPhieuThu { get; set; }
         public string NgayTaoPhieu { get; set; }
         public string MaHocSinh { get; set; }
         public string MaNhanVien { get; set; }
+        public int SoNgayVang { get; set; }
+        public int SoNgayAnSang { get; set; }
+        public int SoNgayAnTrua { get; set; }
         public decimal ChiPhi { get; set; }
-        public string GhiChu { get; set; }
-        //public virtual HocSinh HocSinh { get; set; }
-        //public virtual NhanVien NhanVien { get; set; }
     }
 }

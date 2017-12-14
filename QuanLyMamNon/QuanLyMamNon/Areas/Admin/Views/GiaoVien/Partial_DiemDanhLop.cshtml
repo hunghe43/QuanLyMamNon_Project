@@ -17,7 +17,10 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="span5 col-md-5" id="sandbox-container">
-                            @Html.TextBoxFor(model => model.phieuTheoDoiModel.NgayTheoDoi, new { @class = "form-control datetime", @type = "date", @Value = Model.phieuTheoDoiModel.NgayTheoDoi.ToString("yyyy-MM-dd") })
+                            <div class="input-group date">
+                                <input value="@Model.phieuTheoDoiModel.NgayTheoDoi.ToShortDateString()" id="dateValue" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
+                            @*<input value="@Model.phieuTheoDoiModel.NgayTheoDoi" type="text" name="date" class="form-control datetime" placeholder="Chọn tháng...."><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>*@
                         </div>
                     </div>
                     <br />
@@ -81,7 +84,6 @@
     <!-- /.col-lg-6 -->
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
     $("#messDiemDanh").hide();
     $("#messDiemDanhThanhCong").hide();
@@ -104,10 +106,22 @@
             $("#btnSua").hide();
         });
     });
-
+    //datetime picker
     $(function() {
-        $('.datetime').change(function() {
-            var date = $(this).val();
+        var date = $('#dateValue').val();
+        $('#sandbox-container .input-group.date').datepicker({
+            format: "yyyy/mm/dd",
+            todayBtn: "linked",
+            daysOfWeekDisabled: "6",
+            autoclose: true,
+            todayHighlight: true,
+            endDate: '+0d',
+            onSelect: function() {
+            $(this).change();
+        }
+        }).on("change", function() {
+            debugger;
+            var date = $('#dateValue').val();
             if (date && date != '') {
                 $.ajax({
                     url: '@Url.Action("Partial_DiemDanhLop")',

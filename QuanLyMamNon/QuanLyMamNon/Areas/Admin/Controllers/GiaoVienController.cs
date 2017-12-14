@@ -18,36 +18,37 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             var nhanvien = (NhanVien)Session["NhanVien"];
             NhanVienReponsitory nvRepon = new NhanVienReponsitory();
+            HocSinhReponsitory HsRepon = new HocSinhReponsitory();
+
             if (nvRepon.checkExitstGiaoVien(nhanvien.MaNhanVien))
             {
-                //thông tin gv chính
-                var giaoVienChuNhiem = nvRepon.GetGiaoVienChuNhiem(nhanvien.MaNhanVien);
-                //list gv phụ
-                var gvPhu = nvRepon.GetListGVForIdLogin(nhanvien.MaNhanVien);
-                ViewData["List GVP"] = gvPhu;
-                return View(giaoVienChuNhiem);
+                //lấy danh sách học sinh theo giáo viên login
+                var listHS = HsRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
+                //lấy thông tin lớp học
+                var lop = nvRepon.getLopForIdGiaoVien(nhanvien.MaNhanVien);
+                //list gv
+                var listGV = nvRepon.GetListGVForIdLogin(nhanvien.MaNhanVien);
+                //ViewData["List GVP"] = gvPhu;
+                var viewModel = new ViewModelDiemDanh()
+                {
+                    listHocSinhModel = listHS,
+                    listGV= listGV,
+                    lop=lop
+                };
+                return View(viewModel);
             }
             else
             {                
                 return RedirectToAction("NotificationAuthorize", "Login");
             }
         }
-
-        public PartialViewResult Partial_DanhSachHocSinh()
-        {
-            var nhanvien = (NhanVien)Session["NhanVien"];
-            HocSinhReponsitory HsRepon = new HocSinhReponsitory();
-            var lstHS = HsRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
-            ViewData["ListHocSinh"] = lstHS;
-            return PartialView("Partial_DanhSachHocSinh");
-        }
-                
+        
         public ActionResult Partial_DiemDanhLop(string date)
         {
             DateTime ngayTheoDoi;
             if (date != null)
             {
-                ngayTheoDoi = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture).Date;
+                ngayTheoDoi = DateTime.Parse(date).Date;
             }
             else
             {
@@ -57,15 +58,16 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
             var listCT_NgayTheoDoi = new List<CT_NgayTheoDoi>();      
+            //lấy danh sách học sinh do giáo viên phụ trách
             var listHS = hocSinhRepon.GetAllHocSinhForIdGiaoVien(nhanvien.MaNhanVien);
             //kiểm tra xem đã thực hiện điểm danh chưa, là kiểm tra xem tồn tại phiếu theo dõi chưa
-            var checkDiemDanh = ptdRepon.checkExistsPhieuTheoDoi(nhanvien.MaNhanVien, ngayTheoDoi);
+            var checkDiemDanh = ptdRepon.checkExistsPhieuTheoDoi(ngayTheoDoi);
             
             //đã điểm danh
             if (checkDiemDanh)
             {
                 //lấy danh sách đã điểm danh
-                listCT_NgayTheoDoi = ptdRepon.getAll_CT_NgayTheoDoi(nhanvien.MaNhanVien, ngayTheoDoi);                
+                listCT_NgayTheoDoi = ptdRepon.getAll_CT_NgayTheoDoi(ngayTheoDoi);                
             }
             else //chưa điểm danh
             {

@@ -31,10 +31,10 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns>true: đã tồn tại phiếu theo doi
         ///         false: chưa tồn tại phiếu theo dõi
         /// </returns>
-        public bool checkExistsPhieuTheoDoi(string maGiaoVien,DateTime ngayTheoDoi)
+        public bool checkExistsPhieuTheoDoi(DateTime ngayTheoDoi)
         {
             var listPhieuTheoDoi = getAllPhieuTheoDoi();
-            var ptd = listPhieuTheoDoi.Find(n => n.MaGiaoVien.Equals(maGiaoVien) && n.NgayTheoDoi == ngayTheoDoi);
+            var ptd = listPhieuTheoDoi.Find(n => n.NgayTheoDoi == ngayTheoDoi);
             if (listPhieuTheoDoi.Contains(ptd))
             {
                 return true;
@@ -47,11 +47,11 @@ namespace QuanLyMamNon.Reponsitory
         /// <param name="maGiaoVien"></param>
         /// <param name="ngayTheoDoi"></param>
         /// <returns></returns>
-        public List<CT_NgayTheoDoi> getAll_CT_NgayTheoDoi(string maGiaoVien,DateTime ngayTheoDoi)
+        public List<CT_NgayTheoDoi> getAll_CT_NgayTheoDoi(DateTime ngayTheoDoi)
         {
             string query = "select ct.* from PhieuTheoDoi ptd inner join CT_NgayTheoDoi ct on ptd.MaPhieuTheoDoi = ct.MaPhieuTheoDoi "+
-                "where ptd.MaGiaoVien = @MaGiaoVien and ptd.NgayTheoDoi = @NgayTheoDoi";
-            List<CT_NgayTheoDoi> lst = _db.Query<CT_NgayTheoDoi>(query, new { @MaGiaoVien = maGiaoVien, @NgayTheoDoi= ngayTheoDoi }).ToList();
+                "where ptd.NgayTheoDoi = @NgayTheoDoi";
+            List<CT_NgayTheoDoi> lst = _db.Query<CT_NgayTheoDoi>(query, new {@NgayTheoDoi= ngayTheoDoi }).ToList();
             return lst;
         }
 

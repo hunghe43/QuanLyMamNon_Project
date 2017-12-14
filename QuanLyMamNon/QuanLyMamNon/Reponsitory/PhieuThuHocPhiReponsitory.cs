@@ -10,7 +10,7 @@ using System.Web;
 
 namespace QuanLyMamNon.Reponsitory
 {
-    
+
     public class PhieuThuHocPhiReponsitory
     {
         private IDbConnection _db = new SqlConnection
@@ -21,13 +21,13 @@ namespace QuanLyMamNon.Reponsitory
         /// <param name="MaHocSinh"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public PhieuThu getPhieuThuForIdHocSinh(string MaHocSinh,string MaNhanVien,string date)
+        public Infor_PhieuThu getPhieuThuForIdHocSinh(string MaHocSinh, string MaNhanVien, string date)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@MaHocSinh", MaHocSinh);
             parameters.Add("@MaNhanVien", MaNhanVien);
             parameters.Add("@date", date);
-            PhieuThu pt = _db.Query<PhieuThu>("GetPhieuThuForIdHocSinh", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            Infor_PhieuThu pt = _db.Query<Infor_PhieuThu>("GetPhieuThuForIdHocSinh", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
             return pt;
         }
         /// <summary>
@@ -54,15 +54,70 @@ namespace QuanLyMamNon.Reponsitory
         /// <param name="MaHocSinh"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<DichVuNgoai> getListDichVuNgoai_HocSinh(string MaHocSinh, string date)
+        public List<DichVuNgoai> getListDichVuNgoai_HocSinh(string MaHocSinh, string Thang)
         {
             //QR016
-            string query = "select dv.* from DichVuNgoai dv inner join CT_DichVu_HocSinh ct on dv.MaDichVu = ct.MaDichVu " +
-                "inner join HocSinh hs on hs.MaHocSinh = ct.MaHocSinh where hs.MaHocSinh = @MaHocSinh and ct.ThangDangKy = @Thang";
-            var listDVNgoai = _db.Query<DichVuNgoai>(query, new {@MaHocSinh=MaHocSinh,@Thang=date }).ToList();
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaHocSinh", MaHocSinh);
+            parameters.Add("@Thang", Thang);
+            var listDVNgoai = _db.Query<DichVuNgoai>("getListDichVuNgoai_HocSinh", parameters, commandType: CommandType.StoredProcedure).ToList();
             return listDVNgoai;
         }
 
+        //luu phieu thu
+        public void saveThuPhiHocSinh(PhieuThu phieuthu, List<CT_PhieuThu_HocSinh> listCt_PhieuThu_HocSinh)
+        {
+            var parameters = new DynamicParameters();
+            phieuthu.MaPhieuThu = getAutoIdPhieuThu();
+            parameters.Add("@MaPhieuThu", phieuthu.MaPhieuThu);
+            //convert nvarchar todate in c# and sql
+            parameters.Add("@NgayTaoPhieu", phieuthu.NgayTaoPhieu);
+            parameters.Add("@MaHocSinh", phieuthu.MaHocSinh);
+            parameters.Add("@MaNhanVien", phieuthu.MaNhanVien);
+            parameters.Add("@GhiChu", phieuthu.GhiChu);
+
+            //lấy danh sách ct phiếu thu
+            //listCt_PhieuThu_HocSinh = getListCt_PhieuThu_HocSinh();
+            //............. theem ct phieuthu hocsinh
+         
+                _db.Execute("InsertPhieuThu", parameters, commandType: CommandType.StoredProcedure);//trong khi...
+                foreach (var ctPhieu in listCt_PhieuThu_HocSinh)
+                {
+                    ctPhieu.MaCT_PhieuThu_HocSinh = getAutoIdCT_PhieuThu_HocSinh();
+                    insertCT_phieuThu_hocSinh(ctPhieu);
+                }
+
+        }
+
+        public void insertCT_phieuThu_hocSinh(CT_PhieuThu_HocSinh ctpt)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaCT_PhieuThu_HocSinh", ctpt.MaCT_PhieuThu_HocSinh);
+            parameters.Add("@TenLoaiPhi", ctpt.TenLoaiPhi);
+            parameters.Add("@SoLuong", ctpt.SoLuong);
+            parameters.Add("@ChiPhi", ctpt.ChiPhi);
+            parameters.Add("@MaPhieuThu", ctpt.MaPhieuThu);
+            _db.Execute("Insert_Ct_phieuThu_hocSinh", parameters, commandType: CommandType.StoredProcedure);
+        }
+
+        /// <summary>
+        /// sinh mã tự động cho phiếu thu
+        /// </summary>
+        /// <returns></returns>
+        public string getAutoIdPhieuThu()
+        {
+            string ma = _db.Query<string>("sp_PhieuThu_NewID", commandType: CommandType.StoredProcedure).Single();
+            return ma;
+        }
+        /// <summary>
+        /// sinh mã tự động cho ct_phieuThu_hócinh
+        /// </summary>
+        /// <returns></returns>
+        public string getAutoIdCT_PhieuThu_HocSinh()
+        {
+            string ma = _db.Query<string>("sp_CT_PhieuThu_HocSinh_NewID", commandType: CommandType.StoredProcedure).Single();
+            return ma;
+        }
 
     }
 }

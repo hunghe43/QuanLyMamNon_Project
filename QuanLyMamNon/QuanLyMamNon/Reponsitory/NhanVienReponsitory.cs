@@ -120,6 +120,17 @@ namespace QuanLyMamNon.Reponsitory
             return nhanvien;
         }
         /// <summary>
+        /// lấy thông tin lớp của giáo viên đặng nhập
+        /// </summary>
+        /// <returns></returns>
+        public Lop getLopForIdGiaoVien(string id)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@id", id);
+            Lop obj = _db.Query<Lop>("getLopForIdGiaoVien", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            return obj;
+        }
+        /// <summary>
         /// kiểm tra xem login có phải giáo viên hay không
         /// </summary>
         /// <returns> true: là gv

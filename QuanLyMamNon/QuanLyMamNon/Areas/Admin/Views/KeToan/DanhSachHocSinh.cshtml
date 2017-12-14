@@ -167,7 +167,7 @@
                                 @*@Html.DisplayNameFor(model => model.GhiChu)*@
                                 @*@Html.DisplayNameFor(model => model.MaLop)*@
                                 @*@Html.DisplayNameFor(model => model.TrangThai)*@
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -207,12 +207,22 @@
                                     @*@Html.DisplayFor(modelItem => item.MaLop)*@
                                     @*@Html.DisplayFor(modelItem => item.TrangThai)*@
                                     <td>
-                                        @Html.ActionLink("Chi tiết", "HocPhiHocSinh", new { MaHocSinh=item.MaHocSinh,date = DateTime.Now.ToString("MM/yyyy") })
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-info"></i></a>                                        
+                                        @Html.ActionLink("Chi tiết", "HocPhiHocSinh", new { MaHocSinh = item.MaHocSinh, date = DateTime.Now.ToString("MM/yyyy") })
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
+                    <div class="modal fade" id="myModal_detailsHocSinh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="width: 800px;">
+                            <div class="modal-content" id="myModalContent">
+                                <!-- Partial view Add,detail,update in here -->
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -221,8 +231,34 @@
         <!-- /.col-lg-12 -->
     </div>
 </div>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script>
     $('#idd option[value=@ViewBag.select]').attr('selected', 'selected');
+
+    $(document).ready(function () {
+        // do get details HocSinh
+        $(".Details_HocSinh").click(function () {
+            debugger;
+            var detaisl_HocSinh_url = '@Url.Action("Detail", "HocSinh")';
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: detaisl_HocSinh_url,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                datatype: "json",
+                success: function (data) {
+                    debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal_detailsHocSinh').modal(options);
+                    $('#myModal_detailsHocSinh').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+    });
 </script>
 
