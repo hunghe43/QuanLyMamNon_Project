@@ -24,6 +24,31 @@ namespace QuanLyMamNon.Reponsitory
             List<DichVuNgoai> list = this._db.Query<DichVuNgoai>("getAllDichVuNgoai", commandType: CommandType.StoredProcedure).ToList();
             return list;
         }
+
+        /// <summary>
+        /// lấy danh sách dịch vụ ngoài học sinh đã đăng ký trong tháng dược chọn
+        /// </summary>
+        /// <param name="MaHocSinh"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<DichVuNgoai> getListDichVuNgoai_HocSinh(string MaHocSinh, string Thang)
+        {
+            //QR016
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaHocSinh", MaHocSinh);
+            parameters.Add("@Thang", Thang);
+            var listDVNgoai = _db.Query<DichVuNgoai>("getListDichVuNgoai_HocSinh", parameters, commandType: CommandType.StoredProcedure).ToList();
+            return listDVNgoai;
+        }
+        //public CT_DichVu_HocSinh getCT_DichVu_HocSinh(string MaHocSinh, string Thang)
+        //{
+        //    var parameters = new DynamicParameters();
+        //    parameters.Add("@MaHocSinh", MaHocSinh);
+        //    parameters.Add("@Thang", Thang);
+        //    var ct = _db.Query<CT_DichVu_HocSinh>("getCT_DichVu_HocSinh", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
+        //    return ct;
+        //}
+
         /// <summary>
         /// thêm mới 
         /// </summary>
@@ -94,6 +119,22 @@ namespace QuanLyMamNon.Reponsitory
         {
             string maDichVuNgoai = _db.Query<string>("sp_DichVuNgoai_NewID", commandType: CommandType.StoredProcedure).Single();
             return maDichVuNgoai;
+        }
+        public string getAutoIdCt_DV_HS()
+        {
+            string id = _db.Query<string>("sp_Ct_DichVu_HocSinh_NewID", commandType: CommandType.StoredProcedure).Single();
+            return id;
+        }
+
+        public void InsertDichVu_HocSinh(string MaDichVu,string MaHocSinh,string thang)
+        {
+            var parameters = new DynamicParameters();
+            string id = getAutoIdCt_DV_HS();
+            parameters.Add("@MaCT_DV_HS", id);
+            parameters.Add("@MaDichVu", MaDichVu);
+            parameters.Add("@MaHocSinh", MaHocSinh);
+            parameters.Add("@thang", thang);
+            _db.Execute("InsertDichVu_HocSinh", parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

@@ -107,14 +107,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="form-group input-group">
                     <label>Tình trạng hoạt động </label>
                     @Html.CheckBoxFor(x => x.hocsinh.TrangThai, new { @class = "form-control checkTrangThai" })
 
                 </div>
             </div>
-            <div class="col-lg-6 showHide">
+            <div class="col-lg-4">
+                <div class="form-group input-group">
+                    <label>Là đối tượn con MTA</label>
+                    @Html.CheckBoxFor(x => x.hocsinh.DoiTuongMTA, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 showHide">
                 <div class="form-group input-group DropListLop">
                     <label>Chọn lớp học</label>                    
                     @Html.DropDownListFor(x=>x.hocsinh.MaLop,new SelectList(Model.listLop, "MaLop", "TenLop",Model.hocsinh.MaLop), "None", new { @class = "form-control dropdownLop", @required = "required" })
@@ -131,6 +137,7 @@
                     @Html.TextAreaFor(x => x.hocsinh.TinhTrang, new { @class = "form-control", @placeholder = "Tình trạng học tập..." })
                 </div>
             </div>
+           
             <div class="col-lg-6">
                 <label>Ghi chú</label>
                 <div class="form-group input-group">

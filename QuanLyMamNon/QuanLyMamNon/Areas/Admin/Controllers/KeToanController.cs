@@ -49,29 +49,30 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             return View(hocSinh);
         }
 
-        public ActionResult Partial_CT_HocPhi(string MaHocSinh, string date)
+        public ActionResult Partial_CT_HocPhi(string MaHocSinh, string thang)
         {
             PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
+            DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
             HocSinhReponsitory hsRepon = new HocSinhReponsitory();
             var nhanvien = (NhanVien)Session["NhanVien"];
             DateTime ngaytaophieu;
-            if (date != null)
+            if (thang != null)
             {
-                ngaytaophieu = DateTime.ParseExact(date, "MM/yyyy", CultureInfo.InvariantCulture);
+                ngaytaophieu = DateTime.ParseExact(thang, "MM/yyyy", CultureInfo.InvariantCulture);
             }
             else
             {
                 ngaytaophieu = DateTime.Now;
-                date = ngaytaophieu.ToString("MM/yyyy");
+                thang = ngaytaophieu.ToString("MM/yyyy");
             }
             var listHocPhiThang = ptRepon.getHocPhiThang();
-            var pt = ptRepon.getPhieuThuForIdHocSinh(MaHocSinh, nhanvien.MaNhanVien, date);
+            var pt = ptRepon.getPhieuThuForIdHocSinh(MaHocSinh, nhanvien.MaNhanVien, thang);
             // kiểm tra xem tồn tại phiếu thu chưa...
             if (pt == null)
             {
                 pt = new Infor_PhieuThu();
                 pt.MaHocSinh = MaHocSinh;
-                pt.NgayTaoPhieu = date;
+                pt.NgayTaoPhieu = thang;
                 pt.MaNhanVien = nhanvien.MaNhanVien;
                 pt.SoNgayAnSang = 0;
                 pt.SoNgayAnTrua = 0;
@@ -83,7 +84,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 infor_phieuThu = pt,
                 listHocPhiThang = listHocPhiThang,
                 hocSinh = hsRepon.GetHocSinhForId(MaHocSinh),
-                listDichVuNgoai = ptRepon.getListDichVuNgoai_HocSinh(MaHocSinh, date)
+                listDichVuNgoai = dvRepon.getListDichVuNgoai_HocSinh(MaHocSinh, thang)
             };
             //gửi thông tin viewModel qua bên thu phi
             TempData["viewModel"] = viewModel;

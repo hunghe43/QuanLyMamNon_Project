@@ -48,21 +48,7 @@ namespace QuanLyMamNon.Reponsitory
             List<DichVuNgoai> list = _db.Query<DichVuNgoai>("getAllDichVuNgoai", commandType: CommandType.StoredProcedure).ToList();
             return list;
         }
-        /// <summary>
-        /// lấy danh sách dịch vụ ngoài học sinh đã đăng ký trong tháng dược chọn
-        /// </summary>
-        /// <param name="MaHocSinh"></param>
-        /// <param name="date"></param>
-        /// <returns></returns>
-        public List<DichVuNgoai> getListDichVuNgoai_HocSinh(string MaHocSinh, string Thang)
-        {
-            //QR016
-            var parameters = new DynamicParameters();
-            parameters.Add("@MaHocSinh", MaHocSinh);
-            parameters.Add("@Thang", Thang);
-            var listDVNgoai = _db.Query<DichVuNgoai>("getListDichVuNgoai_HocSinh", parameters, commandType: CommandType.StoredProcedure).ToList();
-            return listDVNgoai;
-        }
+        
 
         //luu phieu thu
         public void saveThuPhiHocSinh(PhieuThu phieuthu, List<CT_PhieuThu_HocSinh> listCt_PhieuThu_HocSinh)

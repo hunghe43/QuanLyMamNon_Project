@@ -391,7 +391,7 @@
     <Content Include="Areas\Admin\Views\DichVuNgoai\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DichVuNgoai\Partial_AddDichVuNgoai.cshtml" />
     <Content Include="Areas\Admin\Views\DichVuNgoai\Partial_UpdateDichVuNgoai.cshtml" />
-    <Content Include="Areas\Admin\Views\HocSinh\DangKyDichVu.cshtml" />
+    <Content Include="Areas\Admin\Views\HocSinh\Partial_DangKyDichVu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

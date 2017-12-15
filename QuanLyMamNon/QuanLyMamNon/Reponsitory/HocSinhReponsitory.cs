@@ -117,6 +117,7 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@NgaySinhPhuHuynh", hocsinh.NgaySinhPhuHuynh);
             parameters.Add("@GhiChu", hocsinh.GhiChu);
             parameters.Add("@MaLop", hocsinh.MaLop);
+            parameters.Add("@DoiTuongMta", hocsinh.DoiTuongMTA);
             parameters.Add("@TrangThai", hocsinh.TrangThai);
             parameters.Add("@Action", "Insert");
             _db.Execute("InsertUpdateHocSinh", parameters, commandType: CommandType.StoredProcedure);
@@ -144,6 +145,7 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@NgaySinhPhuHuynh", hocsinh.NgaySinhPhuHuynh);
             parameters.Add("@GhiChu", hocsinh.GhiChu);
             parameters.Add("@MaLop", hocsinh.MaLop);
+            parameters.Add("@DoiTuongMta", hocsinh.DoiTuongMTA);
             parameters.Add("@TrangThai", hocsinh.TrangThai);
             parameters.Add("@Action", "Update");
             _db.Execute("InsertUpdateHocSinh", parameters, commandType: CommandType.StoredProcedure);

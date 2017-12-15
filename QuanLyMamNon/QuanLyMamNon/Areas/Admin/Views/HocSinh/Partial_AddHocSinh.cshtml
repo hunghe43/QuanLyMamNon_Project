@@ -57,7 +57,6 @@
                             @Html.TextBoxFor(x => x.hocsinh.CanNang, new { @type = "number", @class = "form-control", @placeholder = "Cân nặng..." })
                             <span class="input-group-addon">.kg</span>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -107,14 +106,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="form-group input-group">
                     <label>Tình trạng hoạt động </label>
                     @Html.CheckBoxFor(x => x.hocsinh.TrangThai, new { @class = "form-control checkTrangThai" })
 
                 </div>
             </div>
-            <div class="col-lg-6 showHide">
+            <div class="col-lg-4">
+                <div class="form-group input-group">
+                    <label>Là đối tượn con MTA</label>
+                    @Html.CheckBoxFor(x => x.hocsinh.DoiTuongMTA, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 showHide">
                 <div class="form-group input-group DropListLop">
                     <label>Chọn lớp học</label>
                     @Html.DropDownListFor(x => x.hocsinh.MaLop, new SelectList(Model.listLop, "MaLop", "TenLop", 0), "None", new { @class = "form-control dropdownLop", @required = "required" })

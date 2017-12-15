@@ -31,6 +31,7 @@ namespace QuanLyMamNon.Models
         public DateTime NgaySinhPhuHuynh { get; set; }
         public string GhiChu { get; set; }
         public string MaLop { get; set; }
+        public bool DoiTuongMTA { get; set; }
         public bool TrangThai { get; set; }
 
         //public virtual ICollection<CT_DichVu_HocSinh> CT_DichVu_HocSinh { get; set; }

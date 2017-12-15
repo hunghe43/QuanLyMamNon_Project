@@ -1,0 +1,237 @@
+﻿@model QuanLyMamNon.Models.Dao.ViewModelDangKyDV_HS
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Thông tin học sinh và môn học</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Môn học năng khiếu đã đăng ký của bé @Model.hocsinh.Ten
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="col-lg-12">
+                        <div class="form-group" id="sandbox-container">
+                            <input type="text" value="@ViewData["thang"].ToString()" name="date" class="form-control datetime" placeholder="Chọn tháng....">
+                        </div>
+                    </div>
+                    <div class="table-responsive table-bordered">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã môn học</th>
+                                    <th>Tên môn học</th>
+                                    <th>Chi phí</th>
+                                    <th>Ghi chú</th>
+                                    <th>@*Người đăng ký*@</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.listDV_HS)
+                                {
+                                    <tr>
+                                        <td>@item.MaDichVu</td>
+                                        <td>@item.TenDV</td>
+                                        <td>@item.ChiPhi</td>
+                                        <td>@item.GhiChu</td>
+                                        @*<td>Kế toán Hùng</td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-danger" id="mess_ChuaDK">
+                        Chưa đăng ký.
+                    </div>
+                    <div class="alert alert-info" id="mess_DaDK">
+                        Đã đăng ký.
+                    </div>
+                    <div class="alert alert-danger" id="mess_KhongDuocDK">
+                        Không được phép đăng ký.
+                    </div>
+                    
+                    <p></p>
+                    <button type="button" data-toggle="collapse" data-target="#demo" class="btn btn-default" id="btnDangKy">Đăng ký ngay</button>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <div class="col-lg-12 collapse" id="demo">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Đăng ký thêm
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <label>Chọn môn</label>
+                    <div class="form-group">
+                        @foreach (var item in Model.listDV)
+                        {
+                            <label class="checkbox-inline">
+                                <input type="checkbox" class="test" value="@item.MaDichVu">@item.TenDV
+                                @*<input type="checkbox" class="test" value="@item.MaDichVu" @foreach (var i in Model.listDV_HS) { if (i.MaDichVu == item.MaDichVu) { @: checked
+                                    } }>@item.TenDV*@
+                            </label>
+                        }
+                    </div>                    
+                    <div class="alert alert-danger" id="mess_ChuaChon">
+                        Bạn chưa chưa chọn dịch vụ!
+                    </div>
+                    <button type="button" class="btn btn-primary submit">Đăng ký mới</button>
+                    <!-- /.table-responsive -->
+                </div>
+                <div class="modal fade" id="myModal_detailsHocSinh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="width: 800px;">
+                        <div class="modal-content" id="myModalContent">
+                            <!-- Partial view Add,detail,update in here -->
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+</div>
+<script>
+    $("#mess_ChuaDK").hide();
+    $("#mess_DaDK").hide();
+    $("#mess_KhongDuocDK").hide();
+    $("#btnDangKy").hide();
+    $("#mess_ChuaChon").hide();
+    
+    if( @ViewData["compareDate"].ToString().ToLower() == true ) {
+        $("#btnDangKy").hide();
+        $("#mess_KhongDuocDK").show();
+    }else{
+        if( @ViewData["checkExist"].ToString().ToLower() == true ) {
+            $("#btnDangKy").hide();
+            $("#mess_DaDK").show();
+        }else{
+            $("#btnDangKy").show();
+            $("#mess_ChuaDK").show();
+        }
+    }
+
+    
+    //hieent thị thông tin  đang ký dịch vụ của học sinh
+    $(function() {
+        $('.datetime').datepicker({
+            format: "mm/yyyy",
+            minViewMode: 1,
+            todayBtn: "linked",
+            calendarWeeks: true,
+            autoclose: true,
+            onSelect: function() {
+                $(this).change();
+            }
+        }).on("change", function() {
+            debugger;
+            var date = $(this).val();
+            var MaHocSinh=@Model.hocsinh.MaHocSinh;
+
+            if (date && date != '') {
+                debugger;
+                $.ajax({
+                    url: '@Url.Action("DangKyDichVu")',
+                    type: 'GET',
+                    cache: false,
+                    data: {  'id':MaHocSinh,
+                        'thang': date
+                    },
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        //$('#myModal_detailsHocSinh').modal(options);
+                        $('#myModal_detailsHocSinh').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            }
+        });
+    });
+    //thực hiện đăng ký dịch vụ mới
+    $(function() {
+        $('.datetime').datepicker({
+            format: "mm/yyyy",
+            minViewMode: 1,
+            todayBtn: "linked",
+            calendarWeeks: true,
+            autoclose: true,
+            onSelect: function() {
+                $(this).change();
+            }
+        }).on("change", function() {
+            debugger;
+            var date = $(this).val();
+            var MaHocSinh=@Model.hocsinh.MaHocSinh;
+
+            if (date && date != '') {
+                debugger;
+                $.ajax({
+                    url: '@Url.Action("DangKyDichVu")',
+                    type: 'GET',
+                    cache: false,
+                    data: {  'id':MaHocSinh,
+                        'thang': date
+                    },
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        //$('#myModal_detailsHocSinh').modal(options);
+                        $('#myModal_detailsHocSinh').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            }
+        });
+        $(function() {
+            $(".submit").click(function(){
+                var maHocSinh = @Model.hocsinh.MaHocSinh;
+                var thang=$('.datetime').val();
+                var listMaDV = [];
+                $('.test:checked').each(function () {
+                    listMaDV.push($(this).val());
+                });
+
+                if (listMaDV == "") {
+                    $("#mess_ChuaChon").show();
+                }
+                else {
+                    debugger;
+                    $.ajax({                        
+                        url: '@Url.Action("SaveDV_HS", "HocSinh")',
+                        data: { listMaDV: listMaDV, maHocSinh: maHocSinh, thangdk: thang },
+                        type: 'POST',
+                        dataType: 'json',
+                        traditional: true,
+                        success: function (response) {
+                            if (response != null && response.success) {
+                                alert(response.responseText);
+                                location.reload();
+                            } else {
+                                // DoSomethingElse()
+                                alert(response.responseText);
+                            }                          
+                        },
+                        error: function (response) {
+                            alert("error!");  // 
+                        }
+                    });
+                }
+            });
+        })
+
+    });
+</script>

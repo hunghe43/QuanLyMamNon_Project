@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,12 +17,10 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
     [AuthorizeController]
     public class HocSinhController : Controller
     {
-        HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-        LopReponsitory lopRepon = new LopReponsitory();
         // GET: Home  CURD hocsinh
         public ActionResult Index()
         {
-            HocSinhReponsitory HsRepon = new HocSinhReponsitory();
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             LopReponsitory lopRepon = new LopReponsitory();
             //danh sách học sinh chưa được phê duyệt
             var listHocSinhDis = hocSinhRepon.GetAllHocSinhDis();
@@ -32,11 +31,11 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             if (string.IsNullOrEmpty(MaLop) || MaLop == "0")
             {
                 MaLop = "0";
-                lstHS = HsRepon.GetAllHocSinh();
+                lstHS = hocSinhRepon.GetAllHocSinh();
             }
             else
             {
-                lstHS = HsRepon.GetHocSinhForIdLop(MaLop);
+                lstHS = hocSinhRepon.GetHocSinhForIdLop(MaLop);
             }
             ViewBag.select = MaLop;
             var viewModel = new ViewModelDanhSachHS
@@ -50,6 +49,8 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         // GET: details hocsinh
         public ActionResult Detail(string id)
         {
+            LopReponsitory lopRepon = new LopReponsitory();
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             var listLop = lopRepon.getAllLop();
             var hocsinh = hocSinhRepon.GetHocSinhForId(id);
             if (hocsinh.MaLop == null)
@@ -70,6 +71,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         // GET: add hocsinh
         public ActionResult Add()
         {
+            LopReponsitory lopRepon = new LopReponsitory();
             var listLop = lopRepon.getAllLop();
             ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
             {
@@ -82,12 +84,15 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(HocSinh HocSinh)
         {
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             hocSinhRepon.AddHocSinh(HocSinh);
             return RedirectToAction("Index");
         }
         // GET: edit hocsinh
         public ActionResult Update(string id)
         {
+            LopReponsitory lopRepon = new LopReponsitory();
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             var listLop = lopRepon.getAllLop();
             var hocsinh = hocSinhRepon.GetHocSinhForId(id);
             ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
@@ -102,6 +107,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Update(HocSinh HocSinh)
         {
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             hocSinhRepon.UpdateHocSinh(HocSinh);
             return RedirectToAction("Index");
         }
@@ -110,6 +116,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Delete(string id)
         {
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             hocSinhRepon.deleteHocSinh(id);
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
@@ -122,6 +129,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult ImportFileHocSinh(HttpPostedFileBase postedFile)
         {
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             string filePath = string.Empty;
             if (postedFile != null)
             {
@@ -154,25 +162,73 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         /// đăng ký dịch vụ ngoài cho học sinh
         /// </summary>
         /// <returns></returns>
-        public ActionResult DangKyDichVu(string id,string ngayDK)
+        public ActionResult DangKyDichVu(string id,string thang)
         {
-            PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
+            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+            var nhanvien = (NhanVien)Session["NhanVien"];
             DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
-            var listDV_HS = ptRepon.getListDichVuNgoai_HocSinh(id,ngayDK);
+            NhanVienReponsitory nvRepon = new NhanVienReponsitory();
+
+            //thực hiện kiểm tra ngày nhập vào
+            DateTime dt = new DateTime();
+            DateTime dtNow = new DateTime();
+
+            dtNow = DateTime.Now;
+            DateTime dtNowConvert = DateTime.ParseExact(dtNow.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            if (thang == null)
+            {
+                dt = DateTime.Now;
+                thang = dtNow.ToString("MM/yyyy");
+                ViewData["thang"] = thang;
+            }
+            else
+            {
+                string dayNow = dtNow.Day.ToString();
+                dt=DateTime.ParseExact(dayNow+"/" + thang, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                ViewData["thang"] = thang;
+            }
+            
+            var hocsinh = hocSinhRepon.GetHocSinhForId(id);            
+            var listDV = dvRepon.getAllDichVuNgoai();
+            var listDV_HS = dvRepon.getListDichVuNgoai_HocSinh(id,thang);
+            //check ngày xem kém ngày hiện tại và khong cho phép đang ký mới
+            bool checkcompareDate = false;
+            //nếu ngày đăng ký dịch vụ < ngày hiện tại, thông báo không cho đăng ký mới
+            if (DateTime.Compare(dt, dtNowConvert) <0)
+            {
+                ViewData["compareDate"] = thang;
+                checkcompareDate = true;
+            }
+            ViewData["compareDate"] = checkcompareDate;
             //kiểm tra đã đăng ký dịch vụ tháng này chưa
             bool checkExist = false;
             if (listDV_HS.Count() != 0)
             {
                 checkExist = true;
             }
-            ViewData["checkExist"] = checkExist;            
-            var listDV = dvRepon.getAllDichVuNgoai();
+            ViewData["checkExist"] = checkExist;
+
             var viewModel = new ViewModelDangKyDV_HS
             {
+                hocsinh=hocsinh,
+                nhanvien=nhanvien,
                 listDV = listDV,
                 listDV_HS=listDV_HS
             };
-            return View(viewModel);
+            
+            return PartialView("Partial_DangKyDichVu",viewModel);
         }
+
+        [HttpPost]
+        public ActionResult SaveDV_HS(List<string> listMaDV, string maHocSinh, string thangdk)
+        {
+            DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
+            foreach(var id_dv in listMaDV)
+            {
+                dvRepon.InsertDichVu_HocSinh(id_dv, maHocSinh, thangdk);
+            } 
+            return Json(new { success = true, responseText = "Đăng ký thành công" }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
