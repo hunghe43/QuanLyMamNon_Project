@@ -41,7 +41,7 @@
                             <div class="panel-footer">
                                 <i class="fa fa-upload fa-fw"></i> (1)Tổng:
                                 <span class="pull-right text-muted small">
-                                    <em>vnd</em>
+                                    <em>@ViewData["tong1"] vnd</em>
                                 </span>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                             <div class="panel-footer">
                                 <i class="fa fa-upload fa-fw"></i> (2)Tổng:
                                 <span class="pull-right text-muted small">
-                                    <em>vnd</em>
+                                    <em>@ViewData["tong2"] vnd</em>
                                 </span>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                             <div class="panel-footer">
                                 <i class="fa fa-upload fa-fw"></i> (3)Tổng:
                                 <span class="pull-right text-muted small">
-                                    <em> vnd</em>
+                                    <em>@ViewData["tong3"] vnd</em>
                                 </span>
                             </div>
                         </div>
@@ -159,9 +159,10 @@
 
                 </div>
                 <div class="alert alert-info">
-                    Tổng học phí = (1)+(2)+(3)+(4) = 3.000.000 vnđ
+                    Tổng học phí = (1)+(2)+(3) = @ViewData["tong"] vnđ
                     <span class="pull-right text-muted small">
-                        <a class="alert-link"><i class="fa fa-print"></i> In hóa đơn</a>.
+                        
+                        <a class="alert-link excel"><i class="fa fa-print"></i> Xuất hóa đơn</a>.
                         @Html.BeginForm("ThuPhi", "KeToan", FormMethod.Post){
                         <button type="submit" class="alert-link"><i class="fa fa-gavel"></i> Thu phí</button>.
                         }
@@ -177,6 +178,9 @@
     </div>
 </div>
 <script>
+    $(document).on('click', '.excel', function () {
+        window.location.href = '@Url.Action("ExportToExcel","KeToan")';
+    });
     $(function() {
         $('.datetimeHocPhi').datepicker({
             format: "mm/yyyy",

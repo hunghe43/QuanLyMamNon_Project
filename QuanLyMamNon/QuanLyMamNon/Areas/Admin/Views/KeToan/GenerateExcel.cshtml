@@ -1,0 +1,24 @@
+﻿@model QuanLyMamNon.Models.Dao.ViewModelPhieuThu
+<h2>Export Razor View To Excel File</h2>
+<table class="table" border="1">
+    <tr>
+        <th>
+            a
+        </th>
+        <th>
+            v)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.listDichVuNgoai)
+    {
+        <tr>
+            <td>
+                @item.TenDV
+            </td>
+            <td>
+                @item.ChiPhi
+            </td>       
+        </tr>
+    }
+</table>

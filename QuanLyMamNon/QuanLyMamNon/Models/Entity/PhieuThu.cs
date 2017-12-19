@@ -11,7 +11,6 @@ namespace QuanLyMamNon.Models
         public string NgayTaoPhieu { get; set; }
         public string MaHocSinh { get; set; }
         public string MaNhanVien { get; set; }
-        public decimal ChiPhi { get; set; }
         public string GhiChu { get; set; }
         //public virtual HocSinh HocSinh { get; set; }
         //public virtual NhanVien NhanVien { get; set; }

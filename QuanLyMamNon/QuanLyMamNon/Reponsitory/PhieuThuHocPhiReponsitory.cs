@@ -48,8 +48,19 @@ namespace QuanLyMamNon.Reponsitory
             List<DichVuNgoai> list = _db.Query<DichVuNgoai>("getAllDichVuNgoai", commandType: CommandType.StoredProcedure).ToList();
             return list;
         }
-        
 
+        public bool checkExistPhieuThu(string mahocsinh, string thang)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@MaHocSinh", mahocsinh);
+            parameters.Add("@date", thang);
+            PhieuThu pt = _db.Query<PhieuThu>("GetPhieuThu", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            if (pt != null)
+            {
+                return true;
+            }
+            return false;
+        }
         //luu phieu thu
         public void saveThuPhiHocSinh(PhieuThu phieuthu, List<CT_PhieuThu_HocSinh> listCt_PhieuThu_HocSinh)
         {
@@ -61,20 +72,18 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@MaHocSinh", phieuthu.MaHocSinh);
             parameters.Add("@MaNhanVien", phieuthu.MaNhanVien);
             parameters.Add("@GhiChu", phieuthu.GhiChu);
-
-            //lấy danh sách ct phiếu thu
-            //listCt_PhieuThu_HocSinh = getListCt_PhieuThu_HocSinh();
-            //............. theem ct phieuthu hocsinh
-         
-                _db.Execute("InsertPhieuThu", parameters, commandType: CommandType.StoredProcedure);//trong khi...
-                foreach (var ctPhieu in listCt_PhieuThu_HocSinh)
-                {
-                    ctPhieu.MaCT_PhieuThu_HocSinh = getAutoIdCT_PhieuThu_HocSinh();
-                    insertCT_phieuThu_hocSinh(ctPhieu);
-                }
-
+            _db.Execute("InsertPhieuThu", parameters, commandType: CommandType.StoredProcedure);
+            foreach (var ctPhieu in listCt_PhieuThu_HocSinh)
+            {
+                ctPhieu.MaCT_PhieuThu_HocSinh = getAutoIdCT_PhieuThu_HocSinh();
+                ctPhieu.MaPhieuThu = phieuthu.MaPhieuThu;
+                insertCT_phieuThu_hocSinh(ctPhieu);
+            }
         }
-
+        /// <summary>
+        /// thêm mới ctphieuthu_hocsinh
+        /// </summary>
+        /// <param name="ctpt"></param>
         public void insertCT_phieuThu_hocSinh(CT_PhieuThu_HocSinh ctpt)
         {
             var parameters = new DynamicParameters();

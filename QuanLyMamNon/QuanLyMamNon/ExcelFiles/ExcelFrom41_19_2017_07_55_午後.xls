@@ -1,0 +1,36 @@
+<h2>Export Razor View To Excel File</h2>
+<table class="table" border="1">
+    <tr>
+        <th>
+            a
+        </th>
+        <th>
+            v)
+        </th>
+    </tr>
+
+        <tr>
+            <td>
+                M&#244;n V?
+            </td>
+            <td>
+                100.0000
+            </td>       
+        </tr>
+        <tr>
+            <td>
+                M&#244;n t?o h&#236;nh
+            </td>
+            <td>
+                100.0000
+            </td>       
+        </tr>
+        <tr>
+            <td>
+                Aerobic
+            </td>
+            <td>
+                100.0000
+            </td>       
+        </tr>
+</table>
