@@ -1,5 +1,3 @@
-﻿@model QuanLyMamNon.Models.Dao.ViewModelPhieuThu
-
 <h2>Hoc Phi</h2>
 <table>
     <tr>
@@ -8,18 +6,20 @@
         <th>Tong</th>
     </tr>
 
-    @foreach (var item in Model.listHocPhiThang)
-    {
         <tr>
-            <td>@item.TenHocPhi</td>
-            <td>@item.ChiPhi vnd</td>
+            <td>B&#225;n tr&#250;</td>
+            <td>50.0000 vnd</td>
             <td>...</td>
         </tr>
-    }
+        <tr>
+            <td>H?c ph&#237;</td>
+            <td>300.0000 vnd</td>
+            <td>...</td>
+        </tr>
     <tr>
         <th></th>
         <th></th>
-        <th>...</th>
+        <th> vnd</th>
     </tr>
 </table>
 <h2>Theo Doi</h2>
@@ -30,24 +30,24 @@
         <th>Tong</th>
     </tr>
     <tr>
-        <td>Số buổi nghỉ học: @Model.infor_phieuThu.SoNgayVang</td>
+        <td>S? bu?i ngh? h?c: 1</td>
         <td>25.000 vnd</td>
         <td>...</td>
     </tr>
     <tr>
-        <td>Số ngày ăn sáng: @Model.infor_phieuThu.SoNgayAnSang</td>
+        <td>S? ng?y ?n s?ng: 13</td>
         <td>25.000 vnd</td>
         <td>...</td>
     </tr>
     <tr>
-        <td>Số ngày ăn trưa: @Model.infor_phieuThu.SoNgayAnTrua</td>
+        <td>S? ng?y ?n tr?a: 13</td>
         <td>25.000 vnd</td>
         <td>...</td>
     </tr>
     <tr>
         <td></td>
         <td></td>
-        <td>...</td>
+        <td> vnd</td>
     </tr>
 
 </table>
@@ -58,18 +58,25 @@
         <th>Chi phi</th>
         <th>Tong</th>
     </tr>
-    @foreach (var item in Model.listDichVuNgoai)
-    {
     <tr>
-        <td> @item.TenDV</td>
-        <td>@item.ChiPhi vnd </td>
+        <td> M&#244;n V?</td>
+        <td>100.0000 vnd </td>
         <td>...</td>
     </tr>        
-    }
+    <tr>
+        <td> M&#244;n t?o h&#236;nh</td>
+        <td>100.0000 vnd </td>
+        <td>...</td>
+    </tr>        
+    <tr>
+        <td> Aerobic</td>
+        <td>100.0000 vnd </td>
+        <td>...</td>
+    </tr>        
    
     <tr>
         <td></td>
         <td></td>
-        <td>...</td>
+        <td> vnd</td>
     </tr>   
 </table>

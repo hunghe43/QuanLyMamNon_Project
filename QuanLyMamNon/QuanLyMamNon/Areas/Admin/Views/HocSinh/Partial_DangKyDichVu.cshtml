@@ -160,7 +160,7 @@
             }
         });
     });
-    //thực hiện đăng ký dịch vụ mới
+    //hiển thị đăng ký dịch vụ mới
     $(function() {
         $('.datetime').datepicker({
             format: "mm/yyyy",
@@ -196,42 +196,42 @@
                 });
             }
         });
-        $(function() {
-            $(".submit").click(function(){
-                var maHocSinh = @Model.hocsinh.MaHocSinh;
-                var thang=$('.datetime').val();
-                var listMaDV = [];
-                $('.test:checked').each(function () {
-                    listMaDV.push($(this).val());
-                });
-
-                if (listMaDV == "") {
-                    $("#mess_ChuaChon").show();
-                }
-                else {
-                    debugger;
-                    $.ajax({                        
-                        url: '@Url.Action("SaveDV_HS", "HocSinh")',
-                        data: { listMaDV: listMaDV, maHocSinh: maHocSinh, thangdk: thang },
-                        type: 'POST',
-                        dataType: 'json',
-                        traditional: true,
-                        success: function (response) {
-                            if (response != null && response.success) {
-                                alert(response.responseText);
-                                location.reload();
-                            } else {
-                                // DoSomethingElse()
-                                alert(response.responseText);
-                            }                          
-                        },
-                        error: function (response) {
-                            alert("error!");  // 
-                        }
-                    });
-                }
-            });
-        })
-
     });
+    //thục hiện lưu
+    $(function() {
+        $(".submit").click(function(){
+            var maHocSinh = @Model.hocsinh.MaHocSinh;
+            var thang=$('.datetime').val();
+            var listMaDV = [];
+            $('.test:checked').each(function () {
+                listMaDV.push($(this).val());
+            });
+
+            if (listMaDV == "") {
+                $("#mess_ChuaChon").show();
+            }
+            else {
+                debugger;
+                $.ajax({                        
+                    url: '@Url.Action("SaveDV_HS", "HocSinh")',
+                    data: { listMaDV: listMaDV, maHocSinh: maHocSinh, thangdk: thang },
+                    type: 'POST',
+                    dataType: 'json',
+                    traditional: true,
+                    success: function (response) {
+                        if (response != null && response.success) {
+                            alert(response.responseText);
+                            location.reload();
+                        } else {
+                            // DoSomethingElse()
+                            alert(response.responseText);
+                        }                          
+                    },
+                    error: function (response) {
+                        alert("error!");  // 
+                    }
+                });
+            }
+        });
+    })
 </script>

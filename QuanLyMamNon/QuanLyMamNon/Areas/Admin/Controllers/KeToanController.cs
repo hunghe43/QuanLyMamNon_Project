@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
-    //[AuthorizeController]
+    [AuthorizeController]
     public class KeToanController : Controller
     {
         // GET: Admin/KeToan
@@ -123,9 +123,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult ThuPhi(ViewModelPhieuThu viewModel)
+        public ActionResult ThuPhi()
         {
-            viewModel = (ViewModelPhieuThu)TempData["viewModel"];
+            ViewModelPhieuThu viewModel = (ViewModelPhieuThu)TempData["viewModel"];
             List<CT_PhieuThu_HocSinh> list_Ct_PhieuThu_HocSinh = new List<CT_PhieuThu_HocSinh>();
             CT_PhieuThu_HocSinh ct_pt_hs = null;
             PhieuThuHocPhiReponsitory phieuthuRepon = new PhieuThuHocPhiReponsitory();
@@ -159,19 +159,19 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
 
                 ct_pt_hs = new CT_PhieuThu_HocSinh();
                 //lấy thông tin theo dõi, vang, ansang, antrua
-                ct_pt_hs.TenLoaiPhi = "Vắng";
+                ct_pt_hs.TenLoaiPhi = "DD_Vắng";
                 ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayVang;
                 ct_pt_hs.ChiPhi = 15;//nhập chi phí vắng từng buổi//.....
                 list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
 
                 ct_pt_hs = new CT_PhieuThu_HocSinh();
-                ct_pt_hs.TenLoaiPhi = "Ăn sáng";
+                ct_pt_hs.TenLoaiPhi = "DD_Ăn sáng";
                 ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnSang;
                 ct_pt_hs.ChiPhi = 15;//nhập chi phí ăn sáng từng buổi
                 list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
 
                 ct_pt_hs = new CT_PhieuThu_HocSinh();
-                ct_pt_hs.TenLoaiPhi = "Ăn trưa";
+                ct_pt_hs.TenLoaiPhi = "DD_Ăn trưa";
                 ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnTrua;
                 ct_pt_hs.ChiPhi = 15;//nhập chi phí ăn trưa từng buổi
                 list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
@@ -182,16 +182,15 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 //thực hiện lưu bảng phieuThu
 
                 //thực hiện lưu bảng CT_phieuthu_hocSinh
+                return Json(new { success = true, responseText = "Thu mới thành công" }, JsonRequestBehavior.AllowGet);
             }
-
-
-            return HocPhiHocSinh(viewModel.hocSinh.MaHocSinh);
+            return Json(new { success = false, responseText = "Đã thu!" }, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// xuất hóa đơn sang excel
         /// </summary>
         public void ExportToExcel()
-        {
+         {
             ViewModelPhieuThu viewModel = (ViewModelPhieuThu)TempData["viewModel"];
             string Filename = "ExcelFrom" + DateTime.Now.ToString("mm_dd_yyy_hh_ss_tt") + ".xls";
             string FolderPath = HttpContext.Server.MapPath("/ExcelFiles/");

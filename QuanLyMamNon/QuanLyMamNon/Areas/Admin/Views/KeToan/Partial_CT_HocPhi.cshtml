@@ -158,15 +158,17 @@
                         </div>*@
 
                 </div>
+                <div class="alert alert-success" id="DaThanhToan">
+                    Đã thanh toán!
+                </div>
+                <div class="alert alert-danger" id="ChuaThanhToan">
+                    Chưa thanh toán!
+                </div>
                 <div class="alert alert-info">
                     Tổng học phí = (1)+(2)+(3) = @ViewData["tong"] vnđ
                     <span class="pull-right text-muted small">
-                        
-                        <a class="alert-link excel"><i class="fa fa-print"></i> Xuất hóa đơn</a>.
-                        @Html.BeginForm("ThuPhi", "KeToan", FormMethod.Post){
-                        <button type="submit" class="alert-link"><i class="fa fa-gavel"></i> Thu phí</button>.
-                        }
-
+                        <a class="alert-link excel"><i class="fa fa-print"></i> Xuất hóa đơn</a>
+                        <a class="alert-link submit"><i class="fa fa-gavel"></i> Thu phí</a>
                     </span>
                 </div>
                 <!-- /.panel-body -->
@@ -178,6 +180,14 @@
     </div>
 </div>
 <script>
+    $("#DaThanhToan").hide();
+    $("#ChuaThanhToan").hide();
+    if( @ViewData["checkPhieuThu"].ToString().ToLower() == true ) {
+        $(".submit").hide();        
+        $("#DaThanhToan").show();
+    }else{        
+        $("#ChuaThanhToan").show();
+    }
     $(document).on('click', '.excel', function () {
         window.location.href = '@Url.Action("ExportToExcel","KeToan")';
     });
@@ -202,6 +212,7 @@
                 $.ajax({
                     url: '@Url.Action("Partial_CT_HocPhi")',
                     type: 'GET',
+                    type: 'POST',
                     cache: false,
                     data: {  MaHocSinh:MaHocSinh,date: date },
                     success: function(data) {
@@ -212,4 +223,29 @@
             }
         });
     });
+
+    //thực hiện lưu học phí
+    $(function() {
+        $(".submit").click(function(){
+            debugger;
+            $.ajax({
+                url: '@Url.Action("ThuPhi", "KeToan")',
+                type: 'POST',
+                dataType: 'json',
+                traditional: true,
+                success: function (response) {
+                    if (response != null && response.success) {
+                        alert(response.responseText);
+                        location.reload();
+                    } else {
+                        // DoSomethingElse()
+                        alert(response.responseText);
+                    }
+                },
+                error: function (response) {
+                    alert("error!");  //
+                }
+            });
+        });
+    })
 </script>
