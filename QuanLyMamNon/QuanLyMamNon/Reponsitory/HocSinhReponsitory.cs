@@ -226,10 +226,19 @@ namespace QuanLyMamNon.Reponsitory
                     sqlBulkCopy.ColumnMappings.Add("NgaySinhPhuHuynh", "NgaySinhPhuHuynh");
                     sqlBulkCopy.ColumnMappings.Add("GhiChu", "GhiChu");
                     sqlBulkCopy.ColumnMappings.Add("MaLop", "MaLop");
+                    sqlBulkCopy.ColumnMappings.Add("DoiTuongMTA", "DoiTuongMTA");
                     sqlBulkCopy.ColumnMappings.Add("TrangThai", "TrangThai");
 
                     con.Open();
-                    sqlBulkCopy.WriteToServer(dt);
+                    try
+                    {
+                        sqlBulkCopy.WriteToServer(dt);
+                    }
+                    catch(Exception ex)
+                    {
+                        throw;
+                    }
+                    
                     con.Close();
                 }
             }

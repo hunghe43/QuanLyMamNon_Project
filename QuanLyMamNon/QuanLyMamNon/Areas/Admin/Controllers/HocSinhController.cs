@@ -129,33 +129,41 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult ImportFileHocSinh(HttpPostedFileBase postedFile)
         {
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            string filePath = string.Empty;
-            if (postedFile != null)
+            try
             {
-                string path = Server.MapPath("~/Uploads/");
-                if (!Directory.Exists(path))
+                HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+                string filePath = string.Empty;
+                if (postedFile != null)
                 {
-                    Directory.CreateDirectory(path);
-                }
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
 
-                filePath = path + Path.GetFileName(postedFile.FileName);
-                string extension = Path.GetExtension(postedFile.FileName);
-                postedFile.SaveAs(filePath);
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
 
-                string conString = string.Empty;
-                switch (extension)
-                {
-                    case ".xls": //Excel 97-03.
-                        conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
-                        break;
-                    case ".xlsx": //Excel 07 and above.
-                        conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
-                        break;
+                    string conString = string.Empty;
+                    switch (extension)
+                    {
+                        case ".xls": //Excel 97-03.
+                            conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                            break;
+                        case ".xlsx": //Excel 07 and above.
+                            conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+                            break;
+                    }
+                    hocSinhRepon.ImportFileHocSinh(conString, filePath);
                 }
-                hocSinhRepon.ImportFileHocSinh(conString, filePath);                
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+            
         }
 
         /// <summary>
