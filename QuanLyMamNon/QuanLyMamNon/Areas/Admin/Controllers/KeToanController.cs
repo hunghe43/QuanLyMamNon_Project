@@ -1,4 +1,5 @@
-﻿using QuanLyMamNon.Models;
+﻿using QuanLyMamNon.Common;
+using QuanLyMamNon.Models;
 using QuanLyMamNon.Models.Dao;
 using QuanLyMamNon.Reponsitory;
 using System;
@@ -85,23 +86,23 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             }
             ViewData["tong1"] = tong1;
             //lấy thông tin điểm danh của học sinh trong tháng
-            var pt = ptRepon.getPhieuThuForIdHocSinh(MaHocSinh, nhanvien.MaNhanVien, thang);
+            var pt = ptRepon.Get_Infor_TheoDoi(MaHocSinh,thang);
             //công thức tính tiền học khi điểm danh--------VD:
-            decimal tong2 = (22- pt.SoNgayVang)*70000 + pt.SoNgayAnSang*15000+pt.SoNgayAnTrua*15000;
+            decimal tong2 = (22- pt.SoNgayVang)*HocPhiDefaul.tienHoc1Buoi + pt.SoNgayAnSang*HocPhiDefaul.tienAnSang+pt.SoNgayAnTrua*HocPhiDefaul.tienAnTrua;
             ViewData["tong2"] = tong2;
 
             ViewData["tong"] = tong1+tong2+tong3;
             // kiểm tra xem tồn tại phiếu thu chưa...
             if (pt == null)
             {
-                pt = new Infor_PhieuThu();
+                pt = new Infor_TheoDoi();
                 pt.MaHocSinh = MaHocSinh;
                 pt.NgayTaoPhieu = thang;
-                pt.MaNhanVien = nhanvien.MaNhanVien;
+                //pt.MaNhanVien = nhanvien.MaNhanVien;
                 pt.SoNgayAnSang = 0;
                 pt.SoNgayAnTrua = 0;
                 pt.SoNgayVang = 0;
-                pt.ChiPhi = 0;
+                //pt.ChiPhi = 0;
             }
             bool checkPhieuThu = false;
             //kiểm tra đóng học phí hay chưa(phieuthu)
@@ -125,6 +126,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult ThuPhi()
         {
+            var nhanvien = (NhanVien)Session["NhanVien"];
             ViewModelPhieuThu viewModel = (ViewModelPhieuThu)TempData["viewModel"];
             List<CT_PhieuThu_HocSinh> list_Ct_PhieuThu_HocSinh = new List<CT_PhieuThu_HocSinh>();
             CT_PhieuThu_HocSinh ct_pt_hs = null;
@@ -136,7 +138,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 //thêm mới phiếu thu từ thông tin điểm danh trong tháng (info_phieuthu)
                 var phieuThu = new PhieuThu();
                 phieuThu.MaHocSinh = viewModel.infor_phieuThu.MaHocSinh;
-                phieuThu.MaNhanVien = viewModel.infor_phieuThu.MaNhanVien;
+                phieuThu.MaNhanVien = nhanvien.MaNhanVien;
                 phieuThu.NgayTaoPhieu = viewModel.infor_phieuThu.NgayTaoPhieu;
 
                 //bắt đầu thêm mới danh sách ct_Phieuthu_hocSinh
@@ -161,19 +163,19 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 //lấy thông tin theo dõi, vang, ansang, antrua
                 ct_pt_hs.TenLoaiPhi = "DD_Vắng";
                 ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayVang;
-                ct_pt_hs.ChiPhi = 15;//nhập chi phí vắng từng buổi//.....
+                ct_pt_hs.ChiPhi = HocPhiDefaul.tienHoc1Buoi;//nhập chi phí vắng từng buổi//.....
                 list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
 
                 ct_pt_hs = new CT_PhieuThu_HocSinh();
                 ct_pt_hs.TenLoaiPhi = "DD_Ăn sáng";
                 ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnSang;
-                ct_pt_hs.ChiPhi = 15;//nhập chi phí ăn sáng từng buổi
+                ct_pt_hs.ChiPhi = HocPhiDefaul.tienAnSang;//nhập chi phí ăn sáng từng buổi
                 list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
 
                 ct_pt_hs = new CT_PhieuThu_HocSinh();
                 ct_pt_hs.TenLoaiPhi = "DD_Ăn trưa";
                 ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnTrua;
-                ct_pt_hs.ChiPhi = 15;//nhập chi phí ăn trưa từng buổi
+                ct_pt_hs.ChiPhi = HocPhiDefaul.tienAnTrua;//nhập chi phí ăn trưa từng buổi
                 list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
 
                 PhieuThuHocPhiReponsitory ptHocPhiRepon = new PhieuThuHocPhiReponsitory();
