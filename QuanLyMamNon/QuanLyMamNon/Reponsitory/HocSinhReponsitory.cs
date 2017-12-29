@@ -40,7 +40,7 @@ namespace QuanLyMamNon.Reponsitory
         {
             var parameters = new DynamicParameters();
             parameters.Add("@id", id);
-            List<HocSinh> lst = _db.Query<HocSinh>("GetAllHocSinhForIdGiaoVien",parameters, commandType: CommandType.StoredProcedure).ToList();
+            List<HocSinh> lst = _db.Query<HocSinh>("GetAllHocSinhForIdGiaoVien", parameters, commandType: CommandType.StoredProcedure).ToList();
             return lst;
         }
         /// <summary>
@@ -50,7 +50,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns>list hoc sinh</returns>
         public List<HocSinh> GetHocSinhForIdLop(string maLop)
         {
-            List<HocSinh> lst = GetAllHocSinh().FindAll(x => x.MaLop==maLop);
+            List<HocSinh> lst = GetAllHocSinh().FindAll(x => x.MaLop == maLop);
             return lst;
         }
         /// <summary>
@@ -171,8 +171,12 @@ namespace QuanLyMamNon.Reponsitory
             string manv = _db.Query<string>("sp_HocSinh_NewID", commandType: CommandType.StoredProcedure).Single();
             return manv;
         }
-
-        public void ImportFileHocSinh(string conString,string filePath)
+        /// <summary>
+        /// impost data học sinh từ xlsx
+        /// </summary>
+        /// <param name="conString"></param>
+        /// <param name="filePath"></param>
+        public void ImportFileHocSinh(string conString, string filePath)
         {
             DataTable dt = new DataTable();
             conString = string.Format(conString, filePath);
@@ -207,39 +211,37 @@ namespace QuanLyMamNon.Reponsitory
             {
                 using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
                 {
-                    //Set the database table name.
-                    sqlBulkCopy.DestinationTableName = "HocSinh";
-
-                    //[OPTIONAL]: Map the Excel columns with that of the database table
-                    sqlBulkCopy.ColumnMappings.Add("MaHocSinh", "MaHocSinh");
-                    sqlBulkCopy.ColumnMappings.Add("Ten", "Ten");
-                    sqlBulkCopy.ColumnMappings.Add("NgaySinh", "NgaySinh");
-                    sqlBulkCopy.ColumnMappings.Add("GioiTinh", "GioiTinh");
-                    sqlBulkCopy.ColumnMappings.Add("DiaChi", "DiaChi");
-                    sqlBulkCopy.ColumnMappings.Add("TinhTrang", "TinhTrang");
-                    sqlBulkCopy.ColumnMappings.Add("ChieuCao", "ChieuCao");
-                    sqlBulkCopy.ColumnMappings.Add("CanNang", "CanNang");
-                    sqlBulkCopy.ColumnMappings.Add("TenPhuHuynh", "TenPhuHuynh");
-                    sqlBulkCopy.ColumnMappings.Add("SoCmt", "SoCmt");
-                    sqlBulkCopy.ColumnMappings.Add("Sdt", "Sdt");
-                    sqlBulkCopy.ColumnMappings.Add("Email", "Email");
-                    sqlBulkCopy.ColumnMappings.Add("NgaySinhPhuHuynh", "NgaySinhPhuHuynh");
-                    sqlBulkCopy.ColumnMappings.Add("GhiChu", "GhiChu");
-                    sqlBulkCopy.ColumnMappings.Add("MaLop", "MaLop");
-                    sqlBulkCopy.ColumnMappings.Add("DoiTuongMTA", "DoiTuongMTA");
-                    sqlBulkCopy.ColumnMappings.Add("TrangThai", "TrangThai");
-
-                    con.Open();
                     try
                     {
+                        //Set the database table name.
+                        sqlBulkCopy.DestinationTableName = "HocSinh";
+                        //[OPTIONAL]: Map the Excel columns with that of the database table
+                        sqlBulkCopy.ColumnMappings.Add("MaHocSinh", "MaHocSinh");
+                        sqlBulkCopy.ColumnMappings.Add("Ten", "Ten");
+                        sqlBulkCopy.ColumnMappings.Add("NgaySinh", "NgaySinh");
+                        sqlBulkCopy.ColumnMappings.Add("GioiTinh", "GioiTinh");
+                        sqlBulkCopy.ColumnMappings.Add("DiaChi", "DiaChi");
+                        sqlBulkCopy.ColumnMappings.Add("TinhTrang", "TinhTrang");
+                        sqlBulkCopy.ColumnMappings.Add("ChieuCao", "ChieuCao");
+                        sqlBulkCopy.ColumnMappings.Add("CanNang", "CanNang");
+                        sqlBulkCopy.ColumnMappings.Add("TenPhuHuynh", "TenPhuHuynh");
+                        sqlBulkCopy.ColumnMappings.Add("SoCmt", "SoCmt");
+                        sqlBulkCopy.ColumnMappings.Add("Sdt", "Sdt");
+                        sqlBulkCopy.ColumnMappings.Add("Email", "Email");
+                        sqlBulkCopy.ColumnMappings.Add("NgaySinhPhuHuynh", "NgaySinhPhuHuynh");
+                        sqlBulkCopy.ColumnMappings.Add("GhiChu", "GhiChu");
+                        sqlBulkCopy.ColumnMappings.Add("MaLop", "MaLop");
+                        sqlBulkCopy.ColumnMappings.Add("DoiTuongMTA", "DoiTuongMTA");
+                        sqlBulkCopy.ColumnMappings.Add("TrangThai", "TrangThai");
+                        con.Open();
                         sqlBulkCopy.WriteToServer(dt);
+                        con.Close();
                     }
                     catch(Exception ex)
                     {
                         throw;
                     }
                     
-                    con.Close();
                 }
             }
         }
