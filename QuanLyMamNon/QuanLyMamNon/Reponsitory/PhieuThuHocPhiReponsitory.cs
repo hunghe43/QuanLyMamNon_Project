@@ -21,13 +21,12 @@ namespace QuanLyMamNon.Reponsitory
         /// <param name="MaHocSinh"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public Infor_PhieuThu getPhieuThuForIdHocSinh(string MaHocSinh, string MaNhanVien, string date)
+        public Infor_TheoDoi Get_Infor_TheoDoi(string MaHocSinh, string date)
         {
             var parameters = new DynamicParameters();
             parameters.Add("@MaHocSinh", MaHocSinh);
-            parameters.Add("@MaNhanVien", MaNhanVien);
             parameters.Add("@date", date);
-            Infor_PhieuThu pt = _db.Query<Infor_PhieuThu>("GetPhieuThuForIdHocSinh", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            Infor_TheoDoi pt = _db.Query<Infor_TheoDoi>("Get_Infor_TheoDoi", parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
             return pt;
         }
         /// <summary>

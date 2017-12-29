@@ -1,0 +1,82 @@
+<h2>Hoc Phi</h2>
+<table>
+    <tr>
+        <th>Ten Loai Tien</th>
+        <th>Chi phi</th>
+        <th>Tong</th>
+    </tr>
+
+        <tr>
+            <td>B&#225;n tr&#250;</td>
+            <td>50,0000 vnd</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td>H?c ph&#237;</td>
+            <td>300,0000 vnd</td>
+            <td>...</td>
+        </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>...</th>
+    </tr>
+</table>
+<h2>Theo Doi</h2>
+<table>
+    <tr>
+        <th>Ten Loai Tien</th>
+        <th>Chi phi</th>
+        <th>Tong</th>
+    </tr>
+    <tr>
+        <td>S? bu?i ngh? h?c: 4</td>
+        <td>25.000 vnd</td>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td>S? ng?y ?n s?ng: 10</td>
+        <td>25.000 vnd</td>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td>S? ng?y ?n tr?a: 10</td>
+        <td>25.000 vnd</td>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>...</td>
+    </tr>
+
+</table>
+<h2>Dich vu ngoai</h2>
+<table>
+    <tr>
+        <th>Ten loai tien</th>
+        <th>Chi phi</th>
+        <th>Tong</th>
+    </tr>
+    <tr>
+        <td> M&#244;n V?</td>
+        <td>100,0000 vnd </td>
+        <td>...</td>
+    </tr>        
+    <tr>
+        <td> M&#244;n t?o h&#236;nh</td>
+        <td>100,0000 vnd </td>
+        <td>...</td>
+    </tr>        
+    <tr>
+        <td> Aerobic</td>
+        <td>100,0000 vnd </td>
+        <td>...</td>
+    </tr>        
+   
+    <tr>
+        <td></td>
+        <td></td>
+        <td>...</td>
+    </tr>   
+</table>
