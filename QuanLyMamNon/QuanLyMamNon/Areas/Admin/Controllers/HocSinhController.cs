@@ -159,7 +159,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
                 return RedirectToAction("Index");
             }

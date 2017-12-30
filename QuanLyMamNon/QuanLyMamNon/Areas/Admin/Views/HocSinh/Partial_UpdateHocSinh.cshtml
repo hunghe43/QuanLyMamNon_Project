@@ -5,13 +5,13 @@
     @Html.AntiForgeryToken()
     <div class="modal-header modal-header-primary">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Update</h4>
+        <h4 class="modal-title" id="myModalLabel">Sửa thông tin</h4>
     </div>
     <div class="modal-body">
         @Html.HiddenFor(x => x.hocsinh.MaHocSinh)
         <div class="row">
             <div class="col-lg-6">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         Thông tin học sinh
                     </div>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         Thông tin phụ huynh
                     </div>
@@ -105,50 +105,53 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="form-group input-group">
-                    <label>Tình trạng hoạt động </label>
-                    @Html.CheckBoxFor(x => x.hocsinh.TrangThai, new { @class = "form-control checkTrangThai" })
+        </div><div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group input-group">
+                            <label>Tình trạng hoạt động </label>
+                            @Html.CheckBoxFor(x => x.hocsinh.TrangThai, new { @class = "form-control checkTrangThai" })
 
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group input-group">
+                            <label>Là đối tượn con MTA</label>
+                            @Html.CheckBoxFor(x => x.hocsinh.DoiTuongMTA, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 showHide">
+                        <div class="form-group input-group DropListLop">
+                            <label>Chọn lớp học</label>
+                            @Html.DropDownListFor(x=>x.hocsinh.MaLop,new SelectList(Model.listLop, "MaLop", "TenLop",Model.hocsinh.MaLop), "None", new { @class = "form-control dropdownLop", @required = "required" })
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group input-group">
-                    <label>Là đối tượn con MTA</label>
-                    @Html.CheckBoxFor(x => x.hocsinh.DoiTuongMTA, new { @class = "form-control" })
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Tình trạng học tập</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-comments"></i>
+                            </span>
+                            @Html.TextAreaFor(x => x.hocsinh.TinhTrang, new { @class = "form-control", @placeholder = "Tình trạng học tập..." })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label>Ghi chú</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-comments"></i>
+                            </span>
+                            @Html.TextAreaFor(x => x.hocsinh.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..." })
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 showHide">
-                <div class="form-group input-group DropListLop">
-                    <label>Chọn lớp học</label>                    
-                    @Html.DropDownListFor(x=>x.hocsinh.MaLop,new SelectList(Model.listLop, "MaLop", "TenLop",Model.hocsinh.MaLop), "None", new { @class = "form-control dropdownLop", @required = "required" })
-                </div>
+
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <label>Tình trạng học tập</label>
-                <div class="form-group input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-comments"></i>
-                    </span>
-                    @Html.TextAreaFor(x => x.hocsinh.TinhTrang, new { @class = "form-control", @placeholder = "Tình trạng học tập..." })
-                </div>
-            </div>
-           
-            <div class="col-lg-6">
-                <label>Ghi chú</label>
-                <div class="form-group input-group">
-                    <span class="input-group-addon">
-                        <i class="fa fa-comments"></i>
-                    </span>
-                    @Html.TextAreaFor(x => x.hocsinh.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..." })
-                </div>
-            </div>
-        </div>
-            
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

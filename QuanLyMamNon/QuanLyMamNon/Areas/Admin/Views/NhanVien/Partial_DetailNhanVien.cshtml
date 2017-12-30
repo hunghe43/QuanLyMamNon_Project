@@ -5,51 +5,47 @@
 </div>
 <div class="modal-body">
     <div class="panel panel-primary">
-        <div class="panel-heading">
+        <div class="panel-body">
+            <div class="list-group">
+                <a class="list-group-item">
+                    <i class="fa fa-key fa-fw"></i> Mã nhân viên: @Model.nhanvien.MaNhanVien
+                    <span class="pull-right text-muted small">
+                    </span>
+                </a>
+                <a class="list-group-item">
+                    <i class="fa fa-user fa-fw"></i> Họ tên: @Model.nhanvien.TenNhanVien
+                    <span class="pull-right text-muted small">
+                    </span>
+                </a>
 
-            <i class="fa fa-comment fa-fw text-center"></i> Thông tin nhân viên
-            <span class="pull-right text-muted small">
-            </span>
+                <a class="list-group-item">
+                    <i class="fa fa-home fa-fw"></i> Địa chỉ: @Model.nhanvien.DiaChi
+                    <span class="pull-right text-muted small">
+                    </span>
+                </a>
+                <a class="list-group-item">
+                    <i class="fa fa-phone fa-fw"></i> Số điện thoại: @Model.nhanvien.Sdt
+                    <span class="pull-right text-muted small">
+                    </span>
+                </a>
+                <a class="list-group-item">
+                    <i class="fa fa-envelope fa-fw"></i> Email: @Model.nhanvien.Email
+                    <span class="pull-right text-muted small">
+                    </span>
+                </a>
+                <a class="list-group-item">
+                    <i class="fa fa-leaf fa-fw"></i> Chức vụ: @Model.listChucVu.SingleOrDefault(x => x.MaChucVu.Equals(Model.nhanvien.MaChucVu)).TenChucVu.ToString()
+                    <span class="pull-right text-muted small">
+                    </span>
+                </a>
+                <a class="list-group-item">
+                    <i class="fa fa-group fa-fw"></i> Lớp quản lý: @ViewData["TenLop"]
+                    <span class="pull-right text-muted small">
+                    </span>
+                </a>
+            </div>
         </div>
-        <div class="list-group">
-            <a class="list-group-item">
-                <i class="fa fa-key fa-fw"></i> Mã nhân viên: @Model.nhanvien.MaNhanVien
-                <span class="pull-right text-muted small">
-                </span>
-            </a>
-            <a class="list-group-item">
-                <i class="fa fa-user fa-fw"></i> Họ tên: @Model.nhanvien.TenNhanVien
-                <span class="pull-right text-muted small">
-                </span>
-            </a>
-
-            <a class="list-group-item">
-                <i class="fa fa-home fa-fw"></i> Địa chỉ: @Model.nhanvien.DiaChi
-                <span class="pull-right text-muted small">
-                </span>
-            </a>
-            <a class="list-group-item">
-                <i class="fa fa-phone fa-fw"></i> Số điện thoại: @Model.nhanvien.Sdt
-                <span class="pull-right text-muted small">
-                </span>
-            </a>
-            <a class="list-group-item">
-                <i class="fa fa-envelope fa-fw"></i> Email: @Model.nhanvien.Email
-                <span class="pull-right text-muted small">
-                </span>
-            </a>
-            <a class="list-group-item">
-                <i class="fa fa-leaf fa-fw"></i> Chức vụ: @Model.listChucVu.SingleOrDefault(x => x.MaChucVu.Equals(Model.nhanvien.MaChucVu)).TenChucVu.ToString()
-                <span class="pull-right text-muted small">
-                </span>
-            </a>
-            <a class="list-group-item">
-                <i class="fa fa-group fa-fw"></i> Lớp quản lý: @ViewData["TenLop"]
-                <span class="pull-right text-muted small">
-                </span>
-            </a>
-        </div>
-        </div>
+    </div>
     </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

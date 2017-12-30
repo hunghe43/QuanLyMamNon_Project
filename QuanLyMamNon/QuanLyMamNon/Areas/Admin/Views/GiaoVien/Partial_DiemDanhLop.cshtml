@@ -16,11 +16,21 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="row">
-                        <div class="span5 col-md-5" id="sandbox-container">
-                            <div class="input-group date">
-                                <input value="@Model.phieuTheoDoiModel.NgayTheoDoi.ToShortDateString()" id="dateValue" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        @*<div class="span5 col-md-5" id="sandbox-container">
+                            <div class="input-group">
+                                <input value="@Model.phieuTheoDoiModel.NgayTheoDoi.ToShortDateString()" id="dateValue" type="date" class="form-control">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" id="btn_view">Hiển thị</button>
+                                </span>
                             </div>
-                            @*<input value="@Model.phieuTheoDoiModel.NgayTheoDoi" type="text" name="date" class="form-control datetime" placeholder="Chọn tháng...."><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>*@
+                        </div>*@
+                        <div class="span5 col-md-5" id="sandbox-container">
+                            <div class="input-group">
+                                <input value="@ViewData["date"].ToString()" id="dateValue" type="date" class="form-control">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default" id="btn_view" >Hiển thị</a>
+                                </span>
+                            </div>                            
                         </div>
                     </div>
                     <br />
@@ -37,7 +47,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         @for (int i = 0; i < Model.listCT_NgayTheoDoiModel.Count(); i++)
                                         {
                                             var mahs = Model.listCT_NgayTheoDoiModel[i].MaHocSinh;
@@ -71,8 +80,8 @@
                         <!-- /.table-responsive -->
                     </div>
                     <div class="row col-sm-5">
-                        <button id="btnLuu" type="submit" class="btn btn-success btn-lg">Lưu</button>
-                        <a id="btnSua" class="btn btn-warning btn-lg">Sửa</a>
+                        <button id="btnLuu" type="submit" class="btn btn-primary">Lưu</button>
+                        <a id="btnSua" class="btn btn-primary">Sửa</a>
                     </div>
                 </div>
                 <!-- /.panel-body -->
@@ -99,6 +108,7 @@
         $("#messChuaDiemDanh").show();
         $("#btnLuu").show();
     }
+
     $(document).ready(function(){
         $('#btnSua').click(function(){
             $(".check-box").attr("disabled", false);
@@ -107,18 +117,17 @@
         });
     });
     //datetime picker
-    $(function() {
-        var date = $('#dateValue').val();
-        $('#sandbox-container .input-group.date').datepicker({
-            format: "yyyy/mm/dd",
-            todayBtn: "linked",
-            daysOfWeekDisabled: "7",
-            autoclose: true,
-            todayHighlight: true,
-            endDate: '+0d',
+    @*$(function() {
+        $('#sandbox-container .input').datepicker({
+            //format: "yyyy/mm/dd",
+            //todayBtn: "linked",
+            //daysOfWeekDisabled: "7",
+            //autoclose: true,
+            //todayHighlight: true,
+            //endDate: '+0d',
             onSelect: function() {
             $(this).change();
-        }
+        },
         }).on("change", function() {
             debugger;
             var date = $('#dateValue').val();
@@ -133,5 +142,22 @@
                 });
             }
         });
+    });*@   
+    $(function() {
+        $('#btn_view').click(function() {
+            debugger;
+            var date = $('#dateValue').val();
+            if (date && date != '') {
+                $.ajax({
+                    url: '@Url.Action("Partial_DiemDanhLop")',
+                    type: 'GET',
+                    cache: false,
+                    data: { date: date }
+                }).done(function(result) {
+                    $('#result').html(result);
+                });
+            }
+        });
     });
+
 </script>

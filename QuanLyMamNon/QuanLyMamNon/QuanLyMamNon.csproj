@@ -164,6 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChiTieuController.cs" />
     <Compile Include="Areas\Admin\Controllers\DichVuNgoaiController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocPhiController.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Models\Entity\HocPhi.cs" />
     <Compile Include="Models\Entity\Infor_PhieuThu.cs" />
     <Compile Include="Models\Entity\LoaiHocPhi.cs" />
+    <Compile Include="Models\Entity\PhieuChiTieu.cs" />
     <Compile Include="Models\ReflectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,6 +215,7 @@
     <Compile Include="Reponsitory\HocSinhReponsitory.cs" />
     <Compile Include="Reponsitory\LopReponsitory.cs" />
     <Compile Include="Reponsitory\NhanVienReponsitory.cs" />
+    <Compile Include="Reponsitory\PhieuChiTieuReponsitory.cs" />
     <Compile Include="Reponsitory\PhieuTheoDoiReponsitory.cs" />
     <Compile Include="Reponsitory\PhieuThuHocPhiReponsitory.cs" />
     <Compile Include="Reponsitory\QuyenReponsitory.cs" />
@@ -443,6 +446,7 @@
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Content\vendor\AdminJs_Css\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\ChiTieu\" />
     <Folder Include="ExcelFiles\" />
   </ItemGroup>
   <ItemGroup>

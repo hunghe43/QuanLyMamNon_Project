@@ -45,15 +45,21 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         
         public ActionResult Partial_DiemDanhLop(string date)
         {
-            DateTime ngayTheoDoi;
+            DateTime ngayTheoDoi = new DateTime();
             if (date != null)
             {
                 ngayTheoDoi = DateTime.Parse(date).Date;
             }
             else
             {
+                
                 ngayTheoDoi = DateTime.Now.Date;
-            }            
+                date = ngayTheoDoi.ToString("yyyy-MM-dd");
+            }
+            
+            //convert date type 2013-01-08 pass to vjew.
+            ViewData["date"] = date;
+            TempData["ngayTheoDoi"] = ngayTheoDoi;
             var nhanvien = (NhanVien)Session["NhanVien"];
             HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
             PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
@@ -83,6 +89,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 }
             }
             ViewData["checkDiemDanh"] = checkDiemDanh;
+           
             var phieuTheoDoi = new PhieuTheoDoi();
             phieuTheoDoi.NgayTheoDoi = ngayTheoDoi;
             phieuTheoDoi.MaGiaoVien = nhanvien.MaNhanVien;
@@ -101,7 +108,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             PhieuTheoDoiReponsitory ptdRepon = new PhieuTheoDoiReponsitory();
             var nhanvien = (NhanVien)Session["NhanVien"];
-            var ngayTheoDoi = model.phieuTheoDoiModel.NgayTheoDoi;
+            var ngayTheoDoi = (DateTime)TempData["ngayTheoDoi"];
+           
+            //var ngayTheoDoi = model.phieuTheoDoiModel.NgayTheoDoi;
             foreach (var i in model.listCT_NgayTheoDoiModel)
             {
                 var ct_ptd = new CT_NgayTheoDoi();

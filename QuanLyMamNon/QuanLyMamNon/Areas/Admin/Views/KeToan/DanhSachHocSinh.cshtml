@@ -136,7 +136,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    STT
+                                    Mã
                                 </th>
                                 <th>
                                     Học Và Tên
@@ -160,9 +160,6 @@
                                 </th>
                                 <th>
                                     Email
-                                </th>
-                                <th>
-                                    Ngày Sinh
                                 </th>
                                 @*@Html.DisplayNameFor(model => model.GhiChu)*@
                                 @*@Html.DisplayNameFor(model => model.MaLop)*@
@@ -200,9 +197,7 @@
                                     <td>
                                         @item.Email
                                     </td>
-                                    <td>
-                                        @item.NgaySinhPhuHuynh.ToShortDateString()
-                                    </td>
+                                    
                                     @*@Html.DisplayFor(modelItem => item.GhiChu)*@
                                     @*@Html.DisplayFor(modelItem => item.MaLop)*@
                                     @*@Html.DisplayFor(modelItem => item.TrangThai)*@

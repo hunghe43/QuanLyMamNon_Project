@@ -88,7 +88,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             //lấy thông tin điểm danh của học sinh trong tháng
             var pt = ptRepon.Get_Infor_TheoDoi(MaHocSinh,thang);
             //công thức tính tiền học khi điểm danh--------VD:
-            decimal tong2 = (22- pt.SoNgayVang)*HocPhiDefaul.tienHoc1Buoi + pt.SoNgayAnSang*HocPhiDefaul.tienAnSang+pt.SoNgayAnTrua*HocPhiDefaul.tienAnTrua;
+            decimal tong2 = HocPhiDefaul.TinhHocPhiTheoDoi(pt.SoNgayVang, pt.SoNgayAnSang, pt.SoNgayAnTrua);
             ViewData["tong2"] = tong2;
 
             ViewData["tong"] = tong1+tong2+tong3;

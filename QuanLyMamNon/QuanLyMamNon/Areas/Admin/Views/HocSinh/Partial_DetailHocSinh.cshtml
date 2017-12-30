@@ -6,7 +6,7 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-lg-6">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="fa fa-comment fa-fw text-center"></i> Thông tin học sinh
                     <span class="pull-right text-muted small">
@@ -47,39 +47,41 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <i class="fa fa-comment fa-fw text-center"></i> Thông tin phụ huynh
                     <span class="pull-right text-muted small">
                     </span>
                 </div>
-                <div class="list-group">
-                    <a class="list-group-item">
-                        <i class="fa fa-child fa-fw"></i> Họ tên: @Model.hocsinh.TenPhuHuynh
-                        <span class="pull-right text-muted small">
-                        </span>
-                    </a>
-                    <a class="list-group-item">
-                        <i class="fa fa-calendar fa-fw"></i> Ngày sinh: @Model.hocsinh.NgaySinhPhuHuynh.ToShortDateString()
-                        <span class="pull-right text-muted small">
-                        </span>
-                    </a>
-                    <a class="list-group-item">
-                        <i class="fa fa-credit-card fa-fw"></i> Số chứng minh thư: @Model.hocsinh.SoCmt
-                        <span class="pull-right text-muted small">
-                        </span>
-                    </a>
-                    <a class="list-group-item">
-                        <i class="fa fa-phone fa-fw"></i> Tel: @Model.hocsinh.Sdt
-                        <span class="pull-right text-muted small">
-                        </span>
-                    </a>
-                    <a class="list-group-item">
-                        <i class="fa fa-envelope fa-fw"></i> Email: @Model.hocsinh.Email
-                        <span class="pull-right text-muted small">
-                        </span>
-                    </a>
-                </div>
+                
+                    <div class="list-group">
+                        <a class="list-group-item">
+                            <i class="fa fa-child fa-fw"></i> Họ tên: @Model.hocsinh.TenPhuHuynh
+                            <span class="pull-right text-muted small">
+                            </span>
+                        </a>
+                        <a class="list-group-item">
+                            <i class="fa fa-calendar fa-fw"></i> Ngày sinh: @Model.hocsinh.NgaySinhPhuHuynh.ToShortDateString()
+                            <span class="pull-right text-muted small">
+                            </span>
+                        </a>
+                        <a class="list-group-item">
+                            <i class="fa fa-credit-card fa-fw"></i> Số chứng minh thư: @Model.hocsinh.SoCmt
+                            <span class="pull-right text-muted small">
+                            </span>
+                        </a>
+                        <a class="list-group-item">
+                            <i class="fa fa-phone fa-fw"></i> Tel: @Model.hocsinh.Sdt
+                            <span class="pull-right text-muted small">
+                            </span>
+                        </a>
+                        <a class="list-group-item">
+                            <i class="fa fa-envelope fa-fw"></i> Email: @Model.hocsinh.Email
+                            <span class="pull-right text-muted small">
+                            </span>
+                        </a>
+                    </div>
+                
             </div>
         </div>
     </div>
