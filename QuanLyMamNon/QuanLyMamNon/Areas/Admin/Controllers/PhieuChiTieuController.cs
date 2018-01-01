@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
-    public class ChiTieuController : Controller
+    public class PhieuChiTieuController : Controller
     {
 
         PhieuChiTieuReponsitory phieuChiTieuRepon = new PhieuChiTieuReponsitory();
@@ -17,7 +17,12 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             var listPhieuChiTieu = phieuChiTieuRepon.getAllPhieuChiTieu();
             return View(listPhieuChiTieu);
         }
-
+        // GET: details PhieuChiTieu
+        public ActionResult Detail(string id)
+        {
+            var PhieuChiTieu = phieuChiTieuRepon.getPhieuChiTieuForId(id);
+            return PartialView("Partial_DetailPhieuChiTieu", PhieuChiTieu);
+        }
         // GET: add 
         public ActionResult Add()
         {
@@ -28,6 +33,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(PhieuChiTieu PhieuChiTieu)
         {
+
+            var nhanvien = (NhanVien)Session["NhanVien"];
+            PhieuChiTieu.MaNhanVien = nhanvien.MaNhanVien;
             phieuChiTieuRepon.AddPhieuChiTieu(PhieuChiTieu);
             return RedirectToAction("Index");
         }

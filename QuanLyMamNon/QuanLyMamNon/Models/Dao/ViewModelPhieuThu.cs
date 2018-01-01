@@ -17,5 +17,6 @@ namespace QuanLyMamNon.Models.Dao
         public PhieuThu phieuThu { get; set; }
         public List<DichVuNgoai> listDichVuNgoai { get; set; }
         public List<HocPhi> listHocPhiThang { get; set; }
+        public List<HocPhi> listHocPhiDauNam { get; set; }
     }
 }

@@ -12,8 +12,7 @@ namespace QuanLyMamNon.Reponsitory
 {
     public class PhieuChiTieuReponsitory
     {
-        private IDbConnection _db = new SqlConnection
-   (ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString);
+        private IDbConnection _db = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString);
 
         /// <summary>
         /// lấy tất cả PhieuChiTieu
@@ -63,8 +62,7 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public PhieuChiTieu getPhieuChiTieuForId(string id)
         {
-            //lấy ra...?
-            var PhieuChiTieu = new PhieuChiTieu();
+            var PhieuChiTieu = getAllPhieuChiTieu().Find(x => x.MaPhieuChiTieu == id);
             return (PhieuChiTieu);
         }
         /// <summary>

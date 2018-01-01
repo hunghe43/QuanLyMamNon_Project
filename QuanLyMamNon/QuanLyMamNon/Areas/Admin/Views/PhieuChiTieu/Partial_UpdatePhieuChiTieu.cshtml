@@ -1,0 +1,53 @@
+﻿@model QuanLyMamNon.Models.PhieuChiTieu
+@using (Html.BeginForm("Update", "PhieuChiTieu", FormMethod.Post, new { @role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h1 class="modal-title" id="myModalLabel">Update</h1>
+    </div>
+    <div class="modal-body">
+        @Html.HiddenFor(x => x.MaPhieuChiTieu)
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-linux"></i>
+            </span>
+            @Html.TextBoxFor(x => x.NgayTaoPhieu, new { @class = "form-control", @type = "date", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-sort-numeric-asc"></i>
+            </span>
+            @Html.TextBoxFor(x => x.TenNguoiChi, new { @type = "number", @class = "form-control", @placeholder = "Sĩ số..." })
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-comments"></i>
+            </span>
+
+            @Html.TextAreaFor(x => x.LyDo, new { @class = "form-control", @placeholder = "Ghi chú..." })
+
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-comments"></i>
+            </span>
+
+            @Html.TextBoxFor(x => x.ChiPhi, new { @class = "form-control", @placeholder = "Ghi chú..." })
+
+        </div>
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-comments"></i>
+            </span>
+
+            @Html.TextBoxFor(x => x.ChungTu, new { @class = "form-control", @placeholder = "ChungTu..." })
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+    </div>
+}

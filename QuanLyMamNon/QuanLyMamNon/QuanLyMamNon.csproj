@@ -164,7 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\ChiTieuController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PhieuChiTieuController.cs" />
     <Compile Include="Areas\Admin\Controllers\DichVuNgoaiController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiaoVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocPhiController.cs" />
@@ -398,6 +398,10 @@
     <Content Include="Areas\Admin\Views\DichVuNgoai\Partial_UpdateDichVuNgoai.cshtml" />
     <Content Include="Areas\Admin\Views\HocSinh\Partial_DangKyDichVu.cshtml" />
     <Content Include="Areas\Admin\Views\KeToan\GenerateExcel.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuChiTieu\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_DetailPhieuChiTieu.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_AddPhieuChiTieu.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_UpdatePhieuChiTieu.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -446,7 +450,6 @@
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Content\vendor\AdminJs_Css\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\ChiTieu\" />
     <Folder Include="ExcelFiles\" />
   </ItemGroup>
   <ItemGroup>

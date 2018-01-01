@@ -112,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-                    @*<div class="col-lg-3">
+                    <div class="col-lg-3">
                             <div class="panel panel-success">
                                 <div class="panel-heading">
 
@@ -122,40 +122,25 @@
 
                                 </div>
                                 <div class="list-group">
-
-                                    <a class="list-group-item">
-                                        <i class="fa fa-twitter fa-fw"></i> Tiền xây dựng
-                                        <span class="pull-right text-muted small">
-                                            <em>25.000 vnd</em>
-                                        </span>
-                                    </a>
-                                    <a class="list-group-item">
-                                        <i class="fa fa-envelope fa-fw"></i> Tiền mua đồ dùng học tập
-                                        <span class="pull-right text-muted small">
-                                            <em>25.000 vnd</em>
-                                        </span>
-                                    </a>
-                                    <a class="list-group-item">
-                                        <i class="fa fa-tasks fa-fw"></i> Tiền nước
-                                        <span class="pull-right text-muted small">
-                                            <em>25.000 vnd</em>
-                                        </span>
-                                    </a>
-                                    <a class="list-group-item">
-                                        <i class="fa fa-upload fa-fw"></i> Tiền hỗ trợ điện
-                                        <span class="pull-right text-muted small">
-                                            <em>25.000 vnd</em>
-                                        </span>
-                                    </a>
+                                    @foreach (var item in Model.listHocPhiDauNam)
+                                    {
+                                        <a class="list-group-item">
+                                            <i class="fa fa-twitter fa-fw"></i>@item.TenHocPhi
+                                            <span class="pull-right text-muted small">
+                                                <em>@item.ChiPhi vnđ</em>
+                                            </span>
+                                        </a>
+                                    }
+                                    
                                 </div>
                                 <div class="panel-footer">
                                     <i class="fa fa-upload fa-fw"></i> (4)Tổng:
                                     <span class="pull-right text-muted small">
-                                        <em>25.000 vnd</em>
+                                        <em>@ViewData["tong4"] vnđ</em>
                                     </span>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
 
                 </div>
                 <div class="alert alert-success" id="DaThanhToan">

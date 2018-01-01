@@ -69,9 +69,14 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 thang = ngaytaophieu.ToString("MM/yyyy");
             }
             //lấy dịch vụ học sinh đăng ký trong tháng
+
+            decimal tong1 = 0;
+            decimal tong2=0;
+            decimal tong3 = 0;
+            decimal tong4 = 0;
             var listDichVuNgoai = dvRepon.getListDichVuNgoai_HocSinh(MaHocSinh, thang);
-            decimal tong3=0;
-            foreach(var dvn in listDichVuNgoai)
+
+            foreach (var dvn in listDichVuNgoai)
             {
                 tong3 += dvn.ChiPhi;
             }
@@ -79,19 +84,37 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
 
             //lấy học phí mặc định của tháng
             var listHocPhiThang = ptRepon.getHocPhiThang();
-            decimal tong1 = 0;
-            foreach(var hp in listHocPhiThang)
+
+            foreach (var hp in listHocPhiThang)
             {
                 tong1 += hp.ChiPhi;
             }
             ViewData["tong1"] = tong1;
             //lấy thông tin điểm danh của học sinh trong tháng
-            var pt = ptRepon.Get_Infor_TheoDoi(MaHocSinh,thang);
-            //công thức tính tiền học khi điểm danh--------VD:
-            decimal tong2 = HocPhiDefaul.TinhHocPhiTheoDoi(pt.SoNgayVang, pt.SoNgayAnSang, pt.SoNgayAnTrua);
+            var pt = ptRepon.Get_Infor_TheoDoi(MaHocSinh, thang);
+            if (pt == null)
+            {
+                pt = new Infor_TheoDoi();
+            }
+            else
+            {
+                //công thức tính tiền học khi điểm danh--------VD:
+                tong2 = HocPhiDefaul.TinhHocPhiTheoDoi(pt.SoNgayVang, pt.SoNgayAnSang, pt.SoNgayAnTrua);
+            }
             ViewData["tong2"] = tong2;
 
-            ViewData["tong"] = tong1+tong2+tong3;
+
+            //lấy học phí đầu năm
+            //
+            var listHocPhiDauNam = ptRepon.getHocPhiDauNam();
+
+            foreach (var hp in listHocPhiDauNam)
+            {
+                tong4 += hp.ChiPhi;
+            }
+            ViewData["tong4"] = tong4;
+
+            ViewData["tong"] = tong1 + tong2 + tong3 + tong4;
             // kiểm tra xem tồn tại phiếu thu chưa...
             if (pt == null)
             {
@@ -116,7 +139,8 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 infor_phieuThu = pt,
                 listHocPhiThang = listHocPhiThang,
                 hocSinh = hsRepon.GetHocSinhForId(MaHocSinh),
-                listDichVuNgoai = listDichVuNgoai
+                listDichVuNgoai = listDichVuNgoai,
+                listHocPhiDauNam=listHocPhiDauNam
             };
             //gửi thông tin viewModel qua bên controller thuphi
             TempData["viewModel"] = viewModel;
@@ -192,7 +216,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         /// xuất hóa đơn sang excel
         /// </summary>
         public void ExportToExcel()
-         {
+        {
             ViewModelPhieuThu viewModel = (ViewModelPhieuThu)TempData["viewModel"];
             string Filename = "ExcelFrom" + DateTime.Now.ToString("mm_dd_yyy_hh_ss_tt") + ".xls";
             string FolderPath = HttpContext.Server.MapPath("/ExcelFiles/");

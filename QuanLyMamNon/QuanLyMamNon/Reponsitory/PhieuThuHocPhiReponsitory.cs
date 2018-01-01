@@ -39,6 +39,15 @@ namespace QuanLyMamNon.Reponsitory
             return list;
         }
         /// <summary>
+        /// lấy tất cả học phí mặc định của đầu năm
+        /// </summary>
+        /// <returns></returns>
+        public List<HocPhi> getHocPhiDauNam()
+        {
+            List<HocPhi> list = _db.Query<HocPhi>("getHocPhiDauNam", commandType: CommandType.StoredProcedure).ToList();
+            return list;
+        }
+        /// <summary>
         /// lấy tất cả danh sách dịch vụ ngoài
         /// </summary>
         /// <returns></returns>
