@@ -192,6 +192,10 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             else
             {
                 string dayNow = dtNow.Day.ToString();
+                if (dayNow.Count() == 1)
+                {
+                    dayNow = "0" + dayNow;
+                }
                 dt=DateTime.ParseExact(dayNow+"/" + thang, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 ViewData["thang"] = thang;
             }

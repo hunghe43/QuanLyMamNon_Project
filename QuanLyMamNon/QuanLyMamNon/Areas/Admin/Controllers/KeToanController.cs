@@ -90,12 +90,12 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 tong1 += hp.ChiPhi;
             }
             ViewData["tong1"] = tong1;
-            //lấy thông tin điểm danh của học sinh trong tháng
+            //lấy thông  tin điểm danh của học sinh trong tháng
             var pt = ptRepon.Get_Infor_TheoDoi(MaHocSinh, thang);
             if (pt == null)
             {
                 pt = new Infor_TheoDoi();
-            }
+            } 
             else
             {
                 //công thức tính tiền học khi điểm danh--------VD:
@@ -144,6 +144,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             };
             //gửi thông tin viewModel qua bên controller thuphi
             TempData["viewModel"] = viewModel;
+            ViewData["thang"] = thang;
             return PartialView(viewModel);
         }
 

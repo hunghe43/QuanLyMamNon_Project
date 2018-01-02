@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Hỗ trợ quản lý mầm non 28/10!</title>
     <script src="~/Areas/Admin/Content/vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="~/Areas/Admin/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -57,7 +57,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index","HomeAdmin")">SB Admin v2.0</a>
+                <a class="navbar-brand" href="@Url.Action("Index","HomeAdmin")">Trang chủ quản trị</a>
             </div>
 
             <!-- /.navbar-header -->
@@ -73,7 +73,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <a href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out fa-fw"></i> Đăng Xuất</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
@@ -85,78 +85,39 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        
                         <li>
-                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ Admin<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
+                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-windows fa-fw"></i>  Quản trị viên<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="@Url.Action("Index", "HocSinh")">Quản lý học sinh</a>
+                                    <a href="@Url.Action("Index", "HocSinh")"><i class="fa fa-child  fa-fw"></i>  Quản lý học sinh</a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index", "NhanVien")">Quản lý nhân viên</a>
+                                    <a href="@Url.Action("Index", "NhanVien")"><i class="fa fa-user-md fa-fw"></i>  Quản lý nhân viên</a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index", "Lop")">Quản lý lớp</a>
+                                    <a href="@Url.Action("Index", "Lop")"><i class="fa fa-institution  fa-fw"></i>  Quản lý lớp học</a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index", "HocPhi")">Quản lý học phí</a>
+                                    <a href="@Url.Action("Index", "HocPhi")"><i class="fa fa-money  fa-fw"></i>  Quản lý học phí</a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index", "DichVuNgoai")">Quản lý dịch vụ ngoài</a>
+                                    <a href="@Url.Action("Index", "DichVuNgoai")"><i class="fa fa-edit fa-fw"></i>  Quản lý dịch vụ ngoài</a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")">Phân quyền</a>
+                                    <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")"><i class="fa fa-eye fa-fw"></i>  Phân quyền</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
+                            <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>  Trang chủ giáo viên</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "KeToan")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ kế toán</a>                            
+                            <a href="@Url.Action("Index", "KeToan")"><i class="fa fa-dashboard fa-fw"></i>  Trang chủ kế toán</a>                            
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ tổ nuôi</a>
+                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>  Trang chủ tổ nuôi</a>
                         </li>
-                        @*@{
-                                   var nhanvien = ((NhanVien)Session["NhanVien"]).MaChucVu;
-                                   switch (nhanvien)
-                                   {
-                                       case "ADMIN":
-                                        <li>
-                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ Admin</a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ kế toán</a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ tổ nuôi</a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("PhanQuyenTheoChucVu", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Phân quyền</a>
-                                        </li>
-                                           break;
-                                       case "GVC":
-                                        <li>
-                                            <a href="@Url.Action("Index", "GiaoVien")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ giáo viên</a>
-                                        </li>
-                                           break;
-                                       case "TONUOI":
-                                        <li>
-                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ tổ nuôi</a>
-                                        </li>
-                                           break;
-                                       case "KETOAN":
-                                        <li>
-                                            <a href="@Url.Action("Index", "HomeAdmin")"><i class="fa fa-dashboard fa-fw"></i>Trang chủ kế toán</a>
-                                        </li>
-                                           break;
-                                   }
-                            }*@
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
