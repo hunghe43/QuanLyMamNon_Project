@@ -20,29 +20,37 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             return View();
         }
-        
+
         public ActionResult PhanQuyenTheoChucVu(FormCollection f)
         {
-            ChucVuReponsitory chucVuRepon = new ChucVuReponsitory();
-            QuyenReponsitory quyenRepon = new QuyenReponsitory();
-
-            string maChucVu =f["SL"];
-            var listQuyenForChucVu = new List<Quyen_ChucVu>();
-            if (!string.IsNullOrEmpty(maChucVu))
+            try
             {
-                maChucVu = f["SL"].ToString();
-                listQuyenForChucVu = quyenRepon.getAllQuyenChucVu().Where(x => x.MaChucVu == maChucVu).ToList();
-                ViewBag.hienthi = maChucVu;
 
+                ChucVuReponsitory chucVuRepon = new ChucVuReponsitory();
+                QuyenReponsitory quyenRepon = new QuyenReponsitory();
+
+                string maChucVu = f["SL"];
+                var listQuyenForChucVu = new List<Quyen_ChucVu>();
+                if (!string.IsNullOrEmpty(maChucVu))
+                {
+                    maChucVu = f["SL"].ToString();
+                    listQuyenForChucVu = quyenRepon.getAllQuyenChucVu().Where(x => x.MaChucVu == maChucVu).ToList();
+                    ViewBag.hienthi = maChucVu;
+
+                }
+                var viewModel = new ViewModelPhanQuyen
+                {
+                    listChucVu = chucVuRepon.getAllChucVu(),
+                    listQuyen = quyenRepon.GetAllQuyen(),
+                    listQuyenForChucVu = listQuyenForChucVu
+                };
+
+                return View(viewModel);
             }
-            var viewModel = new ViewModelPhanQuyen
+            catch (Exception ex)
             {
-                listChucVu = chucVuRepon.getAllChucVu(),
-                listQuyen = quyenRepon.GetAllQuyen(),
-                listQuyenForChucVu = listQuyenForChucVu
-            };
-
-            return View(viewModel);
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         public JsonResult Save(List<string> role_id, string usergroupid, List<string> role_id_uncheck)
         {
@@ -74,5 +82,5 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             return Json("ok", JsonRequestBehavior.AllowGet);
         }
     }
-        
+
 }

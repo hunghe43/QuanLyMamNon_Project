@@ -55,5 +55,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult SystemError()
+        {
+            return View();
+        }
     }
 }

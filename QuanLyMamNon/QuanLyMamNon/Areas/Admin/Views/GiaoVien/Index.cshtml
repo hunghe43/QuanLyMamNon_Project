@@ -6,16 +6,20 @@
 }
 
 <div id="page-wrapper">
-    <div class="row" >
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"><i class="fa fa-graduation-cap fa-fw"></i>Trang chủ giáo viên</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary" style="margin-top:20px">
                 <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-8 text-left">
-                            <div><i class="fa fa-info fa-2x"> Lớp @Model.lop.TenLop</i></div>
-                            <div><i class="fa fa-slack"> Sỉ số @Model.lop.SiSo</i></div>
-                        </div>
-                    </div>
+                    <i class="fa fa-info fa-2x"> Lớp @Model.lop.TenLop</i>
+
+
+
                 </div>
                 <div class="panel-body">
                     @foreach (var gv in Model.listGV)
@@ -46,11 +50,11 @@
     </div>
     <div id="result">
         <!-- /.row -->
-        @Html.Action("Partial_DiemDanhLop", "GiaoVien","")
+        @Html.Action("Partial_DiemDanhLop", "GiaoVien", "")
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-info">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-12">
@@ -105,9 +109,9 @@
                                     </td>
                                     <td>
                                         @item.CanNang
-                                    </td>                                    
-                                    <td>                                        
-                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-info"></i></a>                                        
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-info"></i></a>
                                     </td>
                                 </tr>
                             }
@@ -131,7 +135,7 @@
 </div>
 <!-- /#page-wrapper -->
 
-<script>   
+<script>
     $(document).ready(function () {
         // do get details HocSinh
         $(".Details_HocSinh").click(function () {

@@ -16,14 +16,30 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         // GET: Home  CURD 
         public ActionResult Index()
         {
+            try
+            {
             var listLop = lopRepon.getAllLop();
             return View(listLop);
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: details lop
         public ActionResult Detail(string id)
         {
+            try
+            {
+
             var lop = lopRepon.getLopForId(id);
             return PartialView("Partial_DetailLop", lop);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: add 
         public ActionResult Add()
@@ -35,23 +51,46 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(Lop lop)
         {
-            
+            try
+            {
+
             lopRepon.AddLop(lop);
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: edit 
         public ActionResult Update(string id)
         {
+            try
+            {
+
             var lop = lopRepon.getLopForId(id);
             return PartialView("Partial_UpdateLop", lop);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: edit 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(Lop lop)
         {
+            try
+            {
+
             lopRepon.UpdateLop(lop);
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: delete lop
         [HttpPost]

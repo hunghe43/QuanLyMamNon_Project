@@ -14,14 +14,30 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         PhieuChiTieuReponsitory phieuChiTieuRepon = new PhieuChiTieuReponsitory();
         public ActionResult Index()
         {
-            var listPhieuChiTieu = phieuChiTieuRepon.getAllPhieuChiTieu();
-            return View(listPhieuChiTieu);
+            try
+            {
+                var listPhieuChiTieu = phieuChiTieuRepon.getAllPhieuChiTieu();
+                return View(listPhieuChiTieu);
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: details PhieuChiTieu
         public ActionResult Detail(string id)
         {
-            var PhieuChiTieu = phieuChiTieuRepon.getPhieuChiTieuForId(id);
-            return PartialView("Partial_DetailPhieuChiTieu", PhieuChiTieu);
+            try
+            {
+
+                var PhieuChiTieu = phieuChiTieuRepon.getPhieuChiTieuForId(id);
+                return PartialView("Partial_DetailPhieuChiTieu", PhieuChiTieu);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: add 
         public ActionResult Add()
@@ -33,25 +49,47 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(PhieuChiTieu PhieuChiTieu)
         {
+            try
+            {
 
-            var nhanvien = (NhanVien)Session["NhanVien"];
-            PhieuChiTieu.MaNhanVien = nhanvien.MaNhanVien;
-            phieuChiTieuRepon.AddPhieuChiTieu(PhieuChiTieu);
-            return RedirectToAction("Index");
+                var nhanvien = (NhanVien)Session["NhanVien"];
+                PhieuChiTieu.MaNhanVien = nhanvien.MaNhanVien;
+                phieuChiTieuRepon.AddPhieuChiTieu(PhieuChiTieu);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: edit 
         public ActionResult Update(string id)
         {
-            var PhieuChiTieu = phieuChiTieuRepon.getPhieuChiTieuForId(id);
-            return PartialView("Partial_UpdatePhieuChiTieu", PhieuChiTieu);
+            try
+            {
+                var PhieuChiTieu = phieuChiTieuRepon.getPhieuChiTieuForId(id);
+                return PartialView("Partial_UpdatePhieuChiTieu", PhieuChiTieu);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: edit 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(PhieuChiTieu PhieuChiTieu)
         {
-            phieuChiTieuRepon.UpdatePhieuChiTieu(PhieuChiTieu);
-            return RedirectToAction("Index");
+            try
+            {
+
+                phieuChiTieuRepon.UpdatePhieuChiTieu(PhieuChiTieu);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: delete PhieuChiTieu
         [HttpPost]

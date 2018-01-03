@@ -23,6 +23,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         }
         public ActionResult DanhSachHocSinh(string groupLop)
         {
+            try
+            {
+
             HocSinhReponsitory HsRepon = new HocSinhReponsitory();
             LopReponsitory lopRepon = new LopReponsitory();
             var lstHS = new List<HocSinh>();
@@ -42,18 +45,34 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 listHocSinh = lstHS
             };
             return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
 
         public ActionResult HocPhiHocSinh(string MaHocSinh)
         {
+            try
+            {
+
             PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
             HocSinhReponsitory hsRepon = new HocSinhReponsitory();
             HocSinh hocSinh = hsRepon.GetHocSinhForId(MaHocSinh);
             return View(hocSinh);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
 
         public ActionResult Partial_CT_HocPhi(string MaHocSinh, string thang)
         {
+            try
+            {
+
             PhieuThuHocPhiReponsitory ptRepon = new PhieuThuHocPhiReponsitory();
             DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
             HocSinhReponsitory hsRepon = new HocSinhReponsitory();
@@ -146,6 +165,11 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             TempData["viewModel"] = viewModel;
             ViewData["thang"] = thang;
             return PartialView(viewModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
 
         [HttpPost]
@@ -156,62 +180,69 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
             List<CT_PhieuThu_HocSinh> list_Ct_PhieuThu_HocSinh = new List<CT_PhieuThu_HocSinh>();
             CT_PhieuThu_HocSinh ct_pt_hs = null;
             PhieuThuHocPhiReponsitory phieuthuRepon = new PhieuThuHocPhiReponsitory();
-
-            //kiểm tra tồn tại của phiếu thu
-            if (!phieuthuRepon.checkExistPhieuThu(viewModel.infor_phieuThu.MaHocSinh, viewModel.infor_phieuThu.NgayTaoPhieu))
+            try
             {
-                //thêm mới phiếu thu từ thông tin điểm danh trong tháng (info_phieuthu)
-                var phieuThu = new PhieuThu();
-                phieuThu.MaHocSinh = viewModel.infor_phieuThu.MaHocSinh;
-                phieuThu.MaNhanVien = nhanvien.MaNhanVien;
-                phieuThu.NgayTaoPhieu = viewModel.infor_phieuThu.NgayTaoPhieu;
 
-                //bắt đầu thêm mới danh sách ct_Phieuthu_hocSinh
-                foreach (var HocPhiThang in viewModel.listHocPhiThang)
+                //kiểm tra tồn tại của phiếu thu
+                if (!phieuthuRepon.checkExistPhieuThu(viewModel.infor_phieuThu.MaHocSinh, viewModel.infor_phieuThu.NgayTaoPhieu))
                 {
+                    //thêm mới phiếu thu từ thông tin điểm danh trong tháng (info_phieuthu)
+                    var phieuThu = new PhieuThu();
+                    phieuThu.MaHocSinh = viewModel.infor_phieuThu.MaHocSinh;
+                    phieuThu.MaNhanVien = nhanvien.MaNhanVien;
+                    phieuThu.NgayTaoPhieu = viewModel.infor_phieuThu.NgayTaoPhieu;
+
+                    //bắt đầu thêm mới danh sách ct_Phieuthu_hocSinh
+                    foreach (var HocPhiThang in viewModel.listHocPhiThang)
+                    {
+                        ct_pt_hs = new CT_PhieuThu_HocSinh();
+                        ct_pt_hs.TenLoaiPhi = HocPhiThang.TenHocPhi;
+                        ct_pt_hs.SoLuong = 1;
+                        ct_pt_hs.ChiPhi = HocPhiThang.ChiPhi;
+                        list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
+                    }
+                    foreach (var dichVuNgoai in viewModel.listDichVuNgoai)
+                    {
+                        ct_pt_hs = new CT_PhieuThu_HocSinh();
+                        ct_pt_hs.TenLoaiPhi = dichVuNgoai.TenDV;
+                        ct_pt_hs.SoLuong = 1;
+                        ct_pt_hs.ChiPhi = dichVuNgoai.ChiPhi;
+                        list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
+                    }
+
                     ct_pt_hs = new CT_PhieuThu_HocSinh();
-                    ct_pt_hs.TenLoaiPhi = HocPhiThang.TenHocPhi;
-                    ct_pt_hs.SoLuong = 1;
-                    ct_pt_hs.ChiPhi = HocPhiThang.ChiPhi;
+                    //lấy thông tin theo dõi, vang, ansang, antrua
+                    ct_pt_hs.TenLoaiPhi = "DD_Vắng";
+                    ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayVang;
+                    ct_pt_hs.ChiPhi = HocPhiDefaul.tienHoc1Buoi;//nhập chi phí vắng từng buổi//.....
                     list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
-                }
-                foreach (var dichVuNgoai in viewModel.listDichVuNgoai)
-                {
+
                     ct_pt_hs = new CT_PhieuThu_HocSinh();
-                    ct_pt_hs.TenLoaiPhi = dichVuNgoai.TenDV;
-                    ct_pt_hs.SoLuong = 1;
-                    ct_pt_hs.ChiPhi = dichVuNgoai.ChiPhi;
+                    ct_pt_hs.TenLoaiPhi = "DD_Ăn sáng";
+                    ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnSang;
+                    ct_pt_hs.ChiPhi = HocPhiDefaul.tienAnSang;//nhập chi phí ăn sáng từng buổi
                     list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
+
+                    ct_pt_hs = new CT_PhieuThu_HocSinh();
+                    ct_pt_hs.TenLoaiPhi = "DD_Ăn trưa";
+                    ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnTrua;
+                    ct_pt_hs.ChiPhi = HocPhiDefaul.tienAnTrua;//nhập chi phí ăn trưa từng buổi
+                    list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
+
+                    PhieuThuHocPhiReponsitory ptHocPhiRepon = new PhieuThuHocPhiReponsitory();
+                    ptHocPhiRepon.saveThuPhiHocSinh(phieuThu, list_Ct_PhieuThu_HocSinh);
+                    //thực hiện lưu thông tin học phí
+                    //thực hiện lưu bảng phieuThu
+
+                    //thực hiện lưu bảng CT_phieuthu_hocSinh
+                    return Json(new { success = true, responseText = "Thu mới thành công" }, JsonRequestBehavior.AllowGet);
                 }
-
-                ct_pt_hs = new CT_PhieuThu_HocSinh();
-                //lấy thông tin theo dõi, vang, ansang, antrua
-                ct_pt_hs.TenLoaiPhi = "DD_Vắng";
-                ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayVang;
-                ct_pt_hs.ChiPhi = HocPhiDefaul.tienHoc1Buoi;//nhập chi phí vắng từng buổi//.....
-                list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
-
-                ct_pt_hs = new CT_PhieuThu_HocSinh();
-                ct_pt_hs.TenLoaiPhi = "DD_Ăn sáng";
-                ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnSang;
-                ct_pt_hs.ChiPhi = HocPhiDefaul.tienAnSang;//nhập chi phí ăn sáng từng buổi
-                list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
-
-                ct_pt_hs = new CT_PhieuThu_HocSinh();
-                ct_pt_hs.TenLoaiPhi = "DD_Ăn trưa";
-                ct_pt_hs.SoLuong = viewModel.infor_phieuThu.SoNgayAnTrua;
-                ct_pt_hs.ChiPhi = HocPhiDefaul.tienAnTrua;//nhập chi phí ăn trưa từng buổi
-                list_Ct_PhieuThu_HocSinh.Add(ct_pt_hs);
-
-                PhieuThuHocPhiReponsitory ptHocPhiRepon = new PhieuThuHocPhiReponsitory();
-                ptHocPhiRepon.saveThuPhiHocSinh(phieuThu, list_Ct_PhieuThu_HocSinh);
-                //thực hiện lưu thông tin học phí
-                //thực hiện lưu bảng phieuThu
-
-                //thực hiện lưu bảng CT_phieuthu_hocSinh
-                return Json(new { success = true, responseText = "Thu mới thành công" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, responseText = "Đã thu!" }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new { success = false, responseText = "Đã thu!" }, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         /// <summary>
         /// xuất hóa đơn sang excel

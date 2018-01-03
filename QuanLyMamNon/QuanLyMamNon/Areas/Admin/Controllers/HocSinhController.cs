@@ -20,96 +20,144 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         // GET: Home  CURD hocsinh
         public ActionResult Index()
         {
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            LopReponsitory lopRepon = new LopReponsitory();
-            //danh sách học sinh chưa được phê duyệt
-            var listHocSinhDis = hocSinhRepon.GetAllHocSinhDis();
-            //danh sách học sinh đang hoạt động
-            string MaLop = Request["listLop"];
-            var listLop = lopRepon.getAllLop();
-            var lstHS = new List<HocSinh>();
-            if (string.IsNullOrEmpty(MaLop) || MaLop == "0")
+            try
             {
-                MaLop = "0";
-                lstHS = hocSinhRepon.GetAllHocSinh();
+                HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+                LopReponsitory lopRepon = new LopReponsitory();
+                //danh sách học sinh chưa được phê duyệt
+                var listHocSinhDis = hocSinhRepon.GetAllHocSinhDis();
+                //danh sách học sinh đang hoạt động
+                string MaLop = Request["listLop"];
+                var listLop = lopRepon.getAllLop();
+                var lstHS = new List<HocSinh>();
+                if (string.IsNullOrEmpty(MaLop) || MaLop == "0")
+                {
+                    MaLop = "0";
+                    lstHS = hocSinhRepon.GetAllHocSinh();
+                }
+                else
+                {
+                    lstHS = hocSinhRepon.GetHocSinhForIdLop(MaLop);
+                }
+                ViewBag.select = MaLop;
+                var viewModel = new ViewModelDanhSachHS
+                {
+                    listLop = lopRepon.getAllLop(),
+                    listHocSinh = lstHS,
+                    listHocSinhDis = listHocSinhDis
+                };
+                return View(viewModel);
             }
-            else
+            catch (Exception ex)
             {
-                lstHS = hocSinhRepon.GetHocSinhForIdLop(MaLop);
+                return RedirectToAction("SystemError", "Login");
             }
-            ViewBag.select = MaLop;
-            var viewModel = new ViewModelDanhSachHS
-            {
-                listLop = lopRepon.getAllLop(),
-                listHocSinh = lstHS,
-                listHocSinhDis=listHocSinhDis
-            };
-            return View(viewModel);
+
         }
         // GET: details hocsinh
         public ActionResult Detail(string id)
         {
-            LopReponsitory lopRepon = new LopReponsitory();
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            var listLop = lopRepon.getAllLop();
-            var hocsinh = hocSinhRepon.GetHocSinhForId(id);
-            if (hocsinh.MaLop == null)
+            try
             {
-                ViewData["TenLop"] = "None";
+
+                LopReponsitory lopRepon = new LopReponsitory();
+                HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+                var listLop = lopRepon.getAllLop();
+                var hocsinh = hocSinhRepon.GetHocSinhForId(id);
+                if (hocsinh.MaLop == null)
+                {
+                    ViewData["TenLop"] = "None";
+                }
+                else
+                {
+                    ViewData["TenLop"] = listLop.SingleOrDefault(x => x.MaLop == hocsinh.MaLop).TenLop.ToString();
+                }
+                ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
+                {
+                    hocsinh = hocsinh,
+                    listLop = listLop
+                };
+                return PartialView("Partial_DetailHocSinh", viewModel);
             }
-            else
+            catch (Exception ex)
             {
-                ViewData["TenLop"] = listLop.SingleOrDefault(x => x.MaLop == hocsinh.MaLop).TenLop.ToString();
+                return RedirectToAction("SystemError", "Login");
             }
-            ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
-            {
-                hocsinh = hocsinh,
-                listLop = listLop
-            };
-            return PartialView("Partial_DetailHocSinh", viewModel);
         }
         // GET: add hocsinh
         public ActionResult Add()
         {
-            LopReponsitory lopRepon = new LopReponsitory();
-            var listLop = lopRepon.getAllLop();
-            ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
+            try
             {
-                listLop = listLop
-            };
-            return PartialView("Partial_AddHocSinh", viewModel);
+
+                LopReponsitory lopRepon = new LopReponsitory();
+                var listLop = lopRepon.getAllLop();
+                ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
+                {
+                    listLop = listLop
+                };
+                return PartialView("Partial_AddHocSinh", viewModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: add hocsinh
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Add(HocSinh HocSinh)
         {
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            hocSinhRepon.AddHocSinh(HocSinh);
-            return RedirectToAction("Index");
+            try
+            {
+
+                HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+                hocSinhRepon.AddHocSinh(HocSinh);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: edit hocsinh
         public ActionResult Update(string id)
         {
-            LopReponsitory lopRepon = new LopReponsitory();
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            var listLop = lopRepon.getAllLop();
-            var hocsinh = hocSinhRepon.GetHocSinhForId(id);
-            ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
+            try
             {
-                hocsinh = hocsinh,
-                listLop = listLop
-            };
-            return PartialView("Partial_UpdateHocSinh", viewModel);
+
+                LopReponsitory lopRepon = new LopReponsitory();
+                HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+                var listLop = lopRepon.getAllLop();
+                var hocsinh = hocSinhRepon.GetHocSinhForId(id);
+                ViewModelDanhSachHS viewModel = new ViewModelDanhSachHS
+                {
+                    hocsinh = hocsinh,
+                    listLop = listLop
+                };
+                return PartialView("Partial_UpdateHocSinh", viewModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: edit hocsinh
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(HocSinh HocSinh)
         {
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            hocSinhRepon.UpdateHocSinh(HocSinh);
-            return RedirectToAction("Index");
+            try
+            {
+
+                HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+                hocSinhRepon.UpdateHocSinh(HocSinh);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
 
         // POST: delete hocsinh
@@ -159,86 +207,94 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("SystemError", "Login");
             }
-            
+
         }
 
         /// <summary>
         /// đăng ký dịch vụ ngoài cho học sinh
         /// </summary>
         /// <returns></returns>
-        public ActionResult DangKyDichVu(string id,string thang)
+        public ActionResult DangKyDichVu(string id, string thang)
         {
-            HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
-            var nhanvien = (NhanVien)Session["NhanVien"];
-            DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
-            NhanVienReponsitory nvRepon = new NhanVienReponsitory();
-
-            //thực hiện kiểm tra ngày nhập vào
-            DateTime dt = new DateTime();
-            DateTime dtNow = new DateTime();
-
-            dtNow = DateTime.Now;
-            DateTime dtNowConvert = DateTime.ParseExact(dtNow.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            if (thang == null)
+            try
             {
-                dt = DateTime.Now;
-                thang = dtNow.ToString("MM/yyyy");
-                ViewData["thang"] = thang;
-            }
-            else
-            {
-                string dayNow = dtNow.Day.ToString();
-                if (dayNow.Count() == 1)
+                HocSinhReponsitory hocSinhRepon = new HocSinhReponsitory();
+                var nhanvien = (NhanVien)Session["NhanVien"];
+                DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
+                NhanVienReponsitory nvRepon = new NhanVienReponsitory();
+
+                //thực hiện kiểm tra ngày nhập vào
+                DateTime dt = new DateTime();
+                DateTime dtNow = new DateTime();
+
+                dtNow = DateTime.Now;
+                DateTime dtNowConvert = DateTime.ParseExact(dtNow.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                if (thang == null)
                 {
-                    dayNow = "0" + dayNow;
+                    dt = DateTime.Now;
+                    thang = dtNow.ToString("MM/yyyy");
+                    ViewData["thang"] = thang;
                 }
-                dt=DateTime.ParseExact(dayNow+"/" + thang, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                ViewData["thang"] = thang;
-            }
-            
-            var hocsinh = hocSinhRepon.GetHocSinhForId(id);            
-            var listDV = dvRepon.getAllDichVuNgoai();
-            var listDV_HS = dvRepon.getListDichVuNgoai_HocSinh(id,thang);
-            //check ngày xem kém ngày hiện tại và khong cho phép đang ký mới
-            bool checkcompareDate = false;
-            //nếu ngày đăng ký dịch vụ < ngày hiện tại, thông báo không cho đăng ký mới
-            if (DateTime.Compare(dt, dtNowConvert) <0)
-            {
-                ViewData["compareDate"] = thang;
-                checkcompareDate = true;
-            }
-            ViewData["compareDate"] = checkcompareDate;
-            //kiểm tra đã đăng ký dịch vụ tháng này chưa
-            bool checkExist = false;
-            if (listDV_HS.Count() != 0)
-            {
-                checkExist = true;
-            }
-            ViewData["checkExist"] = checkExist;
+                else
+                {
+                    string dayNow = dtNow.Day.ToString();
+                    if (dayNow.Count() == 1)
+                    {
+                        dayNow = "0" + dayNow;
+                    }
+                    dt = DateTime.ParseExact(dayNow + "/" + thang, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    ViewData["thang"] = thang;
+                }
 
-            var viewModel = new ViewModelDangKyDV_HS
+                var hocsinh = hocSinhRepon.GetHocSinhForId(id);
+                var listDV = dvRepon.getAllDichVuNgoai();
+                var listDV_HS = dvRepon.getListDichVuNgoai_HocSinh(id, thang);
+                //check ngày xem kém ngày hiện tại và khong cho phép đang ký mới
+                bool checkcompareDate = false;
+                //nếu ngày đăng ký dịch vụ < ngày hiện tại, thông báo không cho đăng ký mới
+                if (DateTime.Compare(dt, dtNowConvert) < 0)
+                {
+                    ViewData["compareDate"] = thang;
+                    checkcompareDate = true;
+                }
+                ViewData["compareDate"] = checkcompareDate;
+                //kiểm tra đã đăng ký dịch vụ tháng này chưa
+                bool checkExist = false;
+                if (listDV_HS.Count() != 0)
+                {
+                    checkExist = true;
+                }
+                ViewData["checkExist"] = checkExist;
+
+                var viewModel = new ViewModelDangKyDV_HS
+                {
+                    hocsinh = hocsinh,
+                    nhanvien = nhanvien,
+                    listDV = listDV,
+                    listDV_HS = listDV_HS
+                };
+
+                return PartialView("Partial_DangKyDichVu", viewModel);
+            }
+            catch (Exception ex)
             {
-                hocsinh=hocsinh,
-                nhanvien=nhanvien,
-                listDV = listDV,
-                listDV_HS=listDV_HS
-            };
-            
-            return PartialView("Partial_DangKyDichVu",viewModel);
+                return RedirectToAction("SystemError", "Login");
+            }
+
         }
 
         [HttpPost]
         public ActionResult SaveDV_HS(List<string> listMaDV, string maHocSinh, string thangdk)
         {
             DichVuNgoaiRePonsitory dvRepon = new DichVuNgoaiRePonsitory();
-            foreach(var id_dv in listMaDV)
+            foreach (var id_dv in listMaDV)
             {
                 dvRepon.InsertDichVu_HocSinh(id_dv, maHocSinh, thangdk);
-            } 
+            }
             return Json(new { success = true, responseText = "Đăng ký thành công" }, JsonRequestBehavior.AllowGet);
         }
 

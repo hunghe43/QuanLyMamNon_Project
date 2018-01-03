@@ -402,6 +402,7 @@
     <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_DetailPhieuChiTieu.cshtml" />
     <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_AddPhieuChiTieu.cshtml" />
     <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_UpdatePhieuChiTieu.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\SystemError.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

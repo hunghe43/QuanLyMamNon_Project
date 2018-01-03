@@ -15,7 +15,9 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         HocPhiReponsitory hocphiRepon = new HocPhiReponsitory();
         
         public ActionResult Index()
-        {
+        {try
+            {
+
             string MaLoai = Request["listLoaiHocPhi"];
             var listHocPhi = new List<HocPhi>();
             var listLoaiHocPhi = hocphiRepon.getAllloaiHocPhi();
@@ -38,26 +40,50 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 listLoaiHocPhi= listLoaiHocPhi
             };
             return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         //học phí
         public ActionResult AddHocPhi()
         {
+            try
+            {
+
             var listLoaiHocPhi = hocphiRepon.getAllloaiHocPhi();
             var viewModel = new ViewModelHocPhi()
             {
                 listLoaiHocPhi= listLoaiHocPhi
             };
-            return PartialView("Partial_AddHocPhi", viewModel);            
+            return PartialView("Partial_AddHocPhi", viewModel); 
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }           
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddHocPhi(HocPhi hocphi)
         {
+            try
+            {
+
             hocphiRepon.AddHocPhi(hocphi);
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         public ActionResult UpdateHocPhi(string id)
         {
+            try
+            {
+
             var listLoaiHocPhi = hocphiRepon.getAllloaiHocPhi();
             var hocphi = hocphiRepon.getHocPhiForID(id);
             var viewModel = new ViewModelHocPhi()
@@ -66,13 +92,26 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 listLoaiHocPhi = listLoaiHocPhi
             };
             return PartialView("Partial_UpdateHocPhi",viewModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateHocPhi(HocPhi hocphi)
         {
+            try
+            {
+
             hocphiRepon.UpdateHocPhi(hocphi);
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         public JsonResult DeleteHocPhi(string id)
         {
@@ -88,20 +127,43 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddLoaiHocPhi(LoaiHocPhi loaihocphi)
         {
+            try
+            {
+
             hocphiRepon.AddLoaiHocPhi(loaihocphi);
             return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         public ActionResult UpdateLoaiHocPhi(string id)
         {
+            try {
+
             var loaihocphi = hocphiRepon.getLoaiHocPhiForID(id);
             return PartialView("Partial_UpdateLoaiHocPhi",loaihocphi);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateLoaiHocPhi(LoaiHocPhi loaihocphi)
         {
+            try
+            {
             hocphiRepon.UpdateLoaiHocPhi(loaihocphi);
             return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
        
         public JsonResult DeleteLoaiHocPhi(string id)

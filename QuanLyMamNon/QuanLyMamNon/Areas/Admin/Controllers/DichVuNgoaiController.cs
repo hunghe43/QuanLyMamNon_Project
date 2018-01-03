@@ -15,37 +15,76 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         // GET: Home  CURD 
         public ActionResult Index()
         {
-            var listDichVuNgoai = hocphiRepon.getAllDichVuNgoai();
-            return View(listDichVuNgoai);
+            try
+            {
+
+                var listDichVuNgoai = hocphiRepon.getAllDichVuNgoai();
+                return View(listDichVuNgoai);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
 
         // GET: add 
         public ActionResult Add()
         {
-            return PartialView("Partial_AddDichVuNgoai");
+            try
+            {
+
+                return PartialView("Partial_AddDichVuNgoai");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: add 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Add(DichVuNgoai dichvungoai)
         {
+            try
+            {
 
-            hocphiRepon.AddDichVuNgoai(dichvungoai);
-            return RedirectToAction("Index");
+                hocphiRepon.AddDichVuNgoai(dichvungoai);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // GET: edit 
         public ActionResult Update(string id)
         {
-            var DichVuNgoai = hocphiRepon.getDichVuNgoaiForId(id);
-            return PartialView("Partial_UpdateDichVuNgoai", DichVuNgoai);
+            try
+            {
+
+                var DichVuNgoai = hocphiRepon.getDichVuNgoaiForId(id);
+                return PartialView("Partial_UpdateDichVuNgoai", DichVuNgoai);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: edit 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(DichVuNgoai dichvungoai)
         {
-            hocphiRepon.UpdateDichVuNgoai(dichvungoai);
-            return RedirectToAction("Index");
+            try
+            {
+
+                hocphiRepon.UpdateDichVuNgoai(dichvungoai);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("SystemError", "Login");
+            }
         }
         // POST: delete DichVuNgoai
         [HttpPost]
