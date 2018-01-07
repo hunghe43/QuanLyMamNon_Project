@@ -39,7 +39,6 @@ namespace QuanLyMamNon.Reponsitory
             parameters.Add("@TenNguoiChi", PhieuChiTieu.TenNguoiChi);
             parameters.Add("@LyDo", PhieuChiTieu.LyDo);
             parameters.Add("@ChiPhi", PhieuChiTieu.ChiPhi);
-            parameters.Add("@ChungTu", PhieuChiTieu.ChungTu);
             parameters.Add("@Action", "Insert");
             _db.Execute("InsertUpdatePhieuChiTieu", parameters, commandType: CommandType.StoredProcedure);
 
@@ -72,16 +71,23 @@ namespace QuanLyMamNon.Reponsitory
         /// <returns></returns>
         public void UpdatePhieuChiTieu(PhieuChiTieu PhieuChiTieu)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("@MaPhieuChiTieu", PhieuChiTieu.MaPhieuChiTieu);
-            parameters.Add("@NgayTaoPhieu", PhieuChiTieu.NgayTaoPhieu);
-            parameters.Add("@MaNhanVien", PhieuChiTieu.MaNhanVien);
-            parameters.Add("@TenNguoiChi", PhieuChiTieu.TenNguoiChi);
-            parameters.Add("@LyDo", PhieuChiTieu.LyDo);
-            parameters.Add("@ChiPhi", PhieuChiTieu.ChiPhi);
-            parameters.Add("@ChungTu", PhieuChiTieu.ChungTu);
-            parameters.Add("@Action", "Update");
-            _db.Execute("InsertUpdatePhieuChiTieu", parameters, commandType: CommandType.StoredProcedure);
+            try
+            {
+
+                var parameters = new DynamicParameters();
+                parameters.Add("@MaPhieuChiTieu", PhieuChiTieu.MaPhieuChiTieu);
+                parameters.Add("@NgayTaoPhieu", PhieuChiTieu.NgayTaoPhieu);
+                parameters.Add("@MaNhanVien", PhieuChiTieu.MaNhanVien);
+                parameters.Add("@TenNguoiChi", PhieuChiTieu.TenNguoiChi);
+                parameters.Add("@LyDo", PhieuChiTieu.LyDo);
+                parameters.Add("@ChiPhi", PhieuChiTieu.ChiPhi);
+                parameters.Add("@Action", "Update");
+                _db.Execute("InsertUpdatePhieuChiTieu", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         /// <summary>
         /// delete 

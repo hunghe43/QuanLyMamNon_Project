@@ -125,13 +125,19 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
 
             //lấy học phí đầu năm
             //
-            var listHocPhiDauNam = ptRepon.getHocPhiDauNam();
 
+            var listHocPhiDauNam = ptRepon.getHocPhiDauNam();       
             foreach (var hp in listHocPhiDauNam)
             {
                 tong4 += hp.ChiPhi;
             }
-            ViewData["tong4"] = tong4;
+            string month = Convert.ToString(ngaytaophieu.Month);
+            if (month!="1")
+                {
+                    tong4 = 0;
+                }
+                ViewData["month"] = month;
+                ViewData["tong4"] = tong4;
 
             ViewData["tong"] = tong1 + tong2 + tong3 + tong4;
             // kiểm tra xem tồn tại phiếu thu chưa...
@@ -153,14 +159,18 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 checkPhieuThu = true;
             }
             ViewData["checkPhieuThu"] = checkPhieuThu;
-            ViewModelPhieuThu viewModel = new ViewModelPhieuThu
-            {
-                infor_phieuThu = pt,
-                listHocPhiThang = listHocPhiThang,
-                hocSinh = hsRepon.GetHocSinhForId(MaHocSinh),
-                listDichVuNgoai = listDichVuNgoai,
-                listHocPhiDauNam=listHocPhiDauNam
-            };
+                ViewModelPhieuThu viewModel = new ViewModelPhieuThu
+                {
+                    infor_phieuThu = pt,
+                    listHocPhiThang = listHocPhiThang,
+                    hocSinh = hsRepon.GetHocSinhForId(MaHocSinh),
+                    listDichVuNgoai = listDichVuNgoai,
+                    listHocPhiDauNam = listHocPhiDauNam,
+                    tong1 = tong1,
+                    tong2=tong2,
+                    tong3=tong3,
+                    tong4=tong4
+                };
             //gửi thông tin viewModel qua bên controller thuphi
             TempData["viewModel"] = viewModel;
             ViewData["thang"] = thang;
@@ -176,7 +186,7 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         public ActionResult ThuPhi()
         {
             var nhanvien = (NhanVien)Session["NhanVien"];
-            ViewModelPhieuThu viewModel = (ViewModelPhieuThu)TempData["viewModel"];
+            ViewModelPhieuThu viewModel = TempData["viewModel"] as ViewModelPhieuThu;
             List<CT_PhieuThu_HocSinh> list_Ct_PhieuThu_HocSinh = new List<CT_PhieuThu_HocSinh>();
             CT_PhieuThu_HocSinh ct_pt_hs = null;
             PhieuThuHocPhiReponsitory phieuthuRepon = new PhieuThuHocPhiReponsitory();
@@ -247,37 +257,47 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         /// <summary>
         /// xuất hóa đơn sang excel
         /// </summary>
-        public void ExportToExcel()
+        public ActionResult ExportToExcel()
         {
-            ViewModelPhieuThu viewModel = (ViewModelPhieuThu)TempData["viewModel"];
-            string Filename = "ExcelFrom" + DateTime.Now.ToString("mm_dd_yyy_hh_ss_tt") + ".xls";
-            string FolderPath = HttpContext.Server.MapPath("/ExcelFiles/");
-            string FilePath = Path.Combine(FolderPath, Filename);
-
-            //Step-1: Checking: the file name exist in server, if it is found then remove from server.------------------
-            if (System.IO.File.Exists(FilePath))
+            try
             {
-                System.IO.File.Delete(FilePath);
+                ViewModelPhieuThu viewModel = TempData["viewModel"] as ViewModelPhieuThu;                
+                string Filename = "ExcelFrom" + DateTime.Now.ToString("mm_dd_yyy_hh_ss_tt") + ".xls";
+                string FolderPath = HttpContext.Server.MapPath("/ExcelFiles/");
+                string FilePath = Path.Combine(FolderPath, Filename);
+
+                //Step-1: Checking: the file name exist in server, if it is found then remove from server.------------------
+                if (System.IO.File.Exists(FilePath))
+                {
+                    System.IO.File.Delete(FilePath);
+                }
+
+                //Step-2: Get Html Data & Converted to String----------------------------------------------------------------
+                string HtmlResult = RenderRazorViewToString("~/Areas/Admin/Views/KeToan/GenerateExcel.cshtml", viewModel);
+
+                //Step-4: Html Result store in Byte[] array------------------------------------------------------------------
+                byte[] ExcelBytes = Encoding.ASCII.GetBytes(HtmlResult);
+
+                //Step-5: byte[] array converted to file Stream and save in Server------------------------------------------- 
+                using (Stream file = System.IO.File.OpenWrite(FilePath))
+                {
+                    file.Write(ExcelBytes, 0, ExcelBytes.Length);
+                }
+
+                //Step-6: Download Excel file 
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(Filename));
+                
+                Response.WriteFile(FilePath);
+                Response.End();
+                Response.Flush();
+
+                return RedirectToAction("DanhSachHocSinh", "KeToan");
             }
-
-            //Step-2: Get Html Data & Converted to String----------------------------------------------------------------
-            string HtmlResult = RenderRazorViewToString("~/Areas/Admin/Views/KeToan/GenerateExcel.cshtml", viewModel);
-
-            //Step-4: Html Result store in Byte[] array------------------------------------------------------------------
-            byte[] ExcelBytes = Encoding.ASCII.GetBytes(HtmlResult);
-
-            //Step-5: byte[] array converted to file Stream and save in Server------------------------------------------- 
-            using (Stream file = System.IO.File.OpenWrite(FilePath))
+            catch( Exception ex)
             {
-                file.Write(ExcelBytes, 0, ExcelBytes.Length);
+                return RedirectToAction("SystemError", "Login");
             }
-
-            //Step-6: Download Excel file 
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AddHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(Filename));
-            Response.WriteFile(FilePath);
-            Response.End();
-            Response.Flush();
         }
 
         protected string RenderRazorViewToString(string viewName, object model)

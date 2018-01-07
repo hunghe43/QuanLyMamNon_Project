@@ -8,18 +8,14 @@
     </div>
     <div class="modal-body">
         @Html.HiddenFor(x => x.MaLop)
+        <label>Tên lớp</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-linux"></i>
             </span>
             @Html.TextBoxFor(x => x.TenLop, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
         </div>
-        <div class="form-group input-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-sort-numeric-asc"></i>
-            </span>
-            @Html.TextBoxFor(x => x.SiSo, new { @type = "number", @class = "form-control", @placeholder = "Sĩ số..." })
-        </div>
+        <label>Ghi chú</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-comments"></i>
@@ -28,6 +24,14 @@
             @Html.TextAreaFor(x => x.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..." })
 
         </div>
+        <label>Sỹ số</label>(<i class="fa fa-star" style="color:red"></i>)
+        <div class="form-group input-group input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-sort-numeric-asc"></i>
+            </span>
+            @Html.TextBoxFor(x => x.SiSo, new { @type = "number", @class = "form-control", @placeholder = "Sĩ số..." })
+        </div>
+       
         
     </div>
     <div class="modal-footer">

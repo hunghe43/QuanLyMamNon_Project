@@ -10,31 +10,35 @@
     </div>
     <div class="modal-body">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <label>Ngày tạo phiếu</label>(<i class="fa fa-star" style="color:red"></i>)
             <div class="form-group input-group input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-linux"></i>
                 </span>
                 @Html.TextBoxFor(x=>x.NgayTaoPhieu, new { @class = "form-control",@type="date", @data_error = "Please enter name field.", @placeholder = "Ngày tạo...", @required = "required" })
             </div>
+        <label> Tên người chi</label>(<i class="fa fa-star" style="color:red"></i>)
             <div class="form-group input-group input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-comments"></i>
                 </span>
 
-                @Html.TextBoxFor(x => x.TenNguoiChi, new { @class = "form-control", @placeholder = "Người chi..." })
+                @Html.TextBoxFor(x => x.TenNguoiChi, new { @class = "form-control", @placeholder = "Người chi...", @required = "required" })
 
             </div>
+        <label> Lý do</label>(<i class="fa fa-star" style="color:red"></i>)
             <div class="form-group input-group input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-sort-numeric-asc"></i>
                 </span>
-                @Html.TextAreaFor(x => x.LyDo, new { @type = "number", @class = "form-control", @placeholder = "Lý do..." })
+                @Html.TextAreaFor(x => x.LyDo, new { @type = "number", @class = "form-control", @placeholder = "Lý do...", @required = "required" })
             </div>
+        <label> Chi phí</label>(<i class="fa fa-star" style="color:red"></i>)
             <div class="form-group input-group input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-sort-numeric-asc"></i>
                 </span>
-                @Html.TextBoxFor(x => x.ChiPhi, new { @type = "number", @class = "form-control", @placeholder = "Chi phí..." })
+                @Html.TextBoxFor(x => x.ChiPhi, new { @type = "number", @class = "form-control", @placeholder = "Chi phí...", @required = "required" })
             </div>
         </div>
             <div class="modal-footer">

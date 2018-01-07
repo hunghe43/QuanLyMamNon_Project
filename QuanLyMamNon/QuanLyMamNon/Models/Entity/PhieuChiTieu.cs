@@ -19,7 +19,6 @@ namespace QuanLyMamNon.Models
         
         public decimal ChiPhi { get; set; }
         
-        public string ChungTu { get; set; }
         
     }
 }

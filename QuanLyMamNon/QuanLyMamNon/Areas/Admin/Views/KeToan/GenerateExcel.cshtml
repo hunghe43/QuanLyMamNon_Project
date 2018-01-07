@@ -1,11 +1,12 @@
 ﻿@model QuanLyMamNon.Models.Dao.ViewModelPhieuThu
-
+<h2>Ho va ten: @Model.hocSinh.Ten</h2>
+<h2>Ngay lap phieu: @DateTime.Now.ToString()</h2>
 <h2>Hoc Phi</h2>
 <table>
     <tr>
-        <th>Ten Loai Tien</th>
+        <th>Tên Loại Tiền</th>
         <th>Chi phi</th>
-        <th>Tong</th>
+        <th>Tong 1</th>
     </tr>
 
     @foreach (var item in Model.listHocPhiThang)
@@ -19,7 +20,7 @@
     <tr>
         <th></th>
         <th></th>
-        <th>...</th>
+        <th>@Model.tong1</th>
     </tr>
 </table>
 <h2>Theo Doi</h2>
@@ -27,27 +28,27 @@
     <tr>
         <th>Ten Loai Tien</th>
         <th>Chi phi</th>
-        <th>Tong</th>
+        <th>Tong 2</th>
     </tr>
     <tr>
-        <td>Số buổi nghỉ học: @Model.infor_phieuThu.SoNgayVang</td>
-        <td>25.000 vnd</td>
+        <td>So buoi nghi hoc: @Model.infor_phieuThu.SoNgayVang</td>
+        <td>@Model.tienHoc1Buoi vnd</td>
         <td>...</td>
     </tr>
     <tr>
-        <td>Số ngày ăn sáng: @Model.infor_phieuThu.SoNgayAnSang</td>
-        <td>25.000 vnd</td>
+        <td>So ngay an sang: @Model.infor_phieuThu.SoNgayAnSang</td>
+        <td>@Model.tienAnSang vnd</td>
         <td>...</td>
     </tr>
     <tr>
-        <td>Số ngày ăn trưa: @Model.infor_phieuThu.SoNgayAnTrua</td>
-        <td>25.000 vnd</td>
+        <td>So ngay an trua: @Model.infor_phieuThu.SoNgayAnTrua</td>
+        <td>@Model.tienAnTrua vnd</td>
         <td>...</td>
     </tr>
     <tr>
-        <td></td>
-        <td></td>
-        <td>...</td>
+        <th></th>
+        <th></th>
+        <th>@Model.tong2</th>
     </tr>
 
 </table>
@@ -56,20 +57,43 @@
     <tr>
         <th>Ten loai tien</th>
         <th>Chi phi</th>
-        <th>Tong</th>
+        <th>Tong 3</th>
     </tr>
     @foreach (var item in Model.listDichVuNgoai)
     {
     <tr>
         <td> @item.TenDV</td>
         <td>@item.ChiPhi vnd </td>
-        <td>...</td>
+        <td>@Model.tong3</td>
     </tr>        
     }
    
     <tr>
-        <td></td>
-        <td></td>
-        <td>...</td>
+        <th></th>
+        <th></th>
+        <th>@Model.tong3</th>
     </tr>   
 </table>
+<h2>Tien Dau Nam</h2>
+<table>
+    <tr>
+        <th>Ten loai tien</th>
+        <th>Chi phi</th>
+        <th>Tong 4</th>
+    </tr>
+    @foreach (var item in Model.listHocPhiDauNam)
+    {
+        <tr>
+            <td> @item.TenHocPhi</td>
+            <td>@item.ChiPhi vnd </td>
+            <td>...</td>
+        </tr>
+    }
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td>@Model.tong4</td>
+    </tr>
+</table>
+<p>Tong hoc phi = (1)+(2)+(3)+(4) = @(Model.tong1+Model.tong2+Model.tong3+Model.tong4)</p>

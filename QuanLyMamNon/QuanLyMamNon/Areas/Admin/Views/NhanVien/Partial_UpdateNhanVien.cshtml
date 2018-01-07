@@ -11,28 +11,28 @@
         <div class="panel panel-primary">
             <div class="panel-body">
                 @Html.HiddenFor(x => x.nhanvien.MaNhanVien)
-                <label>Họ tên</label>
+                <label>Họ và tên</label>(<i class="fa fa-star" style="color:red"></i>)
                 <div class="form-group input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-user"></i>
                     </span>
                     @Html.TextBoxFor(x => x.nhanvien.TenNhanVien, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
                 </div>
-                <label>Địa chỉ</label>
+                <label>Địa chỉ</label>(<i class="fa fa-star" style="color:red"></i>)
                 <div class="form-group input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-home"></i>
                     </span>
                     @Html.TextBoxFor(x => x.nhanvien.DiaChi, new { @class = "form-control", @placeholder = "Địa chỉ..." })
                 </div>
-                <label>Số điện thoại</label>
+                <label>Số điện thoại</label>(<i class="fa fa-star" style="color:red"></i>)
                 <div class="form-group input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-phone"></i>
                     </span>
                     @Html.TextBoxFor(x => x.nhanvien.Sdt, new { @class = "form-control", @type = "tel", @pattern = "([0-9+ _-]{9,15})", @required = "required", @placeholder = "Số điện thoại... (ký tự số từ 0-9, độ dài 9-15 ký tự(ví dụ '01676983088')" })
                 </div>
-                <label>Email</label>
+                <label>Email</label>(<i class="fa fa-star" style="color:red"></i>)
                 <div class="form-group input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-envelope"></i>
@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group input-group">
-                            <label>Chức vụ</label>
+                            <label>Chức vụ</label>(<i class="fa fa-star" style="color:red"></i>)
                             @Html.DropDownListFor(x => x.nhanvien.MaChucVu, new SelectList(Model.listChucVu, "MaChucVu", "TenChucVu"), new { @class = "form-control dropdownChucVu", @required = "required" })
                         </div>
                     </div>
@@ -53,6 +53,7 @@
                         </div>
                     </div>
                 </div>
+                <label>Password</label>(<i class="fa fa-star" style="color:red"></i>)
                 <div class="form-group input-group">
                     <span class="input-group-addon">
                         <i class="fa fa-lock"></i>

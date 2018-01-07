@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace QuanLyMamNon.Areas.Admin.Controllers
 {
+    [AuthorizeController]
     public class PhieuChiTieuController : Controller
     {
 

@@ -9,19 +9,21 @@
     <div class="modal-body">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(x=>x.MaDichVu)
+        <label> Tên dịch vụ</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-cutlery"></i>
             </span>
             @Html.TextBoxFor(x => x.TenDV, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên dịch vu...", @required = "required" })
         </div>
+        <label> Chi phí</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-money"></i>
             </span>
-            @Html.TextBoxFor(x => x.ChiPhi, new { @type = "number", @class = "form-control", @placeholder = "Chi phí..." })
+            @Html.TextBoxFor(x => x.ChiPhi, new { @class = "form-control", @placeholder = "Chi phí...", @required = "required"    })
         </div>
-
+        <label> Ghi chú</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-comment"></i>

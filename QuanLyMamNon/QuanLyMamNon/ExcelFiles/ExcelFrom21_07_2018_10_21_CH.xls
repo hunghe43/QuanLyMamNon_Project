@@ -1,0 +1,103 @@
+<h2>H? v? t?n: Nguy?n A</h2>
+<h2>Ng?y l?p pi?u: 07/01/2018 10:21:22 CH</h2>
+<h2>Hoc Phi</h2>
+<table>
+    <tr>
+        <th>Ten Loai Tien</th>
+        <th>Chi phi</th>
+        <th>Tong 1</th>
+    </tr>
+
+        <tr>
+            <td>B&#225;n tr&#250;</td>
+            <td>50,0000 vnd</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td>H?c ph&#237;</td>
+            <td>300,0000 vnd</td>
+            <td>...</td>
+        </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>350,0000</th>
+    </tr>
+</table>
+<h2>Theo Doi</h2>
+<table>
+    <tr>
+        <th>Ten Loai Tien</th>
+        <th>Chi phi</th>
+        <th>Tong 2</th>
+    </tr>
+    <tr>
+        <td>So buoi nghi hoc: 0</td>
+        <td>50,0000 vnd</td>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td>So ngay an sang: 0</td>
+        <td>15,0000</td>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td>So ngay an trua: 0</td>
+        <td>15,0000</td>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>0</td>
+    </tr>
+
+</table>
+<h2>Dich vu ngoai</h2>
+<table>
+    <tr>
+        <th>Ten loai tien</th>
+        <th>Chi phi</th>
+        <th>Tong 3</th>
+    </tr>
+    <tr>
+        <td> M&#244;n V?</td>
+        <td>100,0000 vnd </td>
+        <td>200,0000</td>
+    </tr>        
+    <tr>
+        <td> H?c th&#234;m th? 7</td>
+        <td>100,0000 vnd </td>
+        <td>200,0000</td>
+    </tr>        
+   
+    <tr>
+        <td></td>
+        <td></td>
+        <td>...</td>
+    </tr>   
+</table>
+<h2>Tien Dau Nam</h2>
+<table>
+    <tr>
+        <th>Ten loai tien</th>
+        <th>Chi phi</th>
+        <th>Tong 4</th>
+    </tr>
+        <tr>
+            <td> M&#244;n V?</td>
+            <td>100,0000 vnd </td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td> H?c th&#234;m th? 7</td>
+            <td>100,0000 vnd </td>
+            <td>...</td>
+        </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td>400,0000</td>
+    </tr>
+</table>

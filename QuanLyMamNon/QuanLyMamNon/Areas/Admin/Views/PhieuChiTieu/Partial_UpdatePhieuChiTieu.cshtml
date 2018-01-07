@@ -8,43 +8,40 @@
     </div>
     <div class="modal-body">
         @Html.HiddenFor(x => x.MaPhieuChiTieu)
+        @Html.HiddenFor(x => x.MaNhanVien)
+        <label>Ngày tạo phiếu</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-linux"></i>
             </span>
-            @Html.TextBoxFor(x => x.NgayTaoPhieu, new { @class = "form-control", @type = "date", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
+            @Html.TextBoxFor(x => x.NgayTaoPhieu, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @placeholder = "Ngày tạo phiếu...", @required = "required" })
+            
         </div>
+        <label> Tên người chi</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-sort-numeric-asc"></i>
             </span>
-            @Html.TextBoxFor(x => x.TenNguoiChi, new { @type = "number", @class = "form-control", @placeholder = "Sĩ số..." })
+            @Html.TextBoxFor(x => x.TenNguoiChi, new { @class = "form-control", @placeholder = "Tên người chi...", @required = "required" })
         </div>
+        <label> Lý do</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-comments"></i>
             </span>
 
-            @Html.TextAreaFor(x => x.LyDo, new { @class = "form-control", @placeholder = "Ghi chú..." })
+            @Html.TextAreaFor(x => x.LyDo, new { @class = "form-control", @placeholder = "Ghi chú...", @required = "required" })
 
         </div>
+        <label> Chi phí</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-comments"></i>
             </span>
 
-            @Html.TextBoxFor(x => x.ChiPhi, new { @class = "form-control", @placeholder = "Ghi chú..." })
+            @Html.TextBoxFor(x => x.ChiPhi, new { @class = "form-control", @placeholder = "Ghi chú...", @required = "required" })
 
         </div>
-        <div class="form-group input-group input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-comments"></i>
-            </span>
-
-            @Html.TextBoxFor(x => x.ChungTu, new { @class = "form-control", @placeholder = "ChungTu..." })
-
-        </div>
-
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

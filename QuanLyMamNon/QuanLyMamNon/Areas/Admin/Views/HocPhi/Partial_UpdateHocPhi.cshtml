@@ -8,25 +8,28 @@
     </div>
     <div class="modal-body">
         @Html.HiddenFor(x=>x.hocphi.MaHocPhi)
+        <label>Tên học phí</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-stack-overflow"></i>
             </span>
             @Html.TextBoxFor(x => x.hocphi.TenHocPhi, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
         </div>
+        <label>Chi phí</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-money"></i>
             </span>
             @Html.TextBoxFor(x => x.hocphi.ChiPhi, new {  @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Chi phí...", @required = "required" })
         </div>
+        <label>Ghi chú</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-comment"></i>
             </span>
             @Html.TextAreaFor(x => x.hocphi.GhiChu, new { @class = "form-control", @placeholder = "Ghi chú..." })
         </div>
-        <label> Loại học phí</label>
+        <label> Loại học phí</label>(<i class="fa fa-star" style="color:red"></i>)
         <div class="form-group input-group input-group">
             <span class="input-group-addon">
                 <i class="fa fa-stack-exchange"></i>

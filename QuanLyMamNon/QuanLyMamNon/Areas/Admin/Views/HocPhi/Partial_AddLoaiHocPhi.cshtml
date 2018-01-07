@@ -8,12 +8,14 @@
         <h4 class="modal-title" id="myModalLabel">Thêm mới</h4>
     </div>
         <div class="modal-body">
+            <label> Tên loại</label>(<i class="fa fa-star" style="color:red"></i>)
             <div class="form-group input-group input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-stack-exchange"></i>
                 </span>
                 @Html.TextBoxFor(x => x.TenLoai, new { @class = "form-control", @data_error = "Please enter name field.", @placeholder = "Nhập tên...", @required = "required" })
             </div>
+            <label> Ghi chú</label>(<i class="fa fa-star" style="color:red"></i>)
             <div class="form-group input-group input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-comment"></i>

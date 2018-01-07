@@ -43,13 +43,6 @@
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            
-                <div class="container-fluid">
-                    <div class="row">
-                        <img src="~/Areas/Admin/img/f31b0791c72bacbb512b5e369a13a46c42b173b9fd4e8.jpg" class="img-responsive">
-                    </div>
-                </div>
-           
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -129,6 +122,7 @@
         </nav>
         @RenderBody()
     </div>
+    
     <!-- /#wrapper -->
     <!-- jQuery -->   
     <!-- Bootstrap Core JavaScript -->
@@ -158,12 +152,12 @@
             $('#dataTables-example').DataTable({
                 "autoWidth": false,
                 responsive: true,
-                "lengthMenu": [[5,10, 25, -1], [5,10, 25, "All"]]
+                "lengthMenu": [[10, 25, -1], [10, 25, "All"]]
             });
             $('#dataTables-example2').DataTable({
                 "autoWidth": false,
                 responsive: true,
-                "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]]
+                "lengthMenu": [[10, 25, -1], [10, 25, "All"]]
             });
         });
     </script>
