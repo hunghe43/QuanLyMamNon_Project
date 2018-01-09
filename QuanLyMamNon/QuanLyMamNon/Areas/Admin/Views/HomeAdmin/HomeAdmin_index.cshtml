@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="page-wrapper">
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-primary text-center no-boder bg-color-green">
+                <div class="panel-body">
+                    <i class="fa fa-child fa-5x"></i>
+                    <h3>QUẢN LÝ HỌC SINH</h3>
+                </div>
+                <a href="@Url.Action("Index","HocSinh")">
+                    <div class="panel-footer back-footer-green">
+                        Chi tiết
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-primary text-center no-boder bg-color-green">
+                <div class="panel-body">
+                    <i class="fa fa-user-md  fa-5x"></i>
+                    <h3>QUẢN LÝ NHÂN VIÊN</h3>
+                </div>
+                <a href="@Url.Action("Index","NhanVien")">
+                    <div class="panel-footer back-footer-green">
+                        Chi tiết
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-primary text-center no-boder bg-color-green">
+                <div class="panel-body">
+                    <i class="fa fa-institution   fa-5x"></i>
+                    <h3>QUẢN LÝ LỚP</h3>
+                </div>
+                <a href="@Url.Action("Index","Lop")">
+                    <div class="panel-footer back-footer-green">
+                        Chi tiết
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-primary text-center no-boder bg-color-green">
+                <div class="panel-body">
+                    <i class="fa fa-money   fa-5x"></i>
+                    <h3>QUẢN LÝ HỌC PHÍ</h3>
+                </div>
+                <a href="@Url.Action("Index","HocPhi")">
+                    <div class="panel-footer back-footer-green">
+                        Chi tiết
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-primary text-center no-boder bg-color-green">
+                <div class="panel-body">
+                    <i class="fa fa-cutlery  fa-5x"></i>
+                    <h3>QUẢN LÝ DỊCH VỤ NGOÀI</h3>
+                </div>
+                <a href="@Url.Action("Index","DichVuNgoai")">
+                    <div class="panel-footer back-footer-green">
+                        Chi tiết
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-primary text-center no-boder bg-color-green">
+                <div class="panel-body">
+                    <i class="fa fa-shopping-cart  fa-5x"></i>
+                    <h3>QUẢN LÝ PHIẾU CHI TIÊU</h3>
+                </div>
+                <a href="@Url.Action("Index","PhieuChiTieu")">
+                    <div class="panel-footer back-footer-green">
+                        Chi tiết
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-primary text-center no-boder bg-color-green">
+                <div class="panel-body">
+                    <i class="fa fa-eye  fa-5x"></i>
+                    <h3>PHÂN QUYỀN</h3>
+                </div>
+                <a href="@Url.Action("PhanQuyenTheoChucVu","HomeAdmin")">
+                    <div class="panel-footer back-footer-green">
+                        Chi tiết
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-wrapper -->

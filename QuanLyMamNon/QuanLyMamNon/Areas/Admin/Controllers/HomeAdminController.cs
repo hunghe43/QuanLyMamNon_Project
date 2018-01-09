@@ -20,6 +20,11 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult HomeAdmin_index()
+        {
+            return View();
+        }
+        
 
         public ActionResult PhanQuyenTheoChucVu(FormCollection f)
         {

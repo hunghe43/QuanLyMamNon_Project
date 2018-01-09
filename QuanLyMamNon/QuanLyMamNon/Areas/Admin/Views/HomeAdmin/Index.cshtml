@@ -4,253 +4,44 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div id="page-wrapper">
+    
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Quản trị viên</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-child fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","HocSinh")">
-                    <div class="panel-footer">
-                        <span class="pull-left">QUẢN LÝ HỌC SINH</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa  fa-user-md fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","NhanVien")">
-                    <div class="panel-footer">
-                        <span class="pull-left">QUẢN LÝ NHÂN VIÊN</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-institution fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","Lop")">
-                    <div class="panel-footer">
-                        <span class="pull-left">QUẢN LÝ LỚP</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-money fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","HocPhi")">
-                    <div class="panel-footer">
-                        <span class="pull-left">QUẢN LÝ HỌC PHÍ</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-cutlery fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","DichVuNgoai")">
-                    <div class="panel-footer">
-                        <span class="pull-left">QUẢN LÝ DỊCH VỤ NGOÀI</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div><div class="col-lg-3 col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="fa fa-shopping-cart fa-5x"></i>
-                </div>
-            </div>
-        </div>
-        <a href="@Url.Action("Index","PhieuChiTieu")">
-            <div class="panel-footer">
-                <span class="pull-left">QUẢN LÝ PHIẾU CHI TIÊU</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div>
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                  <div class="panel panel-primary text-center no-boder bg-color-green">
+                      <div class="panel-body">
+                          <i class="fa fa-windows fa-5x"></i>
+                          <h3>QUẢN TRỊ VIÊN</h3>
+                      </div><a href="@Url.Action("HomeAdmin_index", "HomeAdmin")">
+                          <div class="panel-footer back-footer-green">
+                              Chi tiết
+                          </div>
+                      </a>
+                  </div>
+              </div>
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                  <div class="panel panel-primary text-center no-boder bg-color-green">
+                      <div class="panel-body">
+                          <i class="fa fa-graduation-cap fa-5x"></i>
+                          <h3>GIÁO VIÊN</h3>
+                      </div><a href="@Url.Action("Index","GiaoVien")">
+                          <div class="panel-footer back-footer-green">
+                              Chi tiết
+                          </div>
+                      </a>
+                  </div>
+              </div>
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                  <div class="panel panel-primary text-center no-boder bg-color-green">
+                      <div class="panel-body">
+                          <i class="fa fa-anchor fa-5x"></i>
+                          <h3>KẾ TOÁN</h3>
+                      </div><a href="@Url.Action("DanhSachHocSinh","KeToan")">
+                          <div class="panel-footer back-footer-green">
+                              Chi tiết
+                          </div>
+                      </a>
+                  </div>
+              </div>
 </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-eye fa-5x"></i>
-                        </div>
-                       
-                    </div>
-                </div>
-                <a href="@Url.Action("PhanQuyenTheoChucVu","HomeAdmin")">
-                    <div class="panel-footer">
-                        <span class="pull-left">PHÂN QUYỀN</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Giáo viên</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-graduation-cap fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","GiaoVien")">
-                    <div class="panel-footer">
-                        <span class="pull-left">TRANG CHỦ GIÁO VIÊN</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-anchor fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","KeToan")">
-                    <div class="panel-footer">
-                        <span class="pull-left">TRANG CHỦ KẾ TOÁN</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div><div class="col-lg-3 col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="fa fa-medkit fa-5x"></i>
-                </div>
-            </div>
-        </div>
-        <a href="@Url.Action("Index","HomeAdmin")">
-            <div class="panel-footer">
-                <span class="pull-left">TRANG CHỦ TỔ NUÔI</span>
-                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div>
-</div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Kế toán</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-anchor fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","KeToan")">
-                    <div class="panel-footer">
-                        <span class="pull-left">TRANG CHỦ KẾ TOÁN</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Tổ nuôi</h1>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-medkit fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","HomeAdmin")">
-                    <div class="panel-footer">
-                        <span class="pull-left">TRANG CHỦ TỔ NUÔI</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
 </div>
 <!-- /#page-wrapper -->
-

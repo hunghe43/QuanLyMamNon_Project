@@ -133,9 +133,19 @@ namespace QuanLyMamNon.Areas.Admin.Controllers
                 {
                     var ct_ptd = new CT_NgayTheoDoi();
                     ct_ptd.MaHocSinh = i.MaHocSinh;
-                    ct_ptd.DDVang = i.DDVang;
-                    ct_ptd.DDAnSang = i.DDAnSang;
-                    ct_ptd.DDAnTrua = i.DDAnTrua;
+                    if (i.DDVang==false)
+                    {
+                        ct_ptd.DDVang = i.DDVang;
+                        ct_ptd.DDAnSang = i.DDAnSang;
+                        ct_ptd.DDAnTrua = i.DDAnTrua;
+                    }
+                    else
+                    {
+                        ct_ptd.DDVang = i.DDVang;
+                        ct_ptd.DDAnSang = false;
+                        ct_ptd.DDAnTrua = false;
+                    }
+                    
                     ptdRepon.diemdanh(nhanvien.MaNhanVien, ngayTheoDoi, ct_ptd.MaHocSinh, ct_ptd.DDVang, ct_ptd.DDAnSang, ct_ptd.DDAnTrua);
                 }
                 return RedirectToAction("Index", "GiaoVien");

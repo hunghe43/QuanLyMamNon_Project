@@ -1,4 +1,5 @@
 ﻿@using QuanLyMamNon.Models
+@*@using QuanLyMamNon.Reponsitory*@
 @model QuanLyMamNon.Models.Dao.ViewModelDanhSachHS
 
 @{
@@ -10,45 +11,6 @@
         <div class="col-lg-12"><h1 class="page-header"><i class="fa fa-anchor fa-fw"></i>Trang chủ kế toán</h1>
         </div>
         <!-- /.col-lg-12 -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-group fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("DanhSachHocSinh","KeToan")">
-                    <div class="panel-footer">
-                        <span class="pull-left">DANH SÁCH HỌC SINH</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-bar-chart-o fa-5x"></i>
-                        </div>
-                    </div>
-                </div>
-                <a href="@Url.Action("Index","KeToan")">
-                    <div class="panel-footer">
-                        <span class="pull-left">THỐNG KÊ THU CHI</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-        </div>
-       
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -63,7 +25,7 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             @using (Html.BeginForm("DanhSachHocSinh", "KeToan", FormMethod.Get, new { @class = "header-search-box", @style = "text-align:right" }))
                             {
                                 <p>
@@ -139,8 +101,28 @@
                                         @item.Email
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-info"></i></a>                                        
-                                        @Html.ActionLink("Chi tiết", "HocPhiHocSinh", new { MaHocSinh = item.MaHocSinh, date = DateTime.Now.ToString("MM/yyyy") })
+                                        
+                                        <a href="javascript:void(0);" class="btn btn-social-icon btn-bitbucket Details_HocSinh" data-id="@item.MaHocSinh"><i class="fa fa-info"></i></a>
+                                        @Html.ActionLink(".", "HocPhiHocSinh", new { MaHocSinh = item.MaHocSinh, date = DateTime.Now.ToString("MM/yyyy") }, new {@class= "glyphicon glyphicon-bitcoin   " })
+                                        
+@*
+    @{
+        var reponse = new PhieuThuHocPhiReponsitory();
+
+    }
+    @if (!reponse.checkExistPhieuThu(item.MaHocSinh, "12/2017"))
+    {
+        @Html.ActionLink("Học phí", "HocPhiHocSinh", new { MaHocSinh = item.MaHocSinh, date = DateTime.Now.ToString("MM/yyyy") })
+    }
+    @if (reponse.checkExistPhieuThu(item.MaHocSinh, "12/2017"))
+    {
+        @Html.ActionLink("Học phí", "HocPhiHocSinh", new { MaHocSinh = item.MaHocSinh, date = DateTime.Now.ToString("MM/yyyy") },new {@style= "color:#ff0000" })
+    }*@
+
+
+                                        
+                                       
+                                       
                                     </td>
                                 </tr>
                             }
@@ -191,6 +173,12 @@
                 }
             });
         });
+       
     });
 </script>
-
+<style>
+    .image_link {
+        color:red;
+        background-image: url('../../img/monney.png');
+    }
+</style>

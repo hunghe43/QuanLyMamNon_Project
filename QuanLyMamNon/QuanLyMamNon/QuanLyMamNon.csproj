@@ -227,7 +227,6 @@
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap-datepicker.min.js" />
     <Content Include="Areas\Admin\Content\vendor\Validator\validator.js" />
     <Content Include="Areas\Admin\Content\vendor\Validator\validator.min.js" />
-    <Content Include="Areas\Admin\img\f31b0791c72bacbb512b5e369a13a46c42b173b9fd4e8.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\KidSchool\jquery.bxslider.css" />
@@ -403,6 +402,7 @@
     <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_AddPhieuChiTieu.cshtml" />
     <Content Include="Areas\Admin\Views\PhieuChiTieu\Partial_UpdatePhieuChiTieu.cshtml" />
     <Content Include="Areas\Admin\Views\Login\SystemError.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\HomeAdmin_index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -450,6 +450,7 @@
     <Folder Include="Areas\Admin\Content\js\" />
     <Folder Include="Areas\Admin\Content\less\" />
     <Folder Include="Areas\Admin\Content\vendor\AdminJs_Css\" />
+    <Folder Include="Areas\Admin\img\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="ExcelFiles\" />
   </ItemGroup>
